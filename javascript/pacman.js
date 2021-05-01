@@ -15,6 +15,9 @@ function drawWorld(initMap) {
       } else if (initMap[r][c] === 4) {
         document.getElementById("world").innerHTML +=
           "<div class='pacman-right'></div>";
+      } else if (initMap[r][c] === 5) {
+        document.getElementById("world").innerHTML +=
+          "<div class='beer'></div>";
       }
     }
     document.getElementById("world").innerHTML += "<br>";
