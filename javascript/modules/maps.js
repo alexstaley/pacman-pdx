@@ -2,7 +2,7 @@
 export const MAP_WIDTH = 19;
 export const MAP_HEIGHT = 19;
 
-// 1 = wall, 2 = coin/rose, 3 = ground, 4 = pacman.
+// 1 = wall, 2 = coin/rose, 3 = ground, 4 = pacman, 5 = beer.
 export var map1 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, 4, 2, 2, 2, 2, 1, 2, 5, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1],
