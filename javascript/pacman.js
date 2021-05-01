@@ -2,7 +2,7 @@
 // 1 = wall, 2 = coin, 3 = ground, 4 = pacman.
 var map1 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1],
+  [1, 4, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1],
   [1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1],
   [1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1],
   [1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1],
@@ -176,20 +176,26 @@ var map8 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
-function drawWorld() {
-  for (var y = 0; y < map.legth; ++y) {
-    for (var x = 0; x < map[y].length; ++x) {
+function drawWorld(map) {
+  for (let y = 0; y < map.length; ++y) {
+    for (let x = 0; x < map[y].length; ++x) {
       if (map[y][x] === 1) {
-        document.getElementById("world").innerHTML =
-          "<div class = 'wall'></div>";
+        document.getElementById("world").innerHTML +=
+          "<div class='wall'></div>";
       } else if (map[y][x] === 2) {
-        document.getElementById("world").innerHTML =
-          "<div class = 'rose'><div>";
-      } else if (map[y][x] === 2) {
-        document.getElementById("world").innerHTML =
-          "<div class = 'rose'><div>";
+        document.getElementById("world").innerHTML +=
+          "<div class='rose'></div>";
+      } else if (map[y][x] === 3) {
+        document.getElementById("world").innerHTML +=
+          "<div class='ground'></div>";
+      } else if (map[y][x] === 4) {
+        document.getElementById("world").innerHTML +=
+          "<div class='pacman-right'></div>";
       }
     }
-    document.getElementById("world").innerHTML = "<br>";
+    document.getElementById("world").innerHTML += "<br>";
   }
 }
+
+drawWorld(map1);
+console.log("Mic check 1 2");
