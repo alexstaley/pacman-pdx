@@ -1,36 +1,4 @@
-* {
-  outline: 1px dotted purple;
-}
-.pacman-left {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background-image: url("/Images/pacman-open-left.jpg");
-  background-size: 100%;
-}
-.pacman-right {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background-image: url("/Images/pacman-open-right.jpg");
-  background-size: 100%;
-}
-.pacman-up {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background-image: url("/Images/pacman-open-up.jpg");
-  background-color: black;
-  background-size: 100%;
-}
-.pacman-down {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background-image: url("/Images/pacman-open-down.jpg");
-  background-color: black;
-  background-size: 100%;
-}
+/* Backgrounds */
 .wall {
   display: inline-block;
   width: 50px;
@@ -45,31 +13,62 @@
   background-image: url("/Images/ground.jpg");
   background-size: 100%;
 }
-.rose-red {
+
+/* Pac-Mans */
+.pacman {
   display: inline-block;
   width: 50px;
   height: 50px;
-  background-image: url("/Images/rose.jpg");
   background-size: 100%;
+  background-color: black;
+}
+.pacman-left {
+  background-image: url("/Images/pacman-open-left.jpg");
+}
+.pacman-right {
+  background-image: url("/Images/pacman-open-right.jpg");
+}
+.pacman-up {
+  background-image: url("/Images/pacman-open-up.jpg");
+}
+.pacman-down {
+  background-image: url("/Images/pacman-open-down.jpg");
+}
+
+/* Roses */
+.rose {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-size: 100%;
+}
+.rose-red {
+  background-image: url("/Images/rose.jpg");
 }
 .rose-pink {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
   background-image: url("/Images/rose-pink.jpg");
-  background-size: 100%;
 }
 .rose-yellow {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
   background-image: url("/Images/rose-yellow.jpg");
-  background-size: 100%;
 }
 .rose-brown {
+  background-image: url("/Images/rose-brown.gif");
+}
+
+/* Tokens */
+.beer {
   display: inline-block;
   width: 50px;
   height: 50px;
-  background-image: url("/Images/rose-brown.gif");
+  background-image: url("/Images/pacman-beer.png");
+  background-size: 100%;
+  background-color: black;
+}
+
+/* Ghosts - what should we do for them??? */
+.ghost {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
   background-size: 100%;
 }
