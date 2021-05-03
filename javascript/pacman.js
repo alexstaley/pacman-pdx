@@ -193,3 +193,4 @@ function drawWorld() {
     document.getElementById("world").innerHTML = "<br>";
   }
 }
+drawWorld();
