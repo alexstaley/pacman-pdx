@@ -20,9 +20,6 @@ function drawWorld(initMap) {
     world.innerHTML += "<br>";
   }
 }
-<<<<<<< HEAD
 drawWorld();
-=======
 
 drawWorld(map1);
->>>>>>> 80436808042f01dcc301a7cd1af80f2e9e16a89a
