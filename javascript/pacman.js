@@ -20,6 +20,6 @@ function drawWorld(initMap) {
     world.innerHTML += "<br>";
   }
 }
-drawWorld();
+//drawWorld();
 
 drawWorld(map1);
