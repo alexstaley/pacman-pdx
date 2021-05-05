@@ -1,11 +1,11 @@
 @font-face {
   font-family: "pacman";
 
-  src: url("/fonts//pacman.eot?mjy4uh");
-  src: url("/fonts/pacman.eot?mjy4uh#iefix") format("embedded-opentype"),
-    url("/fonts/pacman.ttf?mjy4uh") format("truetype"),
-    url("/fonts/pacman.woff?mjy4uh") format("woff"),
-    url("/fonts/pacman.svg?mjy4uh#pacman") format("svg");
+  src: url("../fonts/pacman.eot?mjy4uh");
+  src: url("../fonts/pacman.eot?mjy4uh#iefix") format("embedded-opentype"),
+    url("../fonts/pacman.ttf?mjy4uh") format("truetype"),
+    url("../fonts/pacman.woff?mjy4uh") format("woff"),
+    url("../fonts/pacman.svg?mjy4uh#pacman") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
