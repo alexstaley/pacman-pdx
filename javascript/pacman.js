@@ -63,29 +63,6 @@ function drawWorld(initMap) {
         case 37:
           world.innerHTML += "<div class='beer'></div>";
       }
-      // if (initMap[r][c] === 10) {
-      //   world.innerHTML += "<div class='ground'></div>";
-      // } else if (initMap[r][c] === 11) {
-      //   world.innerHTML += "<div class='wall log-horiz'></div>";
-      // } else if (initMap[r][c] === 12) {
-      //   world.innerHTML += "<div class='wall log-vert'></div>";
-      // } else if (initMap[r][c] === 13) {
-      //   world.innerHTML += "<div class='wall thorns-tl'></div>";
-      // } else if (initMap[r][c] === 14) {
-      //   world.innerHTML += "<div class='wall thorns-tr'></div>";
-      // } else if (initMap[r][c] === 15) {
-      //   world.innerHTML += "<div class='wall thorns-bl'></div>";
-      // } else if (initMap[r][c] === 16) {
-      //   world.innerHTML += "<div class='wall thorns-br'></div>";
-      // } else if (initMap[r][c] === 3) {
-      //   world.innerHTML += "<div class='ground'></div>";
-      // } else if (initMap[r][c] === 4) {
-      //   world.innerHTML += "<div class='pacman pacman-right'></div>";
-      // } else if (initMap[r][c] === 5) {
-      //   world.innerHTML += "<div class='beer'></div>";
-      // } else if (initMap[r][c] === 2) {
-      //   world.innerHTML += "<div class='rose rose-red'></div>";
-      // }
     }
     world.innerHTML += "<br>";
   }
