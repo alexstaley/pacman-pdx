@@ -1,68 +1,47 @@
-/* Backgrounds */
-#world {
-  background-color: black;
-}
-
-.wall {
+/* Tile */
+.tile {
   display: inline-block;
-  width: 50px;
-  height: 50px;
+  width: 4vw;
+  height: 4vw;
   background-size: 100%;
   background-color: black;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.log-horiz {
-  background-image: url("../Images/log.png");
-  /* https://www.pngitem.com/middle/JmbRim_firewood-forest-log-trapped-tree-wood-wood-log/ */
-}
-
-.log-vert {
-  background-image: url("../Images/log.png");
-  transform: rotate(90deg);
-  /* https://www.pngitem.com/middle/JmbRim_firewood-forest-log-trapped-tree-wood-wood-log/ */
-}
-
-.thorns-tr {
-  background-image: url("../Images/thorns-corner.jpg");
-  /* https://www.shutterstock.com/editor/image/set-vector-frames-vines-thorns-design-593265374 */
-}
-
-.thorns-br {
-  background-image: url("../Images/thorns-corner.jpg");
-  transform: rotate(90deg);
-  /* https://www.shutterstock.com/editor/image/set-vector-frames-vines-thorns-design-593265374 */
-}
-
-.thorns-bl {
-  background-image: url("../Images/thorns-corner.jpg");
-  transform: rotate(180deg);
-  /* https://www.shutterstock.com/editor/image/set-vector-frames-vines-thorns-design-593265374 */
-}
-
-.thorns-tl {
-  background-image: url("../Images/thorns-corner.jpg");
-  transform: rotate(270deg);
-  /* https://www.shutterstock.com/editor/image/set-vector-frames-vines-thorns-design-593265374 */
+/* Backgrounds */
+#world {
+  padding: 1em;
+  background-color: black;
 }
 
 .ground {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
   background-image: url("../Images/ground.jpg");
-  background-size: 100%;
+}
+
+.log {
+  background-image: url("../Images/log.png");
+  /* https://www.pngitem.com/middle/JmbRim_firewood-forest-log-trapped-tree-wood-wood-log/ */
+}
+.log-vert {
+  transform: rotate(90deg);
+}
+
+.thorns {
+  background-image: url("../Images/thorns-corner.jpg");
+  /* https://www.shutterstock.com/editor/image/set-vector-frames-vines-thorns-design-593265374 */
+}
+.thorns-br {
+  transform: rotate(90deg); /* bottom right */
+}
+.thorns-bl {
+  transform: rotate(180deg); /* bottom left */
+}
+.thorns-tl {
+  transform: rotate(270deg); /* top left */
 }
 
 /* Pac-Mans */
-.pacman {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background-size: 100%;
-  background-color: black;
-}
 .pacman-left {
   background-image: url("../Images/pacman-open-left.jpg");
 }
@@ -77,50 +56,34 @@
 }
 
 /* Roses */
-.rose {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background-size: 100%;
-}
 .rose-coin {
   background-image: url("../Images/rose-coin.jpg");
-  width: 1.5em;
-  height: 1.5em;
-  margin: 0.82em;
-  background-repeat: no-repeat;
-  background-color: black;
-}
-.rose-white {
-  background-image: url("../Images/rose-white.jpg");
+  width: 1.5vw;
+  height: 1.5vw;
+  margin: 1.5vw 1.25vw; /* margin-right = (tile width - coin width)/2 */
 }
 .rose-red {
   background-image: url("../Images/rose.jpg");
 }
+.rose-yellow {
+  background-image: url("../Images/rose-yellow.jpg");
+}
 .rose-pink {
   background-image: url("../Images/rose-pink.jpg");
 }
-.rose-yellow {
-  background-image: url("../Images/rose-yellow.jpg");
+.rose-gold {
+  background-image: url("../Images/rose-gold.jpg");
 }
 .rose-brown {
   background-image: url("../Images/rose-brown.gif");
 }
+.rose-white {
+  background-image: url("../Images/rose-white.jpg");
+}
 
 /* Tokens */
 .beer {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
   background-image: url("../Images/pacman-beer.png");
-  background-size: 100%;
-  background-color: black;
 }
 
 /* Rainclouds */
-.ghost {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background-size: 100%;
-}

@@ -7,61 +7,61 @@ function drawWorld(initMap) {
     for (let c = 0; c < MAP_HEIGHT; ++c) /*cols*/ {
       switch (initMap[r][c]) {
         case 10:
-          world.innerHTML += "<div class='ground'></div>";
+          world.innerHTML += "<div class='tile ground'></div>";
           break;
         case 11:
-          world.innerHTML += "<div class='wall log-horiz'></div>";
+          world.innerHTML += "<div class='tile log'></div>";
           break;
         case 12:
-          world.innerHTML += "<div class='wall log-vert'></div>";
+          world.innerHTML += "<div class='tile log log-vert'></div>";
           break;
         case 13:
-          world.innerHTML += "<div class='wall thorns-tl'></div>";
+          world.innerHTML += "<div class='tile thorns thorns-tl'></div>";
           break;
         case 14:
-          world.innerHTML += "<div class='wall thorns-tr'></div>";
+          world.innerHTML += "<div class='tile thorns'></div>";
           break;
         case 15:
-          world.innerHTML += "<div class='wall thorns-bl'></div>";
+          world.innerHTML += "<div class='tile thorns thorns-bl'></div>";
           break;
         case 16:
-          world.innerHTML += "<div class='wall thorns-br'></div>";
+          world.innerHTML += "<div class='tile thorns thorns-br'></div>";
           break;
         case 20:
-          world.innerHTML += "<div class='pacman pacman-right'></div>";
+          world.innerHTML += "<div class='tile pacman-right'></div>";
           break;
         case 21:
-          world.innerHTML += "<div class='pacman pacman-down'></div>";
+          world.innerHTML += "<div class='tile pacman-down'></div>";
           break;
         case 22:
-          world.innerHTML += "<div class='pacman pacman-left'></div>";
+          world.innerHTML += "<div class='tile pacman-left'></div>";
           break;
         case 23:
-          world.innerHTML += "<div class='pacman pacman-up'></div>";
+          world.innerHTML += "<div class='tile pacman-up'></div>";
           break;
         case 30:
-          world.innerHTML += "<div class='rose rose-coin'></div>";
+          world.innerHTML += "<div class='tile rose-coin'></div>";
           break;
         case 31:
-          world.innerHTML += "<div class='rose rose-red'></div>";
+          world.innerHTML += "<div class='tile rose-red'></div>";
           break;
         case 32:
-          world.innerHTML += "<div class='rose rose-yellow'></div>";
+          world.innerHTML += "<div class='tile rose-yellow'></div>";
           break;
         case 33:
-          world.innerHTML += "<div class='rose rose-pink'></div>";
+          world.innerHTML += "<div class='tile rose-pink'></div>";
           break;
         case 34:
-          world.innerHTML += "<div class='rose rose-gol'></div>";
+          world.innerHTML += "<div class='tile rose-gold'></div>";
           break;
         case 35:
-          world.innerHTML += "<div class='rose rose-brown'></div>";
+          world.innerHTML += "<div class='tile rose-brown'></div>";
           break;
         case 36:
-          world.innerHTML += "<div class='rose rose-white'></div>";
+          world.innerHTML += "<div class='tile rose-white'></div>";
           break;
         case 37:
-          world.innerHTML += "<div class='beer'></div>";
+          world.innerHTML += "<div class='tile beer'></div>";
       }
     }
     world.innerHTML += "<br>";
