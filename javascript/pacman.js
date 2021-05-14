@@ -67,6 +67,5 @@ function drawWorld(initMap) {
     world.innerHTML += "<br>";
   }
 }
-drawWorld();
 
 drawWorld(map1);
