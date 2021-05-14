@@ -40,7 +40,7 @@ function drawWorld(initMap) {
           world.innerHTML += "<div class='pacman pacman-up'></div>";
           break;
         case 30:
-          world.innerHTML += "<div class='rose rose-white'></div>";
+          world.innerHTML += "<div class='rose rose-coin'></div>";
           break;
         case 31:
           world.innerHTML += "<div class='rose rose-red'></div>";
@@ -52,13 +52,13 @@ function drawWorld(initMap) {
           world.innerHTML += "<div class='rose rose-pink'></div>";
           break;
         case 34:
-          world.innerHTML += "<div class='rose rose-white'></div>";
+          world.innerHTML += "<div class='rose rose-gol'></div>";
           break;
         case 35:
-          world.innerHTML += "<div class='rose rose-gold'></div>";
+          world.innerHTML += "<div class='rose rose-brown'></div>";
           break;
         case 36:
-          world.innerHTML += "<div class='rose rose-brown'></div>";
+          world.innerHTML += "<div class='rose rose-white'></div>";
           break;
         case 37:
           world.innerHTML += "<div class='beer'></div>";
