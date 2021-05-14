@@ -84,7 +84,10 @@
   background-size: 100%;
 }
 .rose-coin {
-  background-image: url("../Images/rose-coin.jpeg");
+  background-image: url("../Images/rose-coin.jpg");
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0.82em;
   background-repeat: no-repeat;
   background-color: black;
 }
