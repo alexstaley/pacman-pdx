@@ -1,11 +1,11 @@
 @font-face {
   font-family: "pacman";
 
-  src: url("/fonts//pacman.eot?mjy4uh");
-  src: url("/fonts/pacman.eot?mjy4uh#iefix") format("embedded-opentype"),
-    url("/fonts/pacman.ttf?mjy4uh") format("truetype"),
-    url("/fonts/pacman.woff?mjy4uh") format("woff"),
-    url("/fonts/pacman.svg?mjy4uh#pacman") format("svg");
+  src: url("../fonts/pacman.eot?mjy4uh");
+  src: url("../fonts/pacman.eot?mjy4uh#iefix") format("embedded-opentype"),
+    url("../fonts/pacman.ttf?mjy4uh") format("truetype"),
+    url("../fonts/pacman.woff?mjy4uh") format("woff"),
+    url("../fonts/pacman.svg?mjy4uh#pacman") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -26,26 +26,64 @@
 }
 body {
   padding-top: 30px;
-  display: flexbox;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  size: 90%;
 }
-.header {
+.header-pacman {
   font-size: 40px;
   border: blue;
-  flex: content;
   font-display: 30%;
-  justify-content: center;
   padding-bottom: 0;
+}
+.header-pdx {
+  font-size: 60px;
+  border: blue;
+  font-display: 30%;
+  padding-bottom: 0;
+}
+.rose-img {
+  width: 60%;
+  height: 60%;
+  display: inline-flex;
+  justify-content: center;
+}
+.rose-img > img {
+  max-width: 100%;
+  height: auto;
+  justify-content: center;
+  padding-bottom: 10px;
 }
 
-.header > p {
-  padding-bottom: 0;
-}
 h1 {
   margin: 0;
 }
 h2 {
+  font-size: 60px;
   margin: 0;
+}
+.logon {
+  width: 50%;
+  height: 50%;
+  justify-content: center;
+}
+.logon > button {
+  height: 100%;
+  font-weight: bolder;
+  font-size: medium;
+  width: 100%;
+}
+/* .btn-default:hover, */
+/* .btn-default:focus, */
+/* .btn-default:active, */
+/* .btn-default.active, */
+.open .dropdown-toggle.btn-default {
+  background-color: green;
+  color: black;
+  border-color: white;
 }
 
 .icon-A .path1:before {
@@ -60,7 +98,7 @@ h2 {
 .icon-A .path3:before {
   content: "\e90e";
   margin-left: -1.1259765625em;
-  color: rgb(252, 207, 0);
+  color: green;
 }
 .icon-A .path4:before {
   content: "\e90f";
@@ -90,7 +128,7 @@ h2 {
 .icon-C .path3:before {
   content: "\e931";
   margin-left: -0.9814453125em;
-  color: rgb(252, 207, 0);
+  color: green;
 }
 .icon-C .path4:before {
   content: "\e932";
@@ -114,7 +152,7 @@ h2 {
 .icon-D .path3:before {
   content: "\e936";
   margin-left: -0.9208984375em;
-  color: rgb(252, 207, 0);
+  color: green;
 }
 .icon-D .path4:before {
   content: "\e937";
@@ -159,7 +197,7 @@ h2 {
 .icon-M .path3:before {
   content: "\e981";
   margin-left: -0.904296875em;
-  color: rgb(252, 207, 0);
+  color: green;
 }
 .icon-M .path4:before {
   content: "\e982";
@@ -178,7 +216,7 @@ h2 {
 .icon-N .path3:before {
   content: "\e985";
   margin-left: -0.86328125em;
-  color: rgb(252, 207, 0);
+  color: green;
 }
 .icon-N .path4:before {
   content: "\e986";
@@ -198,7 +236,7 @@ h2 {
 .icon-P .path3:before {
   content: "\e994";
   margin-left: -0.8671875em;
-  color: rgb(252, 207, 0);
+  color: green;
 }
 .icon-P .path4:before {
   content: "\e995";
@@ -228,7 +266,7 @@ h2 {
 .icon-X .path3:before {
   content: "\e9c5";
   margin-left: -1.05078125em;
-  color: rgb(252, 207, 0);
+  color: green;
 }
 .icon-X .path4:before {
   content: "\e9c6";
@@ -239,8 +277,4 @@ h2 {
   content: "\e9c7";
   margin-left: -1.05078125em;
   color: none;
-}
-.icon-Y .path1:before {
-  content: "\e9c8";
-  color: rgb(255, 255, 255);
 }
