@@ -16,13 +16,14 @@ export const MAP_HEIGHT = 19;
  * 22 = pac-man left
  * 23 = pac-man up
  *
- * 30 = rose white
+ * 30 = rose coin
  * 31 = rose red
  * 32 = rose yellow
  * 33 = rose pink
  * 34 = rose gold
  * 35 = rose brown
- * 36 = beer
+ * 36 = rose white
+ * 37 = beer
  */
 export var map1 = [
   [13, 11, 11, 11, 11, 16, 30, 15, 11, 11, 11, 11, 16, 30, 15, 11, 11, 11, 14],
