@@ -1,71 +1,74 @@
-import { MAP_WIDTH, MAP_HEIGHT, map1, map2 } from "./modules/maps.js";
+import {
+  MAP_WIDTH,
+  MAP_HEIGHT,
+  map1,
+  TileIndices,
+  TileImages,
+  drawBackground,
+} from "./modules/maps.js";
 
 let world = document.getElementById("world");
+let board = document.getElementById("gameboard");
 
-function drawWorld(initMap) {
+// Render background (logs, thorns, ground, decor/roses) in DOM
+drawBackground(map1);
+
+// Create pixiJS application using 'gameboard' canvas
+const app = new PIXI.Application({
+  view: board,
+  width: world.offsetWidth,
+  height: world.offsetHeight,
+  resolution: window.devicePixelRatio,
+  autoDensity: true,
+  transparent: true,
+});
+
+// Add sprite tokens (pacman, beer, coin/roses, ghost/clouds)
+addSprites(map1);
+
+// Start game loop
+// playGame();
+
+function addSprites(initMap) {
   for (let r = 0; r < MAP_WIDTH; ++r) /*rows*/ {
     for (let c = 0; c < MAP_HEIGHT; ++c) /*cols*/ {
       switch (initMap[r][c]) {
-        case 10:
-          world.innerHTML += "<div class='tile ground'></div>";
+        case TileIndices.PAC_MAN:
+          addSprite(TileImages.PAC_MAN, r, c);
           break;
-        case 11:
-          world.innerHTML += "<div class='tile log'></div>";
+        case TileIndices.COIN:
+          addSprite(TileImages.COIN, r, c);
           break;
-        case 12:
-          world.innerHTML += "<div class='tile log log-vert'></div>";
+        case TileIndices.BEER:
+          addSprite(TileImages.BEER, r, c);
           break;
-        case 13:
-          world.innerHTML += "<div class='tile thorns thorns-tl'></div>";
-          break;
-        case 14:
-          world.innerHTML += "<div class='tile thorns'></div>";
-          break;
-        case 15:
-          world.innerHTML += "<div class='tile thorns thorns-bl'></div>";
-          break;
-        case 16:
-          world.innerHTML += "<div class='tile thorns thorns-br'></div>";
-          break;
-        case 20:
-          world.innerHTML += "<div class='tile pacman-right'></div>";
-          break;
-        case 21:
-          world.innerHTML += "<div class='tile pacman-down'></div>";
-          break;
-        case 22:
-          world.innerHTML += "<div class='tile pacman-left'></div>";
-          break;
-        case 23:
-          world.innerHTML += "<div class='tile pacman-up'></div>";
-          break;
-        case 30:
-          world.innerHTML += "<div class='tile rose-coin'></div>";
-          break;
-        case 31:
-          world.innerHTML += "<div class='tile rose-red'></div>";
-          break;
-        case 32:
-          world.innerHTML += "<div class='tile rose-yellow'></div>";
-          break;
-        case 33:
-          world.innerHTML += "<div class='tile rose-pink'></div>";
-          break;
-        case 34:
-          world.innerHTML += "<div class='tile rose-gold'></div>";
-          break;
-        case 35:
-          world.innerHTML += "<div class='tile rose-brown'></div>";
-          break;
-        case 36:
-          world.innerHTML += "<div class='tile rose-white'></div>";
-          break;
-        case 37:
-          world.innerHTML += "<div class='tile beer'></div>";
       }
     }
-    world.innerHTML += "<br>";
   }
 }
 
-drawWorld(map1);
+function addSprite(img, row, col) {
+  const texture = PIXI.Texture.from(img);
+  let sprite = new PIXI.Sprite(texture);
+  let xCoord = app.renderer.width * (1 - (MAP_WIDTH - col) / MAP_WIDTH);
+  let yCoord = app.renderer.height * (1 - (MAP_HEIGHT - row) / MAP_HEIGHT);
+
+  sprite.x = xCoord;
+  sprite.y = yCoord;
+  sprite.width = 0.04 * window.innerWidth;
+  sprite.height = 0.04 * window.innerWidth;
+  if (img == TileImages.COIN) {
+    sprite.anchor.x = -2;
+    sprite.anchor.y = -1;
+    sprite.height *= 0.25;
+    sprite.width *= 0.25;
+  }
+  app.stage.addChild(sprite);
+
+  let delta = 0;
+  app.ticker.add(float);
+  function float() {
+    delta += 0.1;
+    sprite.y += Math.sin(delta) * 0.1;
+  }
+}
