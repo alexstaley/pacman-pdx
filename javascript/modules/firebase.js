@@ -1,5 +1,5 @@
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-import { useStateValue } from "./StateProvider";
+
 const firebaseConfig = {
   apiKey: "AIzaSyApTQ82sxHdB4w0d5JVcfnu3lpbLI9qJPY",
   authDomain: "pacman-91374.firebaseapp.com",
@@ -16,8 +16,6 @@ firebase.analytics();
 const auth = firebase.auth();
 
 function Logon() {
-  const [{}, dispatch] = useStateValue();
-
   auth
     .signInWithPopup(provider)
     .then((result) => {
