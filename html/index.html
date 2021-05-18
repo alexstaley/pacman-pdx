@@ -5,18 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Portland Pacman Game</title>
-    <link rel="stylesheet" href="/css/index.css" />
-    <link rel="stylesheet" href="../style.css" />    <script></script>
-    
-    <link rel="stylesheet" href="/css/index.css" /> 
+    <link rel="stylesheet" href="../css/index.css" /> 
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
     />
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
-  />
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  
+<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
+
+
+
+  
+</script>
   </head>
   <body>
    <h1 class = "header-pacman">  
@@ -78,12 +84,16 @@
        </div>  
       </h2>
        <div class = "rose-img">
-         <img src = "/Images/rose.gif">
+         <img src = "../Images/rose.gif">
        </div>
       
-    <div class="logon">
-    
-      <button type="button" class="btn btn-default">Button</button>
-    </div>     
+    <div class="buttons">
+      <script type="module" src = "../javascript/modules/firebase.js" type ></script>
+      <button type="submit" role="button"class = "btn btn-success btn-lg btn-block font-weight-bold" aria-pressed="true" onclick = "Logon()"id = "Logon">Logon</button>
+      <a href = "pacman.html"> 
+        <button type="submit" role="button"class = "btn btn-success btn-lg btn-block font-weight-bold" aria-pressed="true" onclick = "pacman.html">Play</button>
+      </a>
+      
+     </div>    
   </body>
 </html>
