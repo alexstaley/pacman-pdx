@@ -25,12 +25,12 @@ export function generateSprite(img, screen, row, col) {
 }
 
 export function getCurrentGridCoords(sprite) {
-  // TODO
+  // TODO: Implement me
   let row = 0;
   let col = 0;
-  console.log(
-    `Current: ${sprite.name}: x = ${sprite.x} y = ${sprite.y} row ${row} col ${col}`
-  );
+  //   console.log(
+  //     `Current: ${sprite.name}: x = ${sprite.x} y = ${sprite.y} row ${row} col ${col}`
+  //   );
   return {
     col,
     row,
@@ -58,7 +58,7 @@ export function resizeSprite(sprite) {
   sprite.width = 0.04 * window.innerWidth;
   sprite.height = 0.04 * window.innerWidth;
 
-  // Shrink and adjust coins
+  // Shrink and adjust coins (if using pixi)
   if (sprite.name.includes(TileImages.COIN)) {
     sprite.anchor.x = -2;
     sprite.anchor.y = -1;

@@ -46,7 +46,7 @@ window.addEventListener("resize", () => {
   }
 });
 
-// Add sprite tokens (pacman, beer, coin/roses, ghost/clouds)
+// Add sprite tokens from the given map
 createSpritesAccordingTo(map1);
 
 // Start game loop

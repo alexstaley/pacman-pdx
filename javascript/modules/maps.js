@@ -71,7 +71,7 @@ export function drawBackground(initMap) {
           world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.COIN:
-          // Handle coin token w pixi???
+          // Handle coin token w pixi??? Pretty sure yes, but leaving DOM option commented out until we're sure
           world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           // world.innerHTML += `<div id="${r}_${c}" class='tile rose-coin'></div>`;
           break;
