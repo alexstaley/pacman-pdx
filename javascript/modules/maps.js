@@ -40,6 +40,67 @@ export const TileImages = {
   BEER: "../Images/pacman-beer.png",
 };
 
+export function drawBackground(initMap) {
+  let world = document.getElementById("world");
+  for (let r = 0; r < MAP_WIDTH; ++r) /*rows*/ {
+    for (let c = 0; c < MAP_HEIGHT; ++c) /*cols*/ {
+      switch (initMap[r][c]) {
+        case TileIndices.GROUND:
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
+          break;
+        case TileIndices.LOG_HORIZ:
+          world.innerHTML += `<div id="${r}_${c}" class='tile log'></div>`;
+          break;
+        case TileIndices.LOG_VERT:
+          world.innerHTML += `<div id="${r}_${c}" class='tile log log-vert'></div>`;
+          break;
+        case TileIndices.THORN_TOP_LEFT:
+          world.innerHTML += `<div id="${r}_${c}" class='tile thorns thorns-tl'></div>`;
+          break;
+        case TileIndices.THORN_TOP_RIGHT:
+          world.innerHTML += `<div id="${r}_${c}" class='tile thorns'></div>`;
+          break;
+        case TileIndices.THORN_BOTTOM_LEFT:
+          world.innerHTML += `<div id="${r}_${c}" class='tile thorns thorns-bl'></div>`;
+          break;
+        case TileIndices.THORN_BOTTOM_RIGHT:
+          world.innerHTML += `<div id="${r}_${c}" class='tile thorns thorns-br'></div>`;
+          break;
+        case TileIndices.PAC_MAN:
+          // Handle pacman token w pixi
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
+          break;
+        case TileIndices.COIN:
+          // Handle coin token w pixi???
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
+          // world.innerHTML += `<div id="${r}_${c}" class='tile rose-coin'></div>`;
+          break;
+        case TileIndices.ROSE_RED:
+          world.innerHTML += `<div id="${r}_${c}" class='tile rose-red'></div>`;
+          break;
+        case TileIndices.ROSE_YELLOW:
+          world.innerHTML += `<div id="${r}_${c}" class='tile rose-yellow'></div>`;
+          break;
+        case TileIndices.ROSE_PINK:
+          world.innerHTML += `<div id="${r}_${c}" class='tile rose-pink'></div>`;
+          break;
+        case TileIndices.ROSE_GOLD:
+          world.innerHTML += `<div id="${r}_${c}" class='tile rose-gold'></div>`;
+          break;
+        case TileIndices.ROSE_BROWN:
+          world.innerHTML += `<div id="${r}_${c}" class='tile rose-brown'></div>`;
+          break;
+        case TileIndices.ROSE_WHITE:
+          world.innerHTML += `<div id="${r}_${c}" class='tile rose-white'></div>`;
+          break;
+        case TileIndices.BEER:
+          // Handle beer token w pixi
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
+      }
+    }
+    world.innerHTML += "<br>";
+  }
+}
 export var map1 = [
   [13, 11, 11, 11, 11, 16, 30, 15, 11, 11, 11, 11, 16, 30, 15, 11, 11, 11, 14],
   [12, 20, 30, 30, 30, 30, 30, 30, 37, 30, 30, 30, 30, 30, 30, 30, 30, 30, 12],
@@ -215,64 +276,3 @@ var map8 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
-
-export function drawBackground(initMap) {
-  let world = document.getElementById("world");
-  for (let r = 0; r < MAP_WIDTH; ++r) /*rows*/ {
-    for (let c = 0; c < MAP_HEIGHT; ++c) /*cols*/ {
-      switch (initMap[r][c]) {
-        case TileIndices.GROUND:
-          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
-          break;
-        case TileIndices.LOG_HORIZ:
-          world.innerHTML += "<div class='tile log'></div>";
-          break;
-        case TileIndices.LOG_VERT:
-          world.innerHTML += "<div class='tile log log-vert'></div>";
-          break;
-        case TileIndices.THORN_TOP_LEFT:
-          world.innerHTML += "<div class='tile thorns thorns-tl'></div>";
-          break;
-        case TileIndices.THORN_TOP_RIGHT:
-          world.innerHTML += "<div class='tile thorns'></div>";
-          break;
-        case TileIndices.THORN_BOTTOM_LEFT:
-          world.innerHTML += "<div class='tile thorns thorns-bl'></div>";
-          break;
-        case TileIndices.THORN_BOTTOM_RIGHT:
-          world.innerHTML += "<div class='tile thorns thorns-br'></div>";
-          break;
-        case TileIndices.PAC_MAN:
-          // Handle pacman token w pixi
-          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
-          break;
-        case TileIndices.COIN:
-          // Handle coin token w pixi
-          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
-          break;
-        case TileIndices.ROSE_RED:
-          world.innerHTML += "<div class='tile rose-red'></div>";
-          break;
-        case TileIndices.ROSE_YELLOW:
-          world.innerHTML += "<div class='tile rose-yellow'></div>";
-          break;
-        case TileIndices.ROSE_PINK:
-          world.innerHTML += "<div class='tile rose-pink'></div>";
-          break;
-        case TileIndices.ROSE_GOLD:
-          world.innerHTML += "<div class='tile rose-gold'></div>";
-          break;
-        case TileIndices.ROSE_BROWN:
-          world.innerHTML += "<div class='tile rose-brown'></div>";
-          break;
-        case TileIndices.ROSE_WHITE:
-          world.innerHTML += "<div class='tile rose-white'></div>";
-          break;
-        case TileIndices.BEER:
-          // Handle beer token w pixi
-          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
-      }
-    }
-    world.innerHTML += "<br>";
-  }
-}

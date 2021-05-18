@@ -7,6 +7,14 @@ import {
   drawBackground,
 } from "./modules/maps.js";
 
+import {
+  getCurrentGridCoords,
+  getOriginalGridCoords,
+  resizeSprite,
+  replaceSprite,
+  generateSprite,
+} from "./modules/sprites.js";
+
 let world = document.getElementById("world");
 let board = document.getElementById("gameboard");
 
@@ -23,52 +31,59 @@ const app = new PIXI.Application({
   transparent: true,
 });
 
+// Watch for window resize
+window.addEventListener("resize", () => {
+  // Resize canvas
+  app.renderer.resize(world.offsetWidth, world.offsetHeight);
+
+  // Replace and resize sprites
+  let width = app.renderer.screen.width;
+  let height = app.renderer.screen.height;
+  let numSprites = app.stage.children.length;
+  for (let i = 0; i < numSprites; ++i) {
+    replaceSprite(app.stage.children[i], width, height);
+    resizeSprite(app.stage.children[i]);
+  }
+});
+
 // Add sprite tokens (pacman, beer, coin/roses, ghost/clouds)
-addSprites(map1);
+createSpritesAccordingTo(map1);
 
 // Start game loop
 // playGame();
+let delta = 0;
+let pacman = app.stage.children[2];
+console.log(pacman.name);
+app.ticker.add(floatVert).add(move);
 
-function addSprites(initMap) {
+function floatVert() {
+  delta += 0.1;
+  pacman.y += Math.sin(delta) * 0.15;
+}
+function move() {
+  pacman.x += 1;
+  getCurrentGridCoords(pacman);
+}
+
+function createSpritesAccordingTo(initMap) {
+  let sprites = {};
+  let screen = app.renderer.screen;
   for (let r = 0; r < MAP_WIDTH; ++r) /*rows*/ {
     for (let c = 0; c < MAP_HEIGHT; ++c) /*cols*/ {
       switch (initMap[r][c]) {
         case TileIndices.PAC_MAN:
-          addSprite(TileImages.PAC_MAN, r, c);
+          sprites.pacman = generateSprite(TileImages.PAC_MAN, screen, r, c);
+          app.stage.addChild(sprites.pacman);
           break;
         case TileIndices.COIN:
-          addSprite(TileImages.COIN, r, c);
+          sprites.coin = generateSprite(TileImages.COIN, screen, r, c);
+          app.stage.addChild(sprites.coin);
           break;
         case TileIndices.BEER:
-          addSprite(TileImages.BEER, r, c);
+          sprites.beer = generateSprite(TileImages.BEER, screen, r, c);
+          app.stage.addChild(sprites.beer);
           break;
       }
     }
-  }
-}
-
-function addSprite(img, row, col) {
-  const texture = PIXI.Texture.from(img);
-  let sprite = new PIXI.Sprite(texture);
-  let xCoord = app.renderer.width * (1 - (MAP_WIDTH - col) / MAP_WIDTH);
-  let yCoord = app.renderer.height * (1 - (MAP_HEIGHT - row) / MAP_HEIGHT);
-
-  sprite.x = xCoord;
-  sprite.y = yCoord;
-  sprite.width = 0.04 * window.innerWidth;
-  sprite.height = 0.04 * window.innerWidth;
-  if (img == TileImages.COIN) {
-    sprite.anchor.x = -2;
-    sprite.anchor.y = -1;
-    sprite.height *= 0.25;
-    sprite.width *= 0.25;
-  }
-  app.stage.addChild(sprite);
-
-  let delta = 0;
-  app.ticker.add(float);
-  function float() {
-    delta += 0.1;
-    sprite.y += Math.sin(delta) * 0.1;
   }
 }
