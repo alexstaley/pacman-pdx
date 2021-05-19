@@ -37,7 +37,7 @@ export const TileImages = {
   ROSE_GOLD: "../Images/rose-gold.jpg",
   ROSE_BROWN: "../Images/rose-brown.gif",
   ROSE_WHITE: "../Images/rose-white.jpg",
-  BEER: "../Images/pacman-beer.png",
+  BEER: "../Images/beer.png",
 };
 
 export function drawBackground(initMap) {

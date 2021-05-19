@@ -13,6 +13,7 @@ import {
   resizeSprite,
   replaceSprite,
   generateSprite,
+  replaceSpriteInMotion,
 } from "./modules/sprites.js";
 
 let world = document.getElementById("world");
@@ -36,13 +37,17 @@ window.addEventListener("resize", () => {
   // Resize canvas
   app.renderer.resize(world.offsetWidth, world.offsetHeight);
 
-  // Replace and resize sprites
-  let width = app.renderer.screen.width;
-  let height = app.renderer.screen.height;
+  // Resize and replace sprites
+  let canvas = app.renderer.screen;
   let numSprites = app.stage.children.length;
   for (let i = 0; i < numSprites; ++i) {
-    replaceSprite(app.stage.children[i], width, height);
-    resizeSprite(app.stage.children[i]);
+    let sprite = app.stage.children[i];
+    resizeSprite(sprite);
+
+    // Sprites in motion get treated differently
+    sprite.name.includes("pacman")
+      ? replaceSpriteInMotion(sprite, canvas)
+      : replaceSprite(sprite, canvas);
   }
 });
 
@@ -61,26 +66,26 @@ function floatVert() {
   pacman.y += Math.sin(delta) * 0.15;
 }
 function move() {
-  pacman.x += 1;
-  getCurrentGridCoords(pacman);
+  pacman.y += 1;
+  // getCurrentGridCoords(pacman, app.renderer.screen);
 }
 
 function createSpritesAccordingTo(initMap) {
   let sprites = {};
-  let screen = app.renderer.screen;
+  let canvas = app.renderer.screen;
   for (let r = 0; r < MAP_WIDTH; ++r) /*rows*/ {
     for (let c = 0; c < MAP_HEIGHT; ++c) /*cols*/ {
       switch (initMap[r][c]) {
         case TileIndices.PAC_MAN:
-          sprites.pacman = generateSprite(TileImages.PAC_MAN, screen, r, c);
+          sprites.pacman = generateSprite(TileImages.PAC_MAN, canvas, r, c);
           app.stage.addChild(sprites.pacman);
           break;
         case TileIndices.COIN:
-          sprites.coin = generateSprite(TileImages.COIN, screen, r, c);
+          sprites.coin = generateSprite(TileImages.COIN, canvas, r, c);
           app.stage.addChild(sprites.coin);
           break;
         case TileIndices.BEER:
-          sprites.beer = generateSprite(TileImages.BEER, screen, r, c);
+          sprites.beer = generateSprite(TileImages.BEER, canvas, r, c);
           app.stage.addChild(sprites.beer);
           break;
       }
