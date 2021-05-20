@@ -5,6 +5,7 @@ import {
   TileIndices,
   TileImages,
   drawBackground,
+  containsWall,
 } from "./modules/maps.js";
 
 import { Character } from "./modules/sprites.js";
@@ -32,39 +33,43 @@ const app = new PIXI.Application({
 });
 
 // Add array of sprite tokens from the given map
-let spritesList = createSpritesAccordingTo(map1);
+let characterList = createSpritesAccordingTo(grid);
 
 // Watch for window resize
 window.addEventListener("resize", () => {
-  // Resize canvas
+  // Resize and remeasure canvas
   app.renderer.resize(world.offsetWidth, world.offsetHeight);
 
   // Resize and replace sprites
-  spritesList.forEach((character) => {
+  characterList.forEach((character) => {
     character.resizeSprite();
     character.replaceSprite(app.renderer.screen);
   });
 });
 
-// Start game loop
-// playGame();
-let delta = 0;
-// let pacman = app.stage.children[2];
-let pacman = spritesList[2];
+// Enter game loop
+let pacman = characterList[2];
 console.log(pacman.name);
-app.ticker.add(floatVert).add(move);
+app.ticker.add(move);
 
-function floatVert() {
-  delta += 0.1;
-  pacman.sprite.y += Math.sin(delta) * 0.15;
-}
+/* Move the character in the direction it's facing
+ */
 function move() {
-  pacman.sprite.y += 1;
-  pacman.calculateAndSetCurrentGridCoords(app.renderer.screen);
+  // Move forward and update grid coords
+  pacman.moveOn(grid);
+  pacman.resetGridCoords(app.renderer.screen);
+
+  // If we made it into a wall, back up
+  if (containsWall(grid, pacman.row, pacman.col)) {
+    pacman.backUp();
+  }
 }
 
+/* Initialize sprites according to the given map array.
+ * Returns an array of character objects.
+ */
 function createSpritesAccordingTo(initMap) {
-  let sprites = [];
+  let characters = [];
   let canvas = app.renderer.screen;
   for (let r = 0; r < MAP_WIDTH; ++r) /*rows*/ {
     for (let c = 0; c < MAP_HEIGHT; ++c) /*cols*/ {
@@ -72,20 +77,20 @@ function createSpritesAccordingTo(initMap) {
         case TileIndices.PAC_MAN:
           let pacman = new Character(TileImages.PAC_MAN, canvas, r, c);
           app.stage.addChild(pacman.sprite);
-          sprites.push(pacman);
+          characters.push(pacman);
           break;
         case TileIndices.COIN:
           let coin = new Character(TileImages.COIN, canvas, r, c);
           app.stage.addChild(coin.sprite);
-          sprites.push(coin);
+          characters.push(coin);
           break;
         case TileIndices.BEER:
           let beer = new Character(TileImages.BEER, canvas, r, c);
           app.stage.addChild(beer.sprite);
-          sprites.push(beer);
+          characters.push(beer);
           break;
       }
     }
   }
-  return sprites;
+  return characters;
 }

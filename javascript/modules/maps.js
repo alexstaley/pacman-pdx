@@ -1,6 +1,9 @@
-//19X19 array
+// 19X19 array
 export const MAP_WIDTH = 19;
 export const MAP_HEIGHT = 19;
+
+// THRESHOLD controls how close you can be to a wall before it stops you
+export const THRESHOLD = 0.05;
 
 /* 'Enum' for indices in map array corresponding
  * to tokens used in map creation
@@ -46,7 +49,7 @@ export const TileImages = {
   BEER: "../Images/beer.png",
 };
 
-/* Return true if the given cell in
+/* Returns true if the given cell in
  * the given grid contains a wall
  */
 export function containsWall(grid, row, col) {
@@ -54,7 +57,7 @@ export function containsWall(grid, row, col) {
   return cell > TileIndices.GROUND && cell < TileIndices.PAC_MAN;
 }
 
-/* Create the background elements
+/* Creates the background elements
  * in the DOM for the given map array
  */
 export function drawBackground(initMap) {
