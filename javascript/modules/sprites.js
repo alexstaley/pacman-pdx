@@ -1,77 +1,87 @@
-import {
-  MAP_WIDTH,
-  MAP_HEIGHT,
-  map1,
-  TileIndices,
-  TileImages,
-  drawBackground,
-} from "./maps.js";
+import { MAP_WIDTH, MAP_HEIGHT, TileImages, containsWall } from "./maps.js";
 
-// TODO: Refactor Sprite class
+export class Character {
+  constructor(img, canvas, row, col) {
+    const texture = PIXI.Texture.from(img);
+    this.sprite = new PIXI.Sprite(texture);
+    this.img = img;
+    this.name = img.slice(10, -4);
+    // this.name == "rose-coin" || this.name == "beer"
+    //   ? (this.canMove = false)
+    //   : (this.canMove = true);
+    this.row = row;
+    this.col = col;
+    // this.origRow = row;
+    // this.origCol = col;
+    this.heading = 0;
+    this.replaceSprite(canvas);
+    this.resizeSprite();
+  }
 
-export function generateSprite(img, canvas, row, col) {
-  //Create sprite from img
-  const texture = PIXI.Texture.from(img);
-  let sprite = new PIXI.Sprite(texture);
-  sprite.name = `${img}_${row}_${col}`;
+  resizeSprite() {
+    // Resize sprite
+    this.sprite.width = 0.04 * window.innerWidth;
+    this.sprite.height = 0.04 * window.innerWidth;
 
-  // Place sprite in starting square
-  sprite.x = canvas.width * (1 - (MAP_WIDTH - col) / MAP_WIDTH);
-  sprite.y = canvas.height * (1 - (MAP_HEIGHT - row) / MAP_HEIGHT);
+    // Shrink and adjust coins (if using pixi)
+    if (this.img == TileImages.COIN) {
+      this.sprite.anchor.x = -2;
+      this.sprite.anchor.y = -1;
+      this.sprite.height *= 0.25;
+      this.sprite.width *= 0.25;
+    }
+  }
 
-  // Size and return sprite
-  resizeSprite(sprite);
-  return sprite;
-}
+  getCurrentGridCoords(canvas) {
+    return {
+      col: Math.round((MAP_WIDTH * this.sprite.x) / canvas.width),
+      row: Math.round((MAP_HEIGHT * this.sprite.y) / canvas.height),
+    };
+  }
 
-export function getCurrentGridCoords(sprite, canvas) {
-  // TODO: Test me
-  let c = Math.round((MAP_WIDTH * sprite.x) / canvas.width);
-  let r = Math.round((MAP_HEIGHT * sprite.y) / canvas.height);
-  console.log(
-    // `Current: ${sprite.name}: x = ${sprite.x} y = ${sprite.y} row ${r} col ${c}`
-    `Current: ${sprite.name}: (r${r}, c${c})`
-  );
-  return {
-    col: c,
-    row: r,
-    // col: Math.round((MAP_WIDTH * sprite.x) / canvas.width),
-    // row: Math.round((MAP_HEIGHT * sprite.y) / canvas.height),
-  };
-}
+  setGridCoords(row, col) {
+    this.col = col;
+    this.row = row;
+  }
 
-export function getOriginalGridCoords(sprite) {
-  // if sprite represents a pacman in row 4 and
-  // column 12, then sprite.name == "../Images/pacman-open-right_4_12"
-  const coords = sprite.name.match(/\d+/g);
-  return {
-    row: parseInt(coords[0]),
-    col: parseInt(coords[1]),
-  };
-}
+  calculateAndSetCurrentGridCoords(canvas) {
+    this.col = Math.round((MAP_WIDTH * this.sprite.x) / canvas.width);
+    this.row = Math.round((MAP_HEIGHT * this.sprite.y) / canvas.height);
+  }
 
-export function replaceSprite(sprite, canvas) {
-  let coords = getOriginalGridCoords(sprite, canvas);
-  sprite.x = canvas.width * (1 - (MAP_WIDTH - coords.col) / MAP_WIDTH);
-  sprite.y = canvas.height * (1 - (MAP_HEIGHT - coords.row) / MAP_HEIGHT);
-}
+  replaceSprite(canvas) {
+    this.sprite.x = canvas.width * (1 - (MAP_WIDTH - this.col) / MAP_WIDTH);
+    this.sprite.y = canvas.height * (1 - (MAP_HEIGHT - this.row) / MAP_HEIGHT);
+  }
 
-export function replaceSpriteInMotion(sprite, canvas) {
-  let coords = getCurrentGridCoords(sprite, canvas);
-  sprite.x = canvas.width * (1 - (MAP_WIDTH - coords.col) / MAP_WIDTH);
-  sprite.y = canvas.height * (1 - (MAP_HEIGHT - coords.row) / MAP_HEIGHT);
-}
+  turnSprite(direction) {
+    switch (direction) {
+      case "up":
+        this.heading = Math.PI / 2;
+        break;
+      case "down":
+        this.heading = (3 * Math.PI) / 2;
+        break;
+      case "left":
+        this.heading = Math.PI;
+        break;
+      case "right":
+        this.heading = 0;
+        break;
+    }
+  }
 
-export function resizeSprite(sprite) {
-  // Resize sprite
-  sprite.width = 0.04 * window.innerWidth;
-  sprite.height = 0.04 * window.innerWidth;
-
-  // Shrink and adjust coins (if using pixi)
-  if (sprite.name.includes(TileImages.COIN)) {
-    sprite.anchor.x = -2;
-    sprite.anchor.y = -1;
-    sprite.height *= 0.25;
-    sprite.width *= 0.25;
+  wallToThe(direction, grid) {
+    switch (direction) {
+      case "up":
+        return containsWall(grid, this.row - 1, this.col);
+      case "down":
+        return containsWall(grid, this.row + 1, this.col);
+      case "left":
+        return containsWall(grid, this.row, this.col - 1);
+      case "right":
+        return containsWall(grid, this.row, this.col + 1);
+    }
+    return false;
   }
 }

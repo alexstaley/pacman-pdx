@@ -7,20 +7,19 @@ import {
   drawBackground,
 } from "./modules/maps.js";
 
-import {
-  getCurrentGridCoords,
-  getOriginalGridCoords,
-  resizeSprite,
-  replaceSprite,
-  generateSprite,
-  replaceSpriteInMotion,
-} from "./modules/sprites.js";
+import { Character } from "./modules/sprites.js";
 
 let world = document.getElementById("world");
 let board = document.getElementById("gameboard");
+let grid = selectRandomMap();
+
+function selectRandomMap() {
+  // TODO: Make more maps, then implement me
+  return map1;
+}
 
 // Render background (logs, thorns, ground, decor/roses) in DOM
-drawBackground(map1);
+drawBackground(grid);
 
 // Create pixiJS application using 'gameboard' canvas
 const app = new PIXI.Application({
@@ -32,63 +31,61 @@ const app = new PIXI.Application({
   transparent: true,
 });
 
+// Add array of sprite tokens from the given map
+let spritesList = createSpritesAccordingTo(map1);
+
 // Watch for window resize
 window.addEventListener("resize", () => {
   // Resize canvas
   app.renderer.resize(world.offsetWidth, world.offsetHeight);
 
   // Resize and replace sprites
-  let canvas = app.renderer.screen;
-  let numSprites = app.stage.children.length;
-  for (let i = 0; i < numSprites; ++i) {
-    let sprite = app.stage.children[i];
-    resizeSprite(sprite);
-
-    // Sprites in motion get treated differently
-    sprite.name.includes("pacman")
-      ? replaceSpriteInMotion(sprite, canvas)
-      : replaceSprite(sprite, canvas);
-  }
+  spritesList.forEach((character) => {
+    character.resizeSprite();
+    character.replaceSprite(app.renderer.screen);
+  });
 });
-
-// Add sprite tokens from the given map
-createSpritesAccordingTo(map1);
 
 // Start game loop
 // playGame();
 let delta = 0;
-let pacman = app.stage.children[2];
+// let pacman = app.stage.children[2];
+let pacman = spritesList[2];
 console.log(pacman.name);
 app.ticker.add(floatVert).add(move);
 
 function floatVert() {
   delta += 0.1;
-  pacman.y += Math.sin(delta) * 0.15;
+  pacman.sprite.y += Math.sin(delta) * 0.15;
 }
 function move() {
-  pacman.y += 1;
-  // getCurrentGridCoords(pacman, app.renderer.screen);
+  pacman.sprite.y += 1;
+  pacman.calculateAndSetCurrentGridCoords(app.renderer.screen);
 }
 
 function createSpritesAccordingTo(initMap) {
-  let sprites = {};
+  let sprites = [];
   let canvas = app.renderer.screen;
   for (let r = 0; r < MAP_WIDTH; ++r) /*rows*/ {
     for (let c = 0; c < MAP_HEIGHT; ++c) /*cols*/ {
       switch (initMap[r][c]) {
         case TileIndices.PAC_MAN:
-          sprites.pacman = generateSprite(TileImages.PAC_MAN, canvas, r, c);
-          app.stage.addChild(sprites.pacman);
+          let pacman = new Character(TileImages.PAC_MAN, canvas, r, c);
+          app.stage.addChild(pacman.sprite);
+          sprites.push(pacman);
           break;
         case TileIndices.COIN:
-          sprites.coin = generateSprite(TileImages.COIN, canvas, r, c);
-          app.stage.addChild(sprites.coin);
+          let coin = new Character(TileImages.COIN, canvas, r, c);
+          app.stage.addChild(coin.sprite);
+          sprites.push(coin);
           break;
         case TileIndices.BEER:
-          sprites.beer = generateSprite(TileImages.BEER, canvas, r, c);
-          app.stage.addChild(sprites.beer);
+          let beer = new Character(TileImages.BEER, canvas, r, c);
+          app.stage.addChild(beer.sprite);
+          sprites.push(beer);
           break;
       }
     }
   }
+  return sprites;
 }

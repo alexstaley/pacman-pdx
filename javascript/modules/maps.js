@@ -2,6 +2,9 @@
 export const MAP_WIDTH = 19;
 export const MAP_HEIGHT = 19;
 
+/* 'Enum' for indices in map array corresponding
+ * to tokens used in map creation
+ */
 export const TileIndices = {
   GROUND: 10,
   LOG_HORIZ: 11,
@@ -21,6 +24,9 @@ export const TileIndices = {
   BEER: 37,
 };
 
+/* Container for images to use when creating
+ * html elements and when naming sprites
+ */
 export const TileImages = {
   GROUND: "../Images/ground.jpg",
   LOG_HORIZ: "../Images/log.png",
@@ -40,6 +46,17 @@ export const TileImages = {
   BEER: "../Images/beer.png",
 };
 
+/* Return true if the given cell in
+ * the given grid contains a wall
+ */
+export function containsWall(grid, row, col) {
+  let cell = grid[row][col];
+  return cell > TileIndices.GROUND && cell < TileIndices.PAC_MAN;
+}
+
+/* Create the background elements
+ * in the DOM for the given map array
+ */
 export function drawBackground(initMap) {
   let world = document.getElementById("world");
   for (let r = 0; r < MAP_WIDTH; ++r) /*rows*/ {
@@ -71,7 +88,7 @@ export function drawBackground(initMap) {
           world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.COIN:
-          // Handle coin token w pixi??? Pretty sure yes, but leaving DOM option commented out until we're sure
+          // Handle coin token w pixi??? Pretty sure yes, but leaving DOM option commented out for now
           world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           // world.innerHTML += `<div id="${r}_${c}" class='tile rose-coin'></div>`;
           break;
