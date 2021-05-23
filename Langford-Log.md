@@ -17,3 +17,5 @@
 4. Received SignIn() error, not defined. It also changed the look of the page for some reason.
 5. Installed firebase to root folder.
 6. Attempted to move the script link to inside the body, still does not see "Logon()" as a function.
+7. Installed firebase admin install packge
+8. Added firebase scripts from firebase website for website logon.
