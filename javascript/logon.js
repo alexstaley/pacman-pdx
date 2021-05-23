@@ -36,6 +36,7 @@ function createAccount(userEmail, userPassword) {
     .catch((error) => {
       var errorCode = error.code;
       var errorMessage = error.message;
+      window.alert("Error: ", errorMessage);
       // ..
     });
 }
@@ -52,21 +53,23 @@ function logout() {
 }
 
 function googleLog() {
-  window.alert("inside of googleLog");
+  window.alert("inside of googleLog - Changed again");
   var provider = new firebase.auth.GoogleAuthProvider();
   firebase
     .auth()
     .signInWithPopup(provider)
     .then((result) => {
       /** @type {firebase.auth.OAuthCredential} */
+      window.alert("inside of .then");
       var credential = result.credential;
-
       // This gives you a Google Access Token. You can use it to access the Google API.
       var token = credential.accessToken;
       // The signed-in user info.
       var user = result.user;
+
       // ...
     })
+    .then((window.location = "pacman.html"))
     .catch((error) => {
       // Handle Errors here.
       var errorCode = error.code;

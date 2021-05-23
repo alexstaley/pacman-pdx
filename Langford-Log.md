@@ -7,7 +7,8 @@
 
 # Created index.html & index.css
 
-1). cre
+1). created intex html that will hold buttons to logon or just take you to game play. In game play you do not get to save your high-scores.
+2). index.css has all the styles for the pacman letters. This takes four span elements to make the different colors, shapes and styles for the letter to look correct.
 
 # Installed Firebase
 
@@ -19,3 +20,5 @@
 6. Attempted to move the script link to inside the body, still does not see "Logon()" as a function.
 7. Installed firebase admin install packge
 8. Added firebase scripts from firebase website for website logon.
+9. Added script for firebase auth 8.6.2 and it now is operable.
+10. Added a logout function for future features.
