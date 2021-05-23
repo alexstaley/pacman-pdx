@@ -4,6 +4,7 @@ export const MAP_HEIGHT = 19;
 
 // THRESHOLD controls how close you can be to a wall before it stops you
 export const THRESHOLD = 0.05;
+export const TILE_WIDTH = 0.04 * window.innerWidth;
 
 /* 'Enum' for indices in map array corresponding
  * to tokens used in map creation
