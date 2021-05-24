@@ -1,71 +1,125 @@
-import { MAP_WIDTH, MAP_HEIGHT, map1, map2 } from "./modules/maps.js";
+import { Character } from "./modules/sprites.js";
+import { keyboard } from "./modules/keyboard.js";
+import {
+  MAP_WIDTH,
+  MAP_HEIGHT,
+  map1,
+  TileIndices,
+  TileImages,
+  drawBackground,
+} from "./modules/maps.js";
 
 let world = document.getElementById("world");
+let board = document.getElementById("gameboard");
+let grid = selectRandomMap();
 
-function drawWorld(initMap) {
+function selectRandomMap() {
+  // TODO: Make more maps, then implement me
+  return map1;
+}
+
+// Render background (logs, thorns, ground, decor/roses) in DOM
+drawBackground(grid);
+
+// Create pixiJS application using 'gameboard' canvas
+const app = new PIXI.Application({
+  view: board,
+  width: world.offsetWidth,
+  height: world.offsetHeight,
+  resolution: window.devicePixelRatio,
+  autoDensity: true,
+  transparent: true,
+});
+
+// Add array of sprite tokens from the given map
+let characterList = createSpritesAccordingTo(grid, window.innerWidth);
+
+// Watch for window resize
+window.addEventListener("resize", () => {
+  // Resize and remeasure canvas
+  app.renderer.resize(world.offsetWidth, world.offsetHeight);
+
+  // Resize and replace sprites
+  characterList.forEach((character) => {
+    character.resizeSprite(window.innerWidth);
+    character.replaceSprite(app.renderer.screen);
+  });
+});
+
+// Enter game loop
+let pacman = characterList[2];
+let delta = 0;
+console.log(pacman.name);
+
+let upKey = keyboard("ArrowUp");
+let downKey = keyboard("ArrowDown");
+let leftKey = keyboard("ArrowLeft");
+let rightKey = keyboard("ArrowRight");
+
+upKey.press = () => {
+  pacman.turnSprite("up");
+};
+downKey.press = () => {
+  pacman.turnSprite("down");
+};
+leftKey.press = () => {
+  pacman.turnSprite("left");
+};
+rightKey.press = () => {
+  pacman.turnSprite("right");
+};
+
+app.ticker.add(move);
+
+/* Move the character in the direction it's facing
+ */
+function move() {
+  // Move forward and update grid coords
+  pacman.moveOn(grid);
+  pacman.resetGridCoords(app.renderer.screen);
+}
+
+/* Load Pac-Man mouth animation (if you can get graphics working...)
+ */
+function mouth() {
+  delta += 0.1;
+  pacman.sprite.getChildAt(0).clear();
+  // pacman.sprite.getChildAt(0).destroy();
+  pacman.animateMouth(delta);
+}
+
+/* Initialize sprites according to the given map array.
+ * Returns an array of character objects.
+ */
+function createSpritesAccordingTo(initMap, windowWidth) {
+  let characters = [];
+  let canvas = app.renderer.screen;
   for (let r = 0; r < MAP_WIDTH; ++r) /*rows*/ {
     for (let c = 0; c < MAP_HEIGHT; ++c) /*cols*/ {
       switch (initMap[r][c]) {
-        case 10:
-          world.innerHTML += "<div class='tile ground'></div>";
+        case TileIndices.PAC_MAN:
+          let pacman = new Character(
+            TileImages.PAC_MAN,
+            canvas,
+            windowWidth,
+            r,
+            c
+          );
+          app.stage.addChild(pacman.sprite);
+          characters.push(pacman);
           break;
-        case 11:
-          world.innerHTML += "<div class='tile log'></div>";
+        case TileIndices.COIN:
+          let coin = new Character(TileImages.COIN, canvas, windowWidth, r, c);
+          app.stage.addChild(coin.sprite);
+          characters.push(coin);
           break;
-        case 12:
-          world.innerHTML += "<div class='tile log log-vert'></div>";
+        case TileIndices.BEER:
+          let beer = new Character(TileImages.BEER, canvas, windowWidth, r, c);
+          app.stage.addChild(beer.sprite);
+          characters.push(beer);
           break;
-        case 13:
-          world.innerHTML += "<div class='tile thorns thorns-tl'></div>";
-          break;
-        case 14:
-          world.innerHTML += "<div class='tile thorns'></div>";
-          break;
-        case 15:
-          world.innerHTML += "<div class='tile thorns thorns-bl'></div>";
-          break;
-        case 16:
-          world.innerHTML += "<div class='tile thorns thorns-br'></div>";
-          break;
-        case 20:
-          world.innerHTML += "<div class='tile pacman-right'></div>";
-          break;
-        case 21:
-          world.innerHTML += "<div class='tile pacman-down'></div>";
-          break;
-        case 22:
-          world.innerHTML += "<div class='tile pacman-left'></div>";
-          break;
-        case 23:
-          world.innerHTML += "<div class='tile pacman-up'></div>";
-          break;
-        case 30:
-          world.innerHTML += "<div class='tile rose-coin'></div>";
-          break;
-        case 31:
-          world.innerHTML += "<div class='tile rose-red'></div>";
-          break;
-        case 32:
-          world.innerHTML += "<div class='tile rose-yellow'></div>";
-          break;
-        case 33:
-          world.innerHTML += "<div class='tile rose-pink'></div>";
-          break;
-        case 34:
-          world.innerHTML += "<div class='tile rose-gold'></div>";
-          break;
-        case 35:
-          world.innerHTML += "<div class='tile rose-brown'></div>";
-          break;
-        case 36:
-          world.innerHTML += "<div class='tile rose-white'></div>";
-          break;
-        case 37:
-          world.innerHTML += "<div class='tile beer'></div>";
       }
     }
-    world.innerHTML += "<br>";
   }
+  return characters;
 }
-
-drawWorld(map1);

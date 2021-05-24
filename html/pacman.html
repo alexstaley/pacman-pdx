@@ -6,11 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Portland Pacman Game</title>
     <link rel="stylesheet" type="text/css" href="../css/pacman.css" />
-    <!-- <link rel="stylesheet" href="../style.css" /> -->
+    <link rel="stylesheet" href="../style.css" />
+    <script src="../node_modules/pixi.js/dist/browser/pixi.min.js"></script>
     <script defer type="module" src="../javascript/pacman.js"></script>
   </head>
   <body>
     <h1>Game Screen</h1>
-    <div id="world"></div>
+    <section id="game-container">
+      <div id="world"></div>
+      <canvas id="gameboard"></canvas>
+    </section>
   </body>
 </html>
