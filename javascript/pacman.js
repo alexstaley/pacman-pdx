@@ -127,11 +127,10 @@ function mouth() {
 }
 
 /* Initialize sprites according to the given map array.
- * Returns an array of character objects.
+ * Returns a container object of characters indexed by "{row}-{col}".
  */
 function createSpritesAccordingTo(initMap, windowWidth) {
-  let characters = [];
-  let staticSprites = {};
+  let characters = {};
   let canvas = app.renderer.screen;
   for (let r = 0; r < MAP_WIDTH; ++r) /*rows*/ {
     for (let c = 0; c < MAP_HEIGHT; ++c) /*cols*/ {
@@ -145,24 +144,86 @@ function createSpritesAccordingTo(initMap, windowWidth) {
             c
           );
           app.stage.addChild(pacman.sprite);
-          characters.push(pacman);
-          staticSprites[`${r}-${c}`] = pacman;
+          characters[`${r}-${c}`] = pacman;
           break;
         case TileIndices.COIN:
           let coin = new Character(TileImages.COIN, canvas, windowWidth, r, c);
           app.stage.addChild(coin.sprite);
-          characters.push(coin);
-          staticSprites[`${r}-${c}`] = coin;
+          characters[`${r}-${c}`] = coin;
           break;
         case TileIndices.BEER:
           let beer = new Character(TileImages.BEER, canvas, windowWidth, r, c);
           app.stage.addChild(beer.sprite);
-          characters.push(beer);
-          staticSprites[`${r}-${c}`] = beer;
+          characters[`${r}-${c}`] = beer;
+          break;
+        case TileIndices.ROSE_RED:
+          let roseRed = new Character(
+            TileImages.ROSE_RED,
+            canvas,
+            windowWidth,
+            r,
+            c
+          );
+          app.stage.addChild(roseRed.sprite);
+          characters[`${r}-${c}`] = roseRed;
+          break;
+        case TileIndices.ROSE_YELLOW:
+          let roseYellow = new Character(
+            TileImages.ROSE_YELLOW,
+            canvas,
+            windowWidth,
+            r,
+            c
+          );
+          app.stage.addChild(roseYellow.sprite);
+          characters[`${r}-${c}`] = roseYellow;
+          break;
+        case TileIndices.ROSE_PINK:
+          let rosePink = new Character(
+            TileImages.ROSE_PINK,
+            canvas,
+            windowWidth,
+            r,
+            c
+          );
+          app.stage.addChild(rosePink.sprite);
+          characters[`${r}-${c}`] = rosePink;
+          break;
+        case TileIndices.ROSE_GOLD:
+          let roseGold = new Character(
+            TileImages.ROSE_GOLD,
+            canvas,
+            windowWidth,
+            r,
+            c
+          );
+          app.stage.addChild(roseGold.sprite);
+          characters[`${r}-${c}`] = roseGold;
+          break;
+        case TileIndices.ROSE_BROWN:
+          let roseBrown = new Character(
+            TileImages.ROSE_BROWN,
+            canvas,
+            windowWidth,
+            r,
+            c
+          );
+          app.stage.addChild(roseBrown.sprite);
+          characters[`${r}-${c}`] = roseBrown;
+          break;
+        case TileIndices.ROSE_WHITE:
+          let roseWhite = new Character(
+            TileImages.ROSE_WHITE,
+            canvas,
+            windowWidth,
+            r,
+            c
+          );
+          app.stage.addChild(roseWhite.sprite);
+          characters[`${r}-${c}`] = roseWhite;
           break;
       }
     }
   }
-  // return characters;
-  return staticSprites;
+  return characters;
 }

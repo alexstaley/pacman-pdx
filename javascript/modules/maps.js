@@ -117,22 +117,34 @@ export function drawBackground(initMap) {
           // world.innerHTML += `<div id="${r}_${c}" class='tile rose-coin'></div>`;
           break;
         case TileIndices.ROSE_RED:
-          world.innerHTML += `<div id="${r}_${c}" class='tile rose-red'></div>`;
+          // world.innerHTML += `<div id="${r}_${c}" class='tile rose-red'></div>`;
+          // Handle rose token w pixi
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.ROSE_YELLOW:
-          world.innerHTML += `<div id="${r}_${c}" class='tile rose-yellow'></div>`;
+          // world.innerHTML += `<div id="${r}_${c}" class='tile rose-yellow'></div>`;
+          // Handle rose token w pixi
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.ROSE_PINK:
-          world.innerHTML += `<div id="${r}_${c}" class='tile rose-pink'></div>`;
+          // world.innerHTML += `<div id="${r}_${c}" class='tile rose-pink'></div>`;
+          // Handle rose token w pixi
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.ROSE_GOLD:
-          world.innerHTML += `<div id="${r}_${c}" class='tile rose-gold'></div>`;
+          // world.innerHTML += `<div id="${r}_${c}" class='tile rose-gold'></div>`;
+          // Handle rose token w pixi
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.ROSE_BROWN:
-          world.innerHTML += `<div id="${r}_${c}" class='tile rose-brown'></div>`;
+          // world.innerHTML += `<div id="${r}_${c}" class='tile rose-brown'></div>`;
+          // Handle rose token w pixi
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.ROSE_WHITE:
-          world.innerHTML += `<div id="${r}_${c}" class='tile rose-white'></div>`;
+          // world.innerHTML += `<div id="${r}_${c}" class='tile rose-white'></div>`;
+          // Handle rose token w pixi
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.BEER:
           // Handle beer token w pixi
@@ -153,12 +165,12 @@ export var map1 = [
   [12, 30, 15, 11, 11, 11, 16, 30, 15, 11, 11, 11, 16, 30, 30, 30, 37, 30, 12],
   [12, 30, 30, 30, 30, 30, 30, 30, 13, 11, 11, 11, 14, 30, 13, 11, 11, 11, 16],
   [15, 11, 14, 30, 13, 11, 11, 11, 16, 10, 10, 10, 12, 30, 12, 10, 10, 10, 10],
-  [13, 11, 16, 30, 15, 11, 11, 11, 11, 11, 11, 11, 16, 30, 15, 11, 11, 11, 14],
-  [12, 30, 30, 30, 30, 30, 30, 30, 37, 30, 30, 30, 30, 30, 30, 30, 30, 30, 12],
+  [13, 11, 16, 34, 15, 11, 11, 11, 11, 11, 11, 11, 16, 30, 15, 11, 11, 11, 14],
+  [12, 30, 30, 30, 30, 30, 30, 30, 37, 30, 30, 30, 33, 30, 30, 30, 30, 30, 12],
   [16, 30, 13, 11, 14, 30, 13, 11, 11, 14, 30, 13, 11, 11, 11, 11, 14, 30, 15],
   [30, 37, 12, 10, 12, 30, 12, 10, 10, 12, 30, 12, 10, 10, 10, 10, 12, 30, 30],
   [14, 30, 15, 11, 16, 30, 15, 11, 11, 16, 30, 12, 10, 10, 10, 10, 12, 30, 13],
-  [12, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 12, 10, 10, 10, 10, 12, 30, 12],
+  [12, 30, 30, 30, 30, 30, 30, 30, 32, 30, 30, 12, 10, 10, 10, 10, 12, 30, 12],
   [12, 30, 13, 11, 11, 14, 30, 13, 11, 11, 11, 16, 13, 11, 11, 11, 16, 37, 12],
   [12, 30, 15, 11, 11, 16, 30, 15, 11, 11, 11, 11, 16, 30, 30, 30, 30, 30, 12],
   [15, 11, 11, 11, 11, 14, 30, 13, 11, 11, 11, 11, 14, 30, 13, 11, 11, 11, 16],
