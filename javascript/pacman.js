@@ -8,9 +8,11 @@ import {
   TileImages,
   drawBackground,
   getCoinRegistry,
+  containsWall,
 } from "./modules/maps.js";
 
 const COIN_POINTS = 100;
+const ROSE_POINTS = 1000;
 
 let world = document.getElementById("world");
 let board = document.getElementById("gameboard");
@@ -75,7 +77,7 @@ rightKey.press = () => {
   pacman.turnSprite("right");
 };
 
-app.ticker.add(move).add(getCoins);
+app.ticker.add(move).add(getCoins).add(getRoses);
 
 /* Move the character in the direction it's facing
  */
@@ -83,8 +85,29 @@ function move() {
   // Move forward and update grid coords
   pacman.moveOn(grid);
   pacman.resetGridCoords(app.renderer.screen);
+
+  // Check for walk-thru-walls bug
+  if (containsWall(grid, pacman.row, pacman.col)) {
+    pacman.backUp();
+  }
 }
 
+function getTokens() {
+  switch (characterList[`${pacman.row}-${pacman.col}`]) {
+    case TileIndices.COIN:
+      break;
+    case TileIndices.BEER:
+      break;
+    case TileIndices.ROSE_WHITE:
+      break;
+    // etc...?
+    // TODO: How to handle roses?
+  }
+}
+
+/* Pick up coins. Coins become invisible, and the score and
+ * coinsList are updated. Check if the level has ended.
+ */
 function getCoins() {
   let cell = `${pacman.row}-${pacman.col}`;
   if (coinsList[cell]) {
@@ -98,6 +121,39 @@ function getCoins() {
   // Check if all coins have been picked up
   if (coinsList.totalValue < 1) {
     levelPassed = true;
+  }
+}
+
+/* Pick up rose tokens. Roses become invisible, and the score is updated.
+ */
+function getRoses() {
+  let cell = `${pacman.row}-${pacman.col}`;
+  if (
+    characterList[cell] &&
+    (characterList[cell].name == "rose" ||
+      characterList[cell].name == "rose-yellow" ||
+      characterList[cell].name == "rose-pink" ||
+      characterList[cell].name == "rose-gold" ||
+      characterList[cell].name == "rose-brown" ||
+      characterList[cell].name == "rose-white")
+  ) {
+    // Pick up the rose and update score
+    characterList[cell].sprite.visible = false;
+    score += ROSE_POINTS;
+    // TODO: Differentiate between rose colors. Store roses (and do what with them?) as in O.G. Pac-Man.
+  }
+}
+
+/* Pick up beer tokens. Beers become invisible, Pacman becomes drunk and clouds become edible.
+ */
+function getBeers() {
+  let cell = `${pacman.row}-${pacman.col}`;
+  if (characterList[cell] && characterList[cell].name == "beer") {
+    // Pick up the rose and update score
+    characterList[cell].sprite.visible = false;
+    pacman.drunk = true;
+    // pacman.sprite.texture = "../Images/pacman-drunk.jpg";
+    // TODO: Clouds. Drunk timer.
   }
 }
 
