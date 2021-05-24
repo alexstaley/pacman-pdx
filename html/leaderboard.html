@@ -12,9 +12,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
     />
   </head>
-  <!-- <body class="bg"> -->
   <body>
-    <!-- <section class="container border rounded bg-white w-50 mx-auto mt-5 p-3"> -->
     <h1 class = "header-pacman">  
       <p>
        <div class="icon">
@@ -95,7 +93,42 @@
             <h3>SCORE</h3>
           </div>
         </div>
+        <div>
+          <!-- <button type="button" class="btn btn-default">Log Out</button> -->
+          <a href="logon.html">
+            <button 
+              class="button" 
+              onclick="logon.html"
+              >
+              Log Out
+          </button>
+          </a>
+          <a href="pacman.html"> 
+            <button 
+              class="button" 
+              onclick="pacman.html"
+              >
+              Play Again
+            </button>
+          </a>
+        </div>
       <!-- </section>        -->
    </body>
 
+   <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
+   <script>
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+       apiKey: "AIzaSyApTQ82sxHdB4w0d5JVcfnu3lpbLI9qJPY",
+      authDomain: "pacman-91374.firebaseapp.com",
+      projectId: "pacman-91374",
+      storageBucket: "pacman-91374.appspot.com",
+      messagingSenderId: "571540195753",
+      appId: "1:571540195753:web:ad4736b7c7b96aa1955cb8",
+      measurementId: "G-CC2D61S2ZD"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+   </script>
 </html>

@@ -1,11 +1,3 @@
-/* body{
-    background-color: black;
-} */
-
-.bg {
-    background-color: darkgreen !important;
-  }
-
 @font-face {
     font-family: "pacman";
   
@@ -75,13 +67,7 @@ body {
 }
 
 h2 {
-    /* Opt 1 */
-    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
-    /* Opt 2 */
-    /* font-family: sans-serif; */
-    /* Opt 3 */
     font-family: monospace;
-    /* POssibility: Same color here as the shadow of the pac man font */
     /* color: rgb(59, 31, 135); */
     padding-top: 10px;
     text-align: center;
@@ -105,6 +91,22 @@ h3{
     padding: 10px;
     padding-left: 20px;
     padding-right: 40px;
+    margin-bottom: 20px;
+}
+  
+.button {
+    display: inline-block;
+    background-color: #008000;
+    text-align: center;
+    color: white;
+    width: 160px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 0.25rem;
+}
+
+.button:hover {
+    background-color: #1fa61f;
 }
   
 
@@ -160,7 +162,7 @@ h3{
 .icon-C .path3:before {
     content: "\e931";
     margin-left: -0.9814453125em;
-    color: green;
+    color: #008000;
 }
 
 .icon-C .path4:before {
