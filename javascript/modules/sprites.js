@@ -88,6 +88,16 @@ export class Character {
     this.sprite.rotation = face;
   }
 
+  /* Returns true if the sprite comes into contact with the given other sprite
+   */
+  isTouching(neighbor) {
+    if (!neighbor) return false;
+    // console.log(`this.r=${this.row}, this.c=${this.col}`);
+    // console.log(`neigh.r=${neighbor.row}, neigh.c=${neighbor.col}`);
+
+    return false;
+  }
+
   /* Returns true if the sprite is within a threshold of the
    * middle of the character's row (or col, depending on heading)
    */

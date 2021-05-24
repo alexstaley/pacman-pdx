@@ -58,6 +58,26 @@ export function containsWall(grid, row, col) {
   return cell > TileIndices.GROUND && cell < TileIndices.PAC_MAN;
 }
 
+/* Returns an object containing all the coins
+ * in a given map, indexed by their coords, as
+ * well as the total number of coins on the map.
+ */
+export function getCoinRegistry(grid) {
+  let coins = {};
+  coins.totalValue = 0;
+  for (let r = 0; r < MAP_WIDTH; ++r) {
+    for (let c = 0; c < MAP_HEIGHT; ++c) {
+      if (grid[r][c] == TileIndices.COIN) {
+        coins[`${r}-${c}`] = true;
+        coins.totalValue += 1;
+      } else {
+        coins[`${r}-${c}`] = false;
+      }
+    }
+  }
+  return coins;
+}
+
 /* Creates the background elements
  * in the DOM for the given map array
  */
