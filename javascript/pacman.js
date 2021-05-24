@@ -77,13 +77,13 @@ rightKey.press = () => {
   pacman.turnSprite("right");
 };
 
-app.ticker.add(move).add(getCoins).add(getRoses);
+app.ticker.add(move).add(getCoins).add(getRoses).add(getBeers);
 
 /* Move the character in the direction it's facing
  */
 function move() {
   // Move forward and update grid coords
-  pacman.moveOn(grid);
+  pacman.moveOn(grid, app.renderer.screen);
   pacman.resetGridCoords(app.renderer.screen);
 
   // Check for walk-thru-walls bug
@@ -152,8 +152,8 @@ function getBeers() {
     // Pick up the rose and update score
     characterList[cell].sprite.visible = false;
     pacman.drunk = true;
-    // pacman.sprite.texture = "../Images/pacman-drunk.jpg";
-    // TODO: Clouds. Drunk timer.
+    // pacman.sprite.texture = "../Images/pacman-drunk-open-right.jpg";
+    // TODO: Clouds. Drunk timer. Texture loading.
   }
 }
 

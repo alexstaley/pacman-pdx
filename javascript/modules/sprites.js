@@ -51,6 +51,28 @@ export class Character {
     }
   }
 
+  /* If there is a clear path, move forward at speed
+   */
+  moveOn(grid, canvas) {
+    if (this.pathWrapsAround(canvas) || this.hasAClearPath(grid)) {
+      this.recenter();
+      switch (this.heading) {
+        case "up":
+          this.sprite.y -= this.speed;
+          break;
+        case "down":
+          this.sprite.y += this.speed;
+          break;
+        case "left":
+          this.sprite.x -= this.speed;
+          break;
+        case "right":
+          this.sprite.x += this.speed;
+          break;
+      }
+    }
+  }
+
   /* Reset the character's grid coords based on the sprite's position.
    * Moving characters should call this from within their ticker.
    */
@@ -64,54 +86,68 @@ export class Character {
     this.row = Math.round(row);
     this.xDiff = this.col - col; // how close we are to the center of that column
     this.yDiff = this.row - row; // how close we are to the center of that row
+
+    // Check for wraparound path
+    if (this.isCloseEnough()) {
+      this.wrapAround(canvas);
+      // FIXME: Pacman can hug the corners to avoid being closeEnough() to
+      // trigger the wrapAround() function, hiding outside the screen.
+      // This is actually kinda fun sooooo not a high priority :)
+    }
   }
 
-  /* Change the character's heading.
-   * Called by gameplay button event listeners //TODO
+  /* Adjust the sprite's position and grid coords to
+   * reflect being on a path that wraps around the screen
    */
-  turnSprite(direction) {
-    let face = 0;
-    switch (direction) {
+  wrapAround(canvas) {
+    switch (this.heading) {
       case "up":
-        face = (3 * Math.PI) / 2;
+        if (this.row == 0) {
+          this.sprite.y = canvas.height - TILE_WIDTH;
+          this.row = MAP_HEIGHT - 1;
+        }
         break;
       case "down":
-        face = Math.PI / 2;
+        if (this.row == MAP_HEIGHT - 1) {
+          this.sprite.y = 0;
+          this.row = 0;
+        }
         break;
       case "left":
-        face = Math.PI;
+        if (this.col == 0) {
+          this.sprite.x = canvas.width - TILE_WIDTH;
+          this.col = MAP_WIDTH - 1;
+        }
         break;
       case "right":
+        if (this.col == MAP_WIDTH - 1) {
+          this.sprite.x = 0;
+          this.col = 0;
+        }
         break;
     }
-    this.heading = direction;
-    this.sprite.rotation = face;
   }
 
-  /* Returns true if the sprite comes into contact with the given other sprite
+  /* Returns true if the character occupies
+   * a cell on the map's edge (such cells
+   * should wrap around to the opposite side
+   * of the board)
    */
-  isTouching(neighbor) {
-    if (!neighbor) return false;
-    // console.log(`this.r=${this.row}, this.c=${this.col}`);
-    // console.log(`neigh.r=${neighbor.row}, neigh.c=${neighbor.col}`);
-
-    return false;
-  }
-
-  /* Returns true if the sprite is within a threshold of the
-   * middle of the character's row (or col, depending on heading)
-   */
-  isCloseEnough() {
+  pathWrapsAround() {
     return (
-      Math.abs(
-        this.heading == "right" || this.heading == "left"
-          ? this.xDiff
-          : this.yDiff
-      ) < THRESHOLD
+      this.row == 0 ||
+      this.row == MAP_HEIGHT - 1 ||
+      this.col == 0 ||
+      this.col == MAP_WIDTH - 1
     );
   }
 
-  /* Returns true if the character has a clear path in front of it
+  /* Returns true if the character has a clear path
+   * immediately in front of it (i.e. no walls).
+   *
+   * //FIXME: This function must be preceded by a call to
+   * the pathWrapsAround() function, or it will blow
+   * up the map by calling an out of bounds index
    */
   hasAClearPath(grid) {
     let aWall = true;
@@ -132,6 +168,51 @@ export class Character {
 
     // If we can see a wall coming, check if we're close enough to be stopped
     return aWall ? !this.isCloseEnough() : true;
+  }
+
+  /* Returns true if the sprite is within a threshold of the
+   * middle of the character's row (or col, depending on heading)
+   */
+  isCloseEnough() {
+    return (
+      Math.abs(
+        this.heading == "right" || this.heading == "left"
+          ? this.xDiff
+          : this.yDiff
+      ) < THRESHOLD
+    );
+  }
+
+  /* Returns true if the sprite comes into contact with a cloud //TODO
+   */
+  isTouching(neighbor) {
+    if (!neighbor) return false;
+    // console.log(`this.r=${this.row}, this.c=${this.col}`);
+    // console.log(`neigh.r=${neighbor.row}, neigh.c=${neighbor.col}`);
+
+    return false;
+  }
+
+  /* Change the character's heading.
+   * Called by gameplay button event listeners
+   */
+  turnSprite(direction) {
+    let face = 0;
+    switch (direction) {
+      case "up":
+        face = (3 * Math.PI) / 2;
+        break;
+      case "down":
+        face = Math.PI / 2;
+        break;
+      case "left":
+        face = Math.PI;
+        break;
+      case "right":
+        break;
+    }
+    this.heading = direction;
+    this.sprite.rotation = face;
   }
 
   /* Nudge the sprite back to
@@ -160,28 +241,6 @@ export class Character {
     }
     this.sprite.x = x;
     this.sprite.y = y;
-  }
-
-  /* If there is a clear path, move forward at speed
-   */
-  moveOn(grid) {
-    if (this.hasAClearPath(grid)) {
-      this.recenter();
-      switch (this.heading) {
-        case "up":
-          this.sprite.y -= this.speed;
-          break;
-        case "down":
-          this.sprite.y += this.speed;
-          break;
-        case "left":
-          this.sprite.x -= this.speed;
-          break;
-        case "right":
-          this.sprite.x += this.speed;
-          break;
-      }
-    }
   }
 
   /* Back up at double speed. Ticker should call this if
