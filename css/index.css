@@ -32,6 +32,8 @@ body {
   justify-content: center;
   padding: 10px;
   size: 90%;
+  margin: auto;
+  max-width: 100%;
 }
 .header-pacman {
   font-size: 40px;
@@ -59,31 +61,25 @@ body {
 }
 
 h1 {
+  flex-grow: inherit;
   margin: 0;
 }
 h2 {
+  flex-grow: inherit;
   font-size: 60px;
   margin: 0;
 }
-.logon {
-  width: 50%;
-  height: 50%;
+.buttons {
+  display: inline-flex;
   justify-content: center;
-}
-.logon > button {
+  flex-direction: column;
   height: 100%;
-  font-weight: bolder;
-  font-size: medium;
   width: 100%;
 }
-/* .btn-default:hover, */
-/* .btn-default:focus, */
-/* .btn-default:active, */
-/* .btn-default.active, */
-.open .dropdown-toggle.btn-default {
-  background-color: green;
-  color: black;
-  border-color: white;
+.buttons > a {
+  display: inherit;
+  width: 100%;
+  padding-top: 3px;
 }
 
 .icon-A .path1:before {
