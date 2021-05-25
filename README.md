@@ -13,3 +13,7 @@ You can import _selection.json_ back to the IcoMoon app using the _Import Icons_
 # Logon Firebase Requirements
 
 1. Install firebase to main directory
+
+# PixiJS
+Check out https://github.com/kittykatattack/learningPixi#readme for help understanding pixi.js
+
