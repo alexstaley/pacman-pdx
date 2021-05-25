@@ -10,4 +10,10 @@ You won't need any of the files located under the _demo-files_ directory when in
 
 You can import _selection.json_ back to the IcoMoon app using the _Import Icons_ button (or via Main Menu → Manage Projects) to retrieve your icon selection.
 
+# Logon Firebase Requirements
+
+1. Install firebase to main directory
+
+# PixiJS
 Check out https://github.com/kittykatattack/learningPixi#readme for help understanding pixi.js
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Logon</title>
+    <link rel="stylesheet" href="../css/index.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    
+    <style>
+      .form {
+        width: 400px;
+      }
+      button {
+        width: 49%;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <form class="bg-light border rounded w-50 mx-auto mt-5 p-3">
+        <h1 class="mt-2 mb-4">Logon</h1>
+        <form class="mx-auto mt-5 p-3 bg-light border rounded">
+          <div class="form-group">
+            <label for="Email"></label>
+            <input 
+            type="email" 
+            class="form-control" 
+            id = "emailName"
+            placeholder="Email..."
+            autocomplete="username"
+            required />
+            </div>
+            <div class="form-group">
+                <label for="Password"></label>
+                <input 
+                type="password" 
+                class="form-control" 
+                id = "passwordName" 
+                placeholder="Password..."
+                autocomplete="current-password"
+                required />
+                </div>
+            
+            <div class = "form-group">
+              <button 
+              type="submit"
+              class="btn btn-primary" 
+              onclick = "logon()" 
+              required>Logon</button>
+              <button 
+              type="reset" 
+              class="btn btn-secondary"
+              onclick="createAccount(emailName,passwordName)"
+              >Create Account</button>
+              <button 
+                class="btn btn-primary" 
+                onclick = "googleLog()" 
+                >Sign-in with Google</button>
+              
+            </div>
+           
+        </form>
+        
+    </div>
+  </form>
+  <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
+    <script>
+         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyApTQ82sxHdB4w0d5JVcfnu3lpbLI9qJPY",
+    authDomain: "pacman-91374.firebaseapp.com",
+    projectId: "pacman-91374",
+    storageBucket: "pacman-91374.appspot.com",
+    messagingSenderId: "571540195753",
+    appId: "1:571540195753:web:ad4736b7c7b96aa1955cb8",
+    measurementId: "G-CC2D61S2ZD"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+    </script>
+    <script defer type = "text/javascript" src = "../javascript/logon.js"></script>
+  </body>
+</html>
