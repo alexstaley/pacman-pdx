@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Pac-Man PDX - Leaderboard</title>
     <link rel="stylesheet" type="text/css" href="../css/leaderboard.css" />
-    <!-- <script defer type="module" src="../javascript/leaderboard.js"></script> -->
+    <script defer type="module" src="../javascript/leaderboard.js"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
@@ -75,7 +75,14 @@
         <div class = "rose-img">
           <img src = "../Images/rose.gif">
         </div> 
-        <h2>High Scores</h2> 
+
+
+
+
+        <h2>Your score: </h2>
+        <h2 id="userscore" name="score" type="number"></h2>  
+
+        <!-- <h2>High Scores</h2> 
         <div class="row">
           <div class="column" style="background-color: #eafaea";>
             <h2>Player</h2>
@@ -83,7 +90,9 @@
             <h3>NAME</h3>
             <h3>NAME</h3>
             <h3>NAME</h3>
-            <h3>NAME</h3>
+            <h3>NAME</h3> 
+            Username <input id="namebox" type="text"></input><br><br>
+
           </div>
           <div class="column" style="background-color:#d6f5d6";>
             <h2>Score</h2>
@@ -92,10 +101,21 @@
             <h3>SCORE</h3>
             <h3>SCORE</h3>
             <h3>SCORE</h3>
-          </div>
+          </div> -->
+          
+          <table id="table">
+            <th>High Scores</th>
+            <tr>
+              <td id="leaderboard"></td>
+            </tr>
+          </table>
+
+
+
+
+
         </div>
         <div>
-          <!-- <button type="button" class="btn btn-default">Log Out</button> -->
           <a href="logon.html">
             <button 
               class="button" 
@@ -113,11 +133,12 @@
             </button>
           </a>
         </div>
-      <!-- </section>        -->
    </body>
 
    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-database.js"></script>
+
    <script>
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     var firebaseConfig = {
@@ -131,5 +152,6 @@
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+
    </script>
 </html>
