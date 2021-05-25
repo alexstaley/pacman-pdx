@@ -26,6 +26,7 @@ export const TileIndices = {
   ROSE_BROWN: 35,
   ROSE_WHITE: 36,
   BEER: 37,
+  CLOUD: 40,
 };
 
 /* Container for images to use when creating
@@ -48,6 +49,7 @@ export const TileImages = {
   ROSE_BROWN: "../Images/rose-brown.gif",
   ROSE_WHITE: "../Images/rose-white.jpg",
   BEER: "../Images/beer.png",
+  CLOUD: "../Images/cloud.png",
 };
 
 /* Returns true if the given cell in
@@ -76,6 +78,18 @@ export function getCoinRegistry(grid) {
     }
   }
   return coins;
+}
+
+/* Returns an array containing all the clouds in a given map.
+ */
+export function getCloudsList(characterList) {
+  let clouds = [];
+  for (let ch in characterList) {
+    if (characterList[ch].name == "cloud") {
+      clouds.push(characterList[ch]);
+    }
+  }
+  return clouds;
 }
 
 /* Creates the background elements
@@ -117,38 +131,37 @@ export function drawBackground(initMap) {
           // world.innerHTML += `<div id="${r}_${c}" class='tile rose-coin'></div>`;
           break;
         case TileIndices.ROSE_RED:
-          // world.innerHTML += `<div id="${r}_${c}" class='tile rose-red'></div>`;
           // Handle rose token w pixi
           world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.ROSE_YELLOW:
-          // world.innerHTML += `<div id="${r}_${c}" class='tile rose-yellow'></div>`;
           // Handle rose token w pixi
           world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.ROSE_PINK:
-          // world.innerHTML += `<div id="${r}_${c}" class='tile rose-pink'></div>`;
           // Handle rose token w pixi
           world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.ROSE_GOLD:
-          // world.innerHTML += `<div id="${r}_${c}" class='tile rose-gold'></div>`;
           // Handle rose token w pixi
           world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.ROSE_BROWN:
-          // world.innerHTML += `<div id="${r}_${c}" class='tile rose-brown'></div>`;
           // Handle rose token w pixi
           world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.ROSE_WHITE:
-          // world.innerHTML += `<div id="${r}_${c}" class='tile rose-white'></div>`;
           // Handle rose token w pixi
           world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.BEER:
           // Handle beer token w pixi
           world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
+          break;
+        case TileIndices.CLOUD:
+          // Handle cloud token w pixi
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
+          break;
       }
     }
     world.innerHTML += "<br>";
@@ -160,7 +173,7 @@ export var map1 = [
   [12, 30, 13, 11, 14, 30, 13, 11, 11, 14, 30, 13, 11, 11, 11, 11, 14, 30, 12],
   [12, 30, 12, 33, 12, 30, 12, 34, 34, 12, 30, 12, 35, 35, 35, 35, 12, 30, 12],
   [12, 30, 15, 11, 16, 30, 15, 11, 11, 16, 30, 12, 35, 33, 33, 35, 12, 30, 12],
-  [12, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 12, 35, 35, 35, 35, 12, 30, 12],
+  [12, 30, 30, 30, 30, 40, 30, 30, 30, 30, 30, 12, 35, 35, 35, 35, 12, 30, 12],
   [12, 30, 13, 11, 11, 11, 14, 30, 13, 11, 11, 16, 13, 11, 11, 11, 16, 30, 12],
   [12, 30, 15, 11, 11, 11, 16, 30, 15, 11, 11, 11, 16, 30, 30, 30, 37, 30, 12],
   [12, 30, 30, 30, 30, 30, 30, 30, 13, 11, 11, 11, 14, 30, 13, 11, 11, 11, 16],

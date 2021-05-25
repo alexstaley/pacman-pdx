@@ -19,7 +19,9 @@ export class Character {
     this.xDiff = 0.0; // Difference between sprite's x-coord and the center of its column
     this.yDiff = 0.0; // Difference between sprite's y-coord and the center of its row
     this.heading = "right";
-    this.speed = 3;
+    this.speed = 4;
+    this.drunk = false;
+    this.cloudMultiplier = 1;
 
     const texture = PIXI.Texture.from(img);
     this.sprite = new PIXI.Sprite(texture);
@@ -189,8 +191,14 @@ export class Character {
     if (!neighbor) return false;
     // console.log(`this.r=${this.row}, this.c=${this.col}`);
     // console.log(`neigh.r=${neighbor.row}, neigh.c=${neighbor.col}`);
-
-    return false;
+    let halfWidth = this.sprite.width / 2;
+    let halfHeight = this.sprite.height / 2;
+    // let halfWidthNeigh = neighbor.width / 2;
+    // let halfHeightNeigh = neighbor.height / 2;
+    return (
+      Math.abs(this.sprite.x - neighbor.sprite.x) < halfWidth &&
+      Math.abs(this.sprite.y - neighbor.sprite.y) < halfHeight
+    );
   }
 
   /* Change the character's heading.

@@ -8,11 +8,15 @@ import {
   TileImages,
   drawBackground,
   getCoinRegistry,
+  getCloudsList,
   containsWall,
 } from "./modules/maps.js";
 
-const COIN_POINTS = 100;
-const ROSE_POINTS = 1000;
+const COIN_POINTS = 10; // When Pac-Man picks up a coin
+const BEER_POINTS = 50; // When Pac-Man picks up a beer
+const ROSE_POINTS = 100; // When Pac-Man picks up a rose
+const CLOUD_POINTS = 200; // When Pac-Man eats a cloud
+const STARTING_LIVES = 3;
 
 let world = document.getElementById("world");
 let board = document.getElementById("gameboard");
@@ -39,6 +43,7 @@ const app = new PIXI.Application({
 // Create sprites and track coins
 let characterList = createSpritesAccordingTo(grid, window.innerWidth);
 let coinsList = getCoinRegistry(grid);
+let cloudsList = getCloudsList(characterList);
 
 // Watch for window resize
 window.addEventListener("resize", () => {
@@ -57,6 +62,7 @@ let pacman = characterList["1-1"];
 let delta = 0;
 let levelPassed = false;
 let score = 0;
+let lives = STARTING_LIVES;
 console.log(pacman.name);
 
 let upKey = keyboard("ArrowUp");
@@ -77,12 +83,17 @@ rightKey.press = () => {
   pacman.turnSprite("right");
 };
 
-app.ticker.add(move).add(getCoins).add(getRoses).add(getBeers);
+app.ticker
+  .add(move)
+  .add(getCoins)
+  .add(getRoses)
+  .add(getBeers)
+  .add(collideWithCloud);
 
 /* Move the character in the direction it's facing
  */
 function move() {
-  // Move forward and update grid coords
+  // Move Pac-Man forward and update grid coords
   pacman.moveOn(grid, app.renderer.screen);
   pacman.resetGridCoords(app.renderer.screen);
 
@@ -90,6 +101,12 @@ function move() {
   if (containsWall(grid, pacman.row, pacman.col)) {
     pacman.backUp();
   }
+
+  // Move clouds forward and update grid coords
+  cloudsList.forEach((cloud) => {
+    cloud.moveOn(grid, app.renderer.screen);
+    cloud.resetGridCoords(app.renderer.screen);
+  });
 }
 
 function getTokens() {
@@ -151,25 +168,29 @@ function getBeers() {
   if (characterList[cell] && characterList[cell].name == "beer") {
     // Pick up the rose and update score
     characterList[cell].sprite.visible = false;
+    score += BEER_POINTS;
     pacman.drunk = true;
     // pacman.sprite.texture = "../Images/pacman-drunk-open-right.jpg";
     // TODO: Clouds. Drunk timer. Texture loading.
   }
 }
 
-function collisionCheck() {
-  // Check for sprite collision
-  let aSprite = characterList.find((character) => {
-    return (
-      character.row == pacman.row &&
-      character.col == pacman.col &&
-      character.name != pacman.name
-    );
-  });
-  if (pacman.isTouching(aSprite)) {
-    console.log("Hit!");
-  } else {
-    console.log("Miss");
+function collideWithCloud() {
+  let aCloud = characterList[`${pacman.row}-${pacman.col}`]; // TODO: Test me
+  if (aCloud && aCloud.name == "cloud") {
+    if (pacman.isTouching(aCloud)) {
+      if (pacman.drunk) {
+        aCloud.sprite.visible = false;
+        score += CLOUD_POINTS * pacman.cloudMultiplier;
+        pacman.cloudMultiplier *= 2;
+      } else {
+        lives -= 1;
+        if (lives < 0) {
+          // TODO: Kill game loop
+        }
+        // TODO: Move pacman back to starting position without changing the state of other sprites
+      }
+    }
   }
 }
 
@@ -277,6 +298,17 @@ function createSpritesAccordingTo(initMap, windowWidth) {
           );
           app.stage.addChild(roseWhite.sprite);
           characters[`${r}-${c}`] = roseWhite;
+          break;
+        case TileIndices.CLOUD:
+          let cloud = new Character(
+            TileImages.CLOUD,
+            canvas,
+            windowWidth,
+            r,
+            c
+          );
+          app.stage.addChild(cloud.sprite);
+          characters[`${r}-${c}`] = cloud;
           break;
       }
     }
