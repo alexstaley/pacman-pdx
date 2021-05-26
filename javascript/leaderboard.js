@@ -5,34 +5,32 @@
 let database = firebase.database();
 
 let ref = database.ref('leaderboard');
-ref.on('value', gotData, errData);
+ref.on('value', getData, errData);
 
-function gotData(data){
-    // console.log(data.val());
-
+function getData(data){
     let scores = data.val();
     let keys = Object.keys(scores);
     console.log(keys);
+
+    let list = document.getElementById('leaderboard');
 
     for (let i = 0; i < keys.length; i++){
         let k = keys[i];
         let name = scores[k].name;
         let score = scores[k].score;
         let highscore = scores[k].highscore;
-        console.log(name, score, highscore);
+
+        // let li = document.createElement('li', name + " ------- " + highscore);
+        // li.parent('leaderboard');
+        let listitem = document.createElement('li');
+        listitem.textContent = `${name} - ${highscore}`;
+        list.appendChild(listitem);
+        console.log(name, highscore);
     }
 }
 
+// If error retrieving data
 function errData(err){
     console.log('Error!');
     console.log(err);
 }
-
-// const score = document.querySelector("#userscore");
-// const leaderBoard = document.querySelector("#leaderBoard");
-
-
-// const username = document.getElementById('username');
-// const highscore = document.getElementById('highscore');
-
-// const database = firebase.database();
