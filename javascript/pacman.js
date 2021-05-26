@@ -10,13 +10,14 @@ import {
   getCoinRegistry,
   getCloudsList,
   containsWall,
+  getRandomHeading,
 } from "./modules/maps.js";
 
 const COIN_POINTS = 10; // When Pac-Man picks up a coin
 const BEER_POINTS = 50; // When Pac-Man picks up a beer
 const ROSE_POINTS = 100; // When Pac-Man picks up a rose
 const CLOUD_POINTS = 200; // When Pac-Man eats a cloud
-const STARTING_LIVES = 3;
+const STARTING_LIVES = 3; // Number of extra lives Pac-Man starts with
 
 let world = document.getElementById("world");
 let board = document.getElementById("gameboard");
@@ -40,7 +41,7 @@ const app = new PIXI.Application({
   transparent: true,
 });
 
-// Create sprites and track coins
+// Create sprites and track coins and clouds
 let characterList = createSpritesAccordingTo(grid, window.innerWidth);
 let coinsList = getCoinRegistry(grid);
 let cloudsList = getCloudsList(characterList);
@@ -106,6 +107,13 @@ function move() {
   cloudsList.forEach((cloud) => {
     cloud.moveOn(grid, app.renderer.screen);
     cloud.resetGridCoords(app.renderer.screen);
+    if (
+      !cloud.pathWrapsAround(app.renderer.screen) &&
+      !cloud.hasAClearPath(grid)
+      // TODO: Implement cloud turning when unblocked
+    ) {
+      cloud.heading = getRandomHeading();
+    }
   });
 }
 
@@ -175,12 +183,14 @@ function getBeers() {
   }
 }
 
+/* Check the position of each cloud to determine
+ * if any of them are in contact with Pac-Man
+ */
 function collideWithCloud() {
-  let aCloud = characterList[`${pacman.row}-${pacman.col}`]; // TODO: Test me
-  if (aCloud && aCloud.name == "cloud") {
-    if (pacman.isTouching(aCloud)) {
+  cloudsList.forEach((cloud) => {
+    if (pacman.isTouching(cloud)) {
       if (pacman.drunk) {
-        aCloud.sprite.visible = false;
+        cloud.sprite.visible = false;
         score += CLOUD_POINTS * pacman.cloudMultiplier;
         pacman.cloudMultiplier *= 2;
       } else {
@@ -191,7 +201,7 @@ function collideWithCloud() {
         // TODO: Move pacman back to starting position without changing the state of other sprites
       }
     }
-  }
+  });
 }
 
 /* Load Pac-Man mouth animation (if you can get graphics working...)

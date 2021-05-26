@@ -185,19 +185,13 @@ export class Character {
     );
   }
 
-  /* Returns true if the sprite comes into contact with a cloud //TODO
+  /* Returns true if the sprite is in contact with a given other sprite
    */
   isTouching(neighbor) {
     if (!neighbor) return false;
-    // console.log(`this.r=${this.row}, this.c=${this.col}`);
-    // console.log(`neigh.r=${neighbor.row}, neigh.c=${neighbor.col}`);
-    let halfWidth = this.sprite.width / 2;
-    let halfHeight = this.sprite.height / 2;
-    // let halfWidthNeigh = neighbor.width / 2;
-    // let halfHeightNeigh = neighbor.height / 2;
     return (
-      Math.abs(this.sprite.x - neighbor.sprite.x) < halfWidth &&
-      Math.abs(this.sprite.y - neighbor.sprite.y) < halfHeight
+      Math.abs(this.sprite.x - neighbor.sprite.x) < this.sprite.width / 2 &&
+      Math.abs(this.sprite.y - neighbor.sprite.y) < this.sprite.height / 2
     );
   }
 

@@ -81,15 +81,32 @@ export function getCoinRegistry(grid) {
 }
 
 /* Returns an array containing all the clouds in a given map.
+ * Also makes all clouds face a randomly chosen direction.
  */
 export function getCloudsList(characterList) {
   let clouds = [];
   for (let ch in characterList) {
     if (characterList[ch].name == "cloud") {
+      characterList[ch].heading = getRandomHeading();
       clouds.push(characterList[ch]);
     }
   }
   return clouds;
+}
+
+/* Returns a random direction for a cloud to face
+ */
+export function getRandomHeading() {
+  switch (Math.floor(Math.random() * 4)) {
+    case 0:
+      return "up";
+    case 1:
+      return "down";
+    case 2:
+      return "left";
+    case 3:
+      return "right";
+  }
 }
 
 /* Creates the background elements
@@ -179,12 +196,12 @@ export var map1 = [
   [12, 30, 30, 30, 30, 30, 30, 30, 13, 11, 11, 11, 14, 30, 13, 11, 11, 11, 16],
   [15, 11, 14, 30, 13, 11, 11, 11, 16, 10, 10, 10, 12, 30, 12, 10, 10, 10, 10],
   [13, 11, 16, 34, 15, 11, 11, 11, 11, 11, 11, 11, 16, 30, 15, 11, 11, 11, 14],
-  [12, 30, 30, 30, 30, 30, 30, 30, 37, 30, 30, 30, 33, 30, 30, 30, 30, 30, 12],
+  [12, 30, 30, 30, 30, 30, 30, 30, 37, 30, 30, 30, 33, 40, 30, 30, 30, 30, 12],
   [16, 30, 13, 11, 14, 30, 13, 11, 11, 14, 30, 13, 11, 11, 11, 11, 14, 30, 15],
   [30, 37, 12, 10, 12, 30, 12, 10, 10, 12, 30, 12, 10, 10, 10, 10, 12, 30, 30],
   [14, 30, 15, 11, 16, 30, 15, 11, 11, 16, 30, 12, 10, 10, 10, 10, 12, 30, 13],
-  [12, 30, 30, 30, 30, 30, 30, 30, 32, 30, 30, 12, 10, 10, 10, 10, 12, 30, 12],
-  [12, 30, 13, 11, 11, 14, 30, 13, 11, 11, 11, 16, 13, 11, 11, 11, 16, 37, 12],
+  [12, 40, 30, 30, 30, 30, 30, 30, 32, 30, 30, 12, 10, 10, 10, 10, 12, 30, 12],
+  [12, 30, 13, 11, 11, 14, 40, 13, 11, 11, 11, 16, 13, 11, 11, 11, 16, 37, 12],
   [12, 30, 15, 11, 11, 16, 30, 15, 11, 11, 11, 11, 16, 30, 30, 30, 30, 30, 12],
   [15, 11, 11, 11, 11, 14, 30, 13, 11, 11, 11, 11, 14, 30, 13, 11, 11, 11, 16],
 ];
