@@ -101,6 +101,7 @@ function move() {
   pacman.resetGridCoords(app.renderer.screen);
   if (pacman.drunk) {
     drunkDelta -= 1;
+    console.log(drunkDelta);
     if (drunkDelta == 0) {
       pacman.soberUp();
     }
@@ -169,13 +170,13 @@ function getRoses() {
 function getBeers() {
   let cell = `${pacman.row}-${pacman.col}`;
   if (characterList[cell] && characterList[cell].name == "beer") {
-    // Pick up the rose and update score
+    // FIXME: Drinks beer even after it's already been drank
     characterList[cell].sprite.visible = false;
     score += BEER_POINTS;
     pacman.drunk = true;
     drunkDelta = DRUNK_TIME;
     // pacman.sprite.texture = "../Images/pacman-drunk-open-right.jpg";
-    // TODO: Drunk timer. Texture loading for drunk pacman image
+    // TODO: Texture loading for drunk pacman image
   }
 }
 

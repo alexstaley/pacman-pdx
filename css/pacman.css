@@ -11,6 +11,8 @@
   z-index: 3;
 }
 
+/* TODO: Delete unnecessary styling, e.g. for pixi tokens */
+
 /* Backgrounds */
 #game-container {
   margin: 1em;
@@ -40,7 +42,6 @@
 
 .log {
   background-image: url("../Images/log.png");
-  /* https://www.pngitem.com/middle/JmbRim_firewood-forest-log-trapped-tree-wood-wood-log/ */
 }
 .log-vert {
   transform: rotate(90deg);
@@ -48,7 +49,6 @@
 
 .thorns {
   background-image: url("../Images/thorns-corner.jpg");
-  /* https://www.shutterstock.com/editor/image/set-vector-frames-vines-thorns-design-593265374 */
 }
 .thorns-br {
   transform: rotate(90deg); /* bottom right */
@@ -81,6 +81,7 @@
   height: 1.5vw;
   margin: 1.5vw 1.25vw; /* margin-right = (tile width - coin width)/2 */
 }
+
 .rose-red {
   background-image: url("../Images/rose.jpg");
 }
@@ -106,3 +107,6 @@
 }
 
 /* Rainclouds */
+.cloud {
+  background-image: url("../Images/cloud.png");
+}
