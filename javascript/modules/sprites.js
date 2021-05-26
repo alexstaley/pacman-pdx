@@ -245,6 +245,12 @@ export class Character {
     this.sprite.y = y;
   }
 
+  /* Self-explanatory.
+   */
+  soberUp() {
+    this.drunk = false;
+  }
+
   /* Back up at double speed. Ticker should call this if
    * the character finds itself sharing space with a wall.
    */

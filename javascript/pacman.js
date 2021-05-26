@@ -18,6 +18,7 @@ const BEER_POINTS = 50; // When Pac-Man picks up a beer
 const ROSE_POINTS = 100; // When Pac-Man picks up a rose
 const CLOUD_POINTS = 200; // When Pac-Man eats a cloud
 const STARTING_LIVES = 3; // Number of extra lives Pac-Man starts with
+const DRUNK_TIME = 600; // Number of ticks Pac-Man spends drunk (60 ticks/second)
 
 let world = document.getElementById("world");
 let board = document.getElementById("gameboard");
@@ -42,7 +43,7 @@ const app = new PIXI.Application({
 });
 
 // Create sprites and track coins and clouds
-let characterList = createSpritesAccordingTo(grid, window.innerWidth);
+let characterList = createSprites(grid, window.innerWidth);
 let coinsList = getCoinRegistry(grid);
 let cloudsList = getCloudsList(characterList);
 
@@ -58,13 +59,13 @@ window.addEventListener("resize", () => {
   }
 });
 
-// Enter game loop
-let pacman = characterList["1-1"];
+// Declare game variables
+let pacman = characterList["1-1"]; // TODO: Find pacman wherever he happens to be on the map, instead of hard-coding coords
 let delta = 0;
 let levelPassed = false;
 let score = 0;
-let lives = STARTING_LIVES;
-console.log(pacman.name);
+let extraLives = STARTING_LIVES;
+let drunkDelta = 0;
 
 let upKey = keyboard("ArrowUp");
 let downKey = keyboard("ArrowDown");
@@ -84,6 +85,7 @@ rightKey.press = () => {
   pacman.turnSprite("right");
 };
 
+// TICKER
 app.ticker
   .add(move)
   .add(getCoins)
@@ -94,9 +96,15 @@ app.ticker
 /* Move the character in the direction it's facing
  */
 function move() {
-  // Move Pac-Man forward and update grid coords
+  // Move Pac-Man forward, update grid coords & drunk status
   pacman.moveOn(grid, app.renderer.screen);
   pacman.resetGridCoords(app.renderer.screen);
+  if (pacman.drunk) {
+    drunkDelta -= 1;
+    if (drunkDelta == 0) {
+      pacman.soberUp();
+    }
+  }
 
   // Check for walk-thru-walls bug
   if (containsWall(grid, pacman.row, pacman.col)) {
@@ -110,24 +118,11 @@ function move() {
     if (
       !cloud.pathWrapsAround(app.renderer.screen) &&
       !cloud.hasAClearPath(grid)
-      // TODO: Implement cloud turning when unblocked
+      // TODO: Implement cloud turning when there is a turn (not high priority)
     ) {
       cloud.heading = getRandomHeading();
     }
   });
-}
-
-function getTokens() {
-  switch (characterList[`${pacman.row}-${pacman.col}`]) {
-    case TileIndices.COIN:
-      break;
-    case TileIndices.BEER:
-      break;
-    case TileIndices.ROSE_WHITE:
-      break;
-    // etc...?
-    // TODO: How to handle roses?
-  }
 }
 
 /* Pick up coins. Coins become invisible, and the score and
@@ -178,8 +173,9 @@ function getBeers() {
     characterList[cell].sprite.visible = false;
     score += BEER_POINTS;
     pacman.drunk = true;
+    drunkDelta = DRUNK_TIME;
     // pacman.sprite.texture = "../Images/pacman-drunk-open-right.jpg";
-    // TODO: Clouds. Drunk timer. Texture loading.
+    // TODO: Drunk timer. Texture loading for drunk pacman image
   }
 }
 
@@ -194,8 +190,8 @@ function collideWithCloud() {
         score += CLOUD_POINTS * pacman.cloudMultiplier;
         pacman.cloudMultiplier *= 2;
       } else {
-        lives -= 1;
-        if (lives < 0) {
+        extraLives -= 1;
+        if (extraLives < 0) {
           // TODO: Kill game loop
         }
         // TODO: Move pacman back to starting position without changing the state of other sprites
@@ -216,7 +212,7 @@ function mouth() {
 /* Initialize sprites according to the given map array.
  * Returns a container object of characters indexed by "{row}-{col}".
  */
-function createSpritesAccordingTo(initMap, windowWidth) {
+function createSprites(initMap, windowWidth) {
   let characters = {};
   let canvas = app.renderer.screen;
   for (let r = 0; r < MAP_WIDTH; ++r) /*rows*/ {
