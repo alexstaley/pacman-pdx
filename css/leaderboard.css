@@ -68,7 +68,23 @@ body {
 
 h2 {
     font-family: monospace;
-    /* color: rgb(59, 31, 135); */
+    padding-top: 10px;
+    text-align: center;
+}
+
+ol {
+    font-family: monospace;
+    font-size: 1.5em;
+}
+
+dl {
+    font-family: monospace;
+    font-size: 1.5em;
+}
+
+th {
+    font-size: 2em;
+    font-family: monospace;
     padding-top: 10px;
     text-align: center;
 }
