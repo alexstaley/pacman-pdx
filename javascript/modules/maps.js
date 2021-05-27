@@ -49,6 +49,7 @@ export const TileImages = {
   THORN_BOTTOM_LEFT: "../Images/thorns-corner.jpg",
   THORN_BOTTOM_RIGHT: "../Images/thorns-corner.jpg",
   PAC_MAN: "../Images/pacman-open-right.jpg",
+  DRUNK_PAC_MAN: "../Images/pacman-drunk-open-right.jpg",
   COIN: "../Images/rose-coin.jpg",
   ROSE_RED: "../Images/rose.jpg",
   ROSE_YELLOW: "../Images/rose-yellow.jpg",

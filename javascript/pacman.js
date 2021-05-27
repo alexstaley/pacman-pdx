@@ -180,8 +180,7 @@ function getBeers() {
     score += BEER_POINTS;
     pacman.drunk = true;
     drunkDelta = DRUNK_TIME;
-    // pacman.sprite.texture = "../Images/pacman-drunk-open-right.jpg";
-    // TODO: Texture loading for drunk pacman image
+    pacman.sprite.texture = PIXI.Texture.from(TileImages.DRUNK_PAC_MAN);
   }
 }
 

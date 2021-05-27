@@ -249,6 +249,7 @@ export class Character {
    */
   soberUp() {
     this.drunk = false;
+    this.sprite.texture = PIXI.Texture.from(TileImages.PAC_MAN);
   }
 
   /* Back up at double speed. Ticker should call this if
