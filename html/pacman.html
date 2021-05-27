@@ -11,10 +11,22 @@
     <script defer type="module" src="../javascript/pacman.js"></script>
   </head>
   <body>
-    <h1>Game Screen</h1>
-    <section id="game-container">
-      <div id="world"></div>
-      <canvas id="gameboard"></canvas>
-    </section>
+    <div class="bodyFrame">
+      <div class="bodyFrame-top">
+        <div class="header-userFrame">User Frame</div>
+        <div class="header-scoreFrame">Score Frame</div>
+        <div class="header-livesFrame">Lives Frame</div>
+      </div>
+      <div class="bodyFrame-left">
+        <div class="bodyFrame-userControlFrame">User Control Frame</div>
+        <div class="bodyFrame-buttonControlFrame">button Control Frame</div>
+      </div>
+      <div class="bodyFrame-right">
+        <section id="game-container">
+          <div id="world"></div>
+          <canvas id="gameboard"></canvas>
+        </section>
+      </div>
+    </div>
   </body>
 </html>

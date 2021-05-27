@@ -1,4 +1,11 @@
-/* Tile */
+@font-face {
+  font-family: bitwise;
+  src: url(../fonts/bitwise.ttf);
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
 .tile {
   display: inline-block;
   width: 4vw;
@@ -14,7 +21,8 @@
 /* Backgrounds */
 #game-container {
   margin: 1em;
-  width: 76vw;
+  width: 65.5vw;
+  position: relative;
   background-color: black;
   z-index: 0;
 }
@@ -22,8 +30,10 @@
 #world {
   background-color: black;
   position: absolute;
+  left: auto;
+  top: auto;
+  width: 65.6vw;
   height: min-content;
-  width: 76vw;
   /* TODO: Refactor magic numbers */
   z-index: 2;
 }
@@ -31,6 +41,8 @@
 #gameboard {
   z-index: 4;
   position: absolute;
+  left: auto;
+  top: auto;
   padding: 2vw 0 0 2vw;
 }
 
@@ -80,6 +92,7 @@
   width: 1.5vw;
   height: 1.5vw;
   margin: 1.5vw 1.25vw; /* margin-right = (tile width - coin width)/2 */
+  overflow: auto;
 }
 .rose-red {
   background-image: url("../Images/rose.jpg");
@@ -98,6 +111,117 @@
 }
 .rose-white {
   background-image: url("../Images/rose-white.jpg");
+}
+.body {
+  height: 100vh;
+  width: 100vw;
+}
+/*header-frames*/
+.header {
+  display: flex;
+  width: 90vw;
+  padding: 2px;
+  border-radius: 2px;
+  border: 2px solid grey;
+  margin: 2px;
+  height: 30vh;
+}
+.header-userFrame {
+  justify-content: start;
+  width: 33vw;
+  padding: 2px;
+  border-radius: 2px;
+  border: 2px solid grey;
+  margin: 2px;
+  text-align: left;
+  font-family: "bitwise";
+}
+
+.header-userFrame > img {
+  max-height: 2%;
+  max-width: 2%;
+}
+
+.header-scoreFrame {
+  justify-content: center;
+  width: 33vw;
+  padding: 2px;
+  border: 2px solid grey;
+  border-radius: 2px;
+  margin: 2px;
+  text-align: center;
+}
+.header-livesFrame {
+  width: 33vw;
+  justify-content: end;
+  padding: 2px;
+  border-radius: 2px;
+  border: 2px solid grey;
+  margin: 2px;
+  text-align: right;
+}
+
+/*Body frames*/
+.bodyFrame {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  border-radius: 2px;
+  border: 2px solid grey;
+  height: min-content;
+}
+.bodyFrame-top {
+  background-color: blue;
+  position: relative;
+  top: 0mm;
+  display: flex;
+  align-items: stretch;
+  height: 15vh;
+  justify-content: space-evenly;
+  padding: 4px;
+  font-family: "bitwise";
+  color: white;
+}
+.bodyFrame-bottom {
+  background-color: pink;
+  height: auto;
+  width: 99vw;
+  display: flex;
+  flex-direction: row;
+  padding: 4px;
+}
+.bodyFrame-left {
+  background-color: green;
+  padding: 4px;
+  border-radius: 2px;
+  border: 2px solid grey;
+  margin: 2px;
+  width: 30vw;
+  text-align: center;
+  vertical-align: text-bottom;
+  height: auto;
+}
+.bodyFrame-left > img {
+  margin-top: 20vh;
+  text-align: justify;
+}
+.bodyFrame-right {
+  background-color: purple;
+  padding: 4px;
+  border-radius: 2px;
+  border: 2px solid grey;
+  margin: 2px;
+  position: relative;
+  right: top;
+  width: 70vw;
+  height: auto;
+}
+bodyFrame-buttonControlFrame {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  padding-top: 10px;
 }
 
 /* Tokens */

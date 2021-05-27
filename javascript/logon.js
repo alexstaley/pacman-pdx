@@ -2,10 +2,11 @@
 //Firebase Web Login - Firebase Web App Tutorial
 //https://www.youtube.com/watch?v=iKlWaUszxB4
 
-function logon() {
-  window.alert("entered Logon");
+function logon(user, pass) {
+  window.alert("entered Logon", user);
   var userEmail = document.getElementById("emailName").value;
   var userPassword = document.getElementById("passwordName").value;
+
   firebase
     .auth()
     .signInWithEmailAndPassword(userEmail, userPassword)
@@ -13,7 +14,7 @@ function logon() {
     .then((userCredential) => {
       // Signed in
       var user = userCredential.user;
-      window.alert("inside of signInWithEmailAndPassword");
+      window.alert("userEmail", userEmail);
       // ...
     })
     .catch((error) => {
@@ -53,20 +54,17 @@ function logout() {
 }
 
 function googleLog() {
-  window.alert("inside of googleLog - Changed again");
   var provider = new firebase.auth.GoogleAuthProvider();
   firebase
     .auth()
     .signInWithPopup(provider)
     .then((result) => {
       /** @type {firebase.auth.OAuthCredential} */
-      window.alert("inside of .then");
       var credential = result.credential;
       // This gives you a Google Access Token. You can use it to access the Google API.
       var token = credential.accessToken;
       // The signed-in user info.
       var user = result.user;
-
       // ...
     })
     .then((window.location = "pacman.html"))
@@ -79,5 +77,19 @@ function googleLog() {
       // The firebase.auth.AuthCredential type that was used.
       var credential = error.credential;
       // ...
+      window.alert("Error: ", errorMessage);
     });
+}
+
+function getUserInfo() {
+  var user = firebase.auth().currentUser;
+  var name, email, photoUrl, uid, emailVerified;
+
+  if (user != null) {
+    name = user.displayName;
+    email = user.email;
+    photoUrl = user.photoURL;
+    emailVerified = user.emailVerified;
+    uid = user.uid;
+  }
 }
