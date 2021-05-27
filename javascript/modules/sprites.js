@@ -20,6 +20,9 @@ export class Character {
     this.yDiff = 0.0; // Difference between sprite's y-coord and the center of its row
     this.heading = "right";
     this.speed = 3;
+    this.speed = 4;
+    this.drunk = false;
+    this.cloudMultiplier = 1;
 
     const texture = PIXI.Texture.from(img);
     this.sprite = new PIXI.Sprite(texture);
@@ -48,6 +51,28 @@ export class Character {
     } else {
       this.sprite.width = 0.04 * windowWidth;
       this.sprite.height = 0.04 * windowWidth;
+    }
+  }
+
+  /* If there is a clear path, move forward at speed
+   */
+  moveOn(grid, canvas) {
+    if (this.pathWrapsAround(canvas) || this.hasAClearPath(grid)) {
+      this.recenter();
+      switch (this.heading) {
+        case "up":
+          this.sprite.y -= this.speed;
+          break;
+        case "down":
+          this.sprite.y += this.speed;
+          break;
+        case "left":
+          this.sprite.x -= this.speed;
+          break;
+        case "right":
+          this.sprite.x += this.speed;
+          break;
+      }
     }
   }
 
@@ -102,6 +127,68 @@ export class Character {
   }
 
   /* Returns true if the character has a clear path in front of it
+
+    // Check for wraparound path
+    if (this.isCloseEnough()) {
+      this.wrapAround(canvas);
+      // FIXME: Pacman can hug the corners to avoid being closeEnough() to
+      // trigger the wrapAround() function, hiding outside the screen.
+      // This is actually kinda fun sooooo not a high priority :)
+    }
+  }
+
+  /* Adjust the sprite's position and grid coords to
+   * reflect being on a path that wraps around the screen
+   */
+  wrapAround(canvas) {
+    switch (this.heading) {
+      case "up":
+        if (this.row == 0) {
+          this.sprite.y = canvas.height - TILE_WIDTH;
+          this.row = MAP_HEIGHT - 1;
+        }
+        break;
+      case "down":
+        if (this.row == MAP_HEIGHT - 1) {
+          this.sprite.y = 0;
+          this.row = 0;
+        }
+        break;
+      case "left":
+        if (this.col == 0) {
+          this.sprite.x = canvas.width - TILE_WIDTH;
+          this.col = MAP_WIDTH - 1;
+        }
+        break;
+      case "right":
+        if (this.col == MAP_WIDTH - 1) {
+          this.sprite.x = 0;
+          this.col = 0;
+        }
+        break;
+    }
+  }
+
+  /* Returns true if the character occupies
+   * a cell on the map's edge (such cells
+   * should wrap around to the opposite side
+   * of the board)
+   */
+  pathWrapsAround() {
+    return (
+      this.row == 0 ||
+      this.row == MAP_HEIGHT - 1 ||
+      this.col == 0 ||
+      this.col == MAP_WIDTH - 1
+    );
+  }
+
+  /* Returns true if the character has a clear path
+   * immediately in front of it (i.e. no walls).
+   *
+   * //FIXME: This function must be preceded by a call to
+   * the pathWrapsAround() function, or it will blow
+   * up the map by calling an out of bounds index
    */
   hasAClearPath(grid) {
     let aWall = true;
@@ -122,6 +209,51 @@ export class Character {
 
     // If we can see a wall coming, check if we're close enough to be stopped
     return aWall ? !this.isCloseEnough() : true;
+  }
+
+  /* Returns true if the sprite is within a threshold of the
+   * middle of the character's row (or col, depending on heading)
+   */
+  isCloseEnough() {
+    return (
+      Math.abs(
+        this.heading == "right" || this.heading == "left"
+          ? this.xDiff
+          : this.yDiff
+      ) < THRESHOLD
+    );
+  }
+
+  /* Returns true if the sprite is in contact with a given other sprite
+   */
+  isTouching(neighbor) {
+    if (!neighbor) return false;
+    return (
+      Math.abs(this.sprite.x - neighbor.sprite.x) < this.sprite.width / 2 &&
+      Math.abs(this.sprite.y - neighbor.sprite.y) < this.sprite.height / 2
+    );
+  }
+
+  /* Change the character's heading.
+   * Called by gameplay button event listeners
+   */
+  turnSprite(direction) {
+    let face = 0;
+    switch (direction) {
+      case "up":
+        face = (3 * Math.PI) / 2;
+        break;
+      case "down":
+        face = Math.PI / 2;
+        break;
+      case "left":
+        face = Math.PI;
+        break;
+      case "right":
+        break;
+    }
+    this.heading = direction;
+    this.sprite.rotation = face;
   }
 
   /* Nudge the sprite back to
@@ -172,7 +304,11 @@ export class Character {
           break;
       }
     }
-  }
+  /* Self-explanatory.
+   */
+    soberUp(){
+    this.drunk = false;
+    }
 
   /* Back up at double speed. Ticker should call this if
    * the character finds itself sharing space with a wall.
@@ -192,5 +328,6 @@ export class Character {
         this.sprite.x -= this.speed * 2;
         break;
     }
+  }
   }
 }
