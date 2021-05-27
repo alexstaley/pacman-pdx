@@ -151,6 +151,7 @@ function getRoses() {
   let cell = `${pacman.row}-${pacman.col}`;
   if (
     characterList[cell] &&
+    characterList[cell].sprite.visible &&
     (characterList[cell].name == "rose" ||
       characterList[cell].name == "rose-yellow" ||
       characterList[cell].name == "rose-pink" ||
@@ -169,7 +170,11 @@ function getRoses() {
  */
 function getBeers() {
   let cell = `${pacman.row}-${pacman.col}`;
-  if (characterList[cell] && characterList[cell].name == "beer") {
+  if (
+    characterList[cell] &&
+    characterList[cell].sprite.visible &&
+    characterList[cell].name == "beer"
+  ) {
     // FIXME: Drinks beer even after it's already been drank
     characterList[cell].sprite.visible = false;
     score += BEER_POINTS;
