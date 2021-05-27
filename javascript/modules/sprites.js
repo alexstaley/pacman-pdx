@@ -247,6 +247,13 @@ export class Character {
 
   /* Self-explanatory.
    */
+  getDrunk() {
+    this.drunk = true;
+    this.sprite.texture = PIXI.Texture.from(TileImages.DRUNK_PAC_MAN);
+  }
+
+  /* Self-explanatory.
+   */
   soberUp() {
     this.drunk = false;
     this.sprite.texture = PIXI.Texture.from(TileImages.PAC_MAN);

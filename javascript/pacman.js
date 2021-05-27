@@ -11,12 +11,13 @@ import {
   getCloudsList,
   containsWall,
   getRandomHeading,
+  getPacManStartingCoords,
 } from "./modules/maps.js";
 
-const COIN_POINTS = 10; // When Pac-Man picks up a coin
-const BEER_POINTS = 50; // When Pac-Man picks up a beer
-const ROSE_POINTS = 100; // When Pac-Man picks up a rose
-const CLOUD_POINTS = 200; // When Pac-Man eats a cloud
+const COIN_POINTS = 10; // Number of points awarded when Pac-Man picks up a coin
+const BEER_POINTS = 50; // ...when Pac-Man picks up a beer
+const ROSE_POINTS = 100; // ...when Pac-Man picks up a rose
+const CLOUD_POINTS = 200; // ...when Pac-Man eats a cloud
 const STARTING_LIVES = 3; // Number of extra lives Pac-Man starts with
 const DRUNK_TIME = 600; // Number of ticks Pac-Man spends drunk (60 ticks/second)
 
@@ -60,7 +61,7 @@ window.addEventListener("resize", () => {
 });
 
 // Declare game variables
-let pacman = characterList["1-1"]; // TODO: Find pacman wherever he happens to be on the map, instead of hard-coding coords
+let pacman = characterList[getPacManStartingCoords(grid)];
 let delta = 0;
 let levelPassed = false;
 let score = 0;
@@ -101,7 +102,6 @@ function move() {
   pacman.resetGridCoords(app.renderer.screen);
   if (pacman.drunk) {
     drunkDelta -= 1;
-    console.log(drunkDelta);
     if (drunkDelta == 0) {
       pacman.soberUp();
     }
@@ -119,7 +119,7 @@ function move() {
     if (
       !cloud.pathWrapsAround(app.renderer.screen) &&
       !cloud.hasAClearPath(grid)
-      // TODO: Implement cloud turning when there is a turn (not high priority)
+      // TODO: Implement cloud turning when there is a turn
     ) {
       cloud.heading = getRandomHeading();
     }
@@ -175,12 +175,10 @@ function getBeers() {
     characterList[cell].sprite.visible &&
     characterList[cell].name == "beer"
   ) {
-    // FIXME: Drinks beer even after it's already been drank
     characterList[cell].sprite.visible = false;
     score += BEER_POINTS;
-    pacman.drunk = true;
     drunkDelta = DRUNK_TIME;
-    pacman.sprite.texture = PIXI.Texture.from(TileImages.DRUNK_PAC_MAN);
+    pacman.getDrunk();
   }
 }
 

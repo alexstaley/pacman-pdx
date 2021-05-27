@@ -118,6 +118,19 @@ export function getRandomHeading() {
   }
 }
 
+/* Return the starting coordinates of Pac-Man
+ * on a given map in the form "{row}-{col}"
+ */
+export function getPacManStartingCoords(grid) {
+  for (let r = 0; r < MAP_WIDTH; ++r) {
+    for (let c = 0; c < MAP_HEIGHT; ++c) {
+      if (grid[r][c] == TileIndices.PAC_MAN) {
+        return `${r}-${c}`;
+      }
+    }
+  }
+}
+
 /* Creates the background elements
  * in the DOM for the given map array
  */
