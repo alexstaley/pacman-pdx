@@ -19,4 +19,3 @@ function onSignIn(googleUser) {
     playerName.innerHTML = profile.getGivenName();
   }
 }
-
