@@ -37,7 +37,7 @@ export const TileIndices = {
  *   IMAGE SOURCES:
  * Log: https://www.pngitem.com/middle/JmbRim_firewood-forest-log-trapped-tree-wood-wood-log/
  * Thorn: https://www.shutterstock.com/editor/image/set-vector-frames-vines-thorns-design-593265374
- * Pac-Man: //TODO
+ * Pac-Man: https://www.pinterest.com/pin/566890671836766861/
  * Coins/Roses: https://www.pinterest.com/pin/275493702193311949/
  * Beer: https://openclipart.org/detail/14854/beer-mug
  * Clouds: http://clipart-library.com/clipart/BTgrp98Rc.htm
