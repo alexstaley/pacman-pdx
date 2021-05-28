@@ -19,7 +19,7 @@ const BEER_POINTS = 50; // ...when Pac-Man picks up a beer
 const ROSE_POINTS = 100; // ...when Pac-Man picks up a rose
 const CLOUD_POINTS = 200; // ...when Pac-Man eats a cloud
 const STARTING_LIVES = 3; // Number of extra lives Pac-Man starts with
-const DRUNK_TIME = 600; // Number of ticks Pac-Man spends drunk (60 ticks/second)
+const DRUNK_TIME = 420; // Number of ticks Pac-Man spends drunk (60 ticks/second)
 
 let world = document.getElementById("world");
 let board = document.getElementById("gameboard");
@@ -57,6 +57,7 @@ window.addEventListener("resize", () => {
   for (let ch in characterList) {
     characterList[ch].resizeSprite(window.innerWidth);
     characterList[ch].replaceSprite(app.renderer.screen);
+    characterList[ch].resetSpeed(window.innerWidth);
   }
 });
 
@@ -68,6 +69,7 @@ let score = 0;
 let extraLives = STARTING_LIVES;
 let drunkDelta = 0;
 
+// Define and listen for controls
 let upKey = keyboard("ArrowUp");
 let downKey = keyboard("ArrowDown");
 let leftKey = keyboard("ArrowLeft");
@@ -86,13 +88,32 @@ rightKey.press = () => {
   pacman.turnSprite("right");
 };
 
-// TICKER
-app.ticker
-  .add(move)
-  .add(getCoins)
-  .add(getRoses)
-  .add(getBeers)
-  .add(collideWithCloud);
+// TODO: Event listeners for on-screen control buttons should call pacman.turnSprite() as above keyboard controls do
+
+let state = ready;
+state = play;
+app.ticker.add((delta) => gameLoop(delta));
+
+function gameLoop(delta) {
+  state(delta);
+}
+
+function ready(delta) {
+  // TODO
+}
+function pause(delta) {
+  // TODO
+}
+function end(delta) {
+  // TODO
+}
+function play(delta) {
+  move();
+  getCoins();
+  getRoses();
+  getBeers();
+  collideWithCloud();
+}
 
 /* Move the character in the direction it's facing
  */
@@ -104,6 +125,9 @@ function move() {
     drunkDelta -= 1;
     if (drunkDelta == 0) {
       pacman.soberUp();
+      cloudsList.forEach((cloud) => {
+        cloud.sprite.texture = PIXI.Texture.from(TileImages.CLOUD);
+      });
     }
   }
 
@@ -116,6 +140,11 @@ function move() {
   cloudsList.forEach((cloud) => {
     cloud.moveOn(grid, app.renderer.screen);
     cloud.resetGridCoords(app.renderer.screen);
+    // Check for walk-thru-walls bug
+    if (containsWall(grid, cloud.row, cloud.col)) {
+      cloud.backUp();
+      cloud.heading = getRandomHeading();
+    }
     if (
       !cloud.pathWrapsAround(app.renderer.screen) &&
       !cloud.hasAClearPath(grid)
@@ -179,6 +208,9 @@ function getBeers() {
     score += BEER_POINTS;
     drunkDelta = DRUNK_TIME;
     pacman.getDrunk();
+    cloudsList.forEach((cloud) => {
+      cloud.sprite.texture = PIXI.Texture.from(TileImages.DRUNK_CLOUD);
+    });
   }
 }
 

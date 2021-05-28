@@ -18,6 +18,7 @@ export const TileIndices = {
   THORN_BOTTOM_LEFT: 15,
   THORN_BOTTOM_RIGHT: 16,
   PAC_MAN: 20,
+  DRUNK_PAC_MAN: 21,
   COIN: 30,
   ROSE_RED: 31,
   ROSE_YELLOW: 32,
@@ -27,6 +28,7 @@ export const TileIndices = {
   ROSE_WHITE: 36,
   BEER: 37,
   CLOUD: 40,
+  DRUNK_CLOUD: 41,
 };
 
 /* Container for images to use when creating
@@ -38,7 +40,7 @@ export const TileIndices = {
  * Pac-Man: //TODO
  * Coins/Roses: https://www.pinterest.com/pin/275493702193311949/
  * Beer: https://openclipart.org/detail/14854/beer-mug
- * Cloud: http://clipart-library.com/clipart/BTgrp98Rc.htm
+ * Clouds: http://clipart-library.com/clipart/BTgrp98Rc.htm
  */
 export const TileImages = {
   GROUND: "../Images/ground.jpg",
@@ -59,6 +61,7 @@ export const TileImages = {
   ROSE_WHITE: "../Images/rose-white.jpg",
   BEER: "../Images/beer.png",
   CLOUD: "../Images/cloud.png",
+  DRUNK_CLOUD: "../Images/cloud-drunk.png",
 };
 
 /* Returns true if the given cell in
@@ -165,9 +168,8 @@ export function drawBackground(initMap) {
           world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.COIN:
-          // Handle coin token w pixi??? Pretty sure yes, but leaving DOM option commented out for now
+          // Handle coin token w pixi
           world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
-          // world.innerHTML += `<div id="${r}_${c}" class='tile rose-coin'></div>`;
           break;
         case TileIndices.ROSE_RED:
           // Handle rose token w pixi

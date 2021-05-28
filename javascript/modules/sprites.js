@@ -19,7 +19,6 @@ export class Character {
     this.xDiff = 0.0; // Difference between sprite's x-coord and the center of its column
     this.yDiff = 0.0; // Difference between sprite's y-coord and the center of its row
     this.heading = "right";
-    this.speed = 4;
     this.drunk = false;
     this.cloudMultiplier = 1;
 
@@ -27,6 +26,7 @@ export class Character {
     this.sprite = new PIXI.Sprite(texture);
     this.replaceSprite(canvas);
     this.resizeSprite(windowWidth);
+    this.resetSpeed(windowWidth);
   }
 
   /* Reset the position of the sprite.
@@ -50,6 +50,12 @@ export class Character {
     } else {
       this.sprite.width = 0.04 * windowWidth;
       this.sprite.height = 0.04 * windowWidth;
+    }
+  }
+
+  resetSpeed(windowWidth) {
+    if (this.img == TileImages.PAC_MAN || this.img == TileImages.CLOUD) {
+      this.speed = Math.floor(windowWidth / 200);
     }
   }
 
@@ -92,10 +98,8 @@ export class Character {
     // Check for wraparound path
     if (this.isCloseEnough()) {
       this.wrapAround(canvas);
-      // FIXME: Pacman can hug the corners to avoid being closeEnough() to
-      // trigger the wrapAround() function, hiding outside the screen.
-      // This is actually kinda fun sooooo not a high priority :)
     }
+    // console.log(`${this.name}: (${this.row}, ${this.col})`);
   }
 
   /* Adjust the sprite's position and grid coords to
@@ -137,10 +141,10 @@ export class Character {
    */
   pathWrapsAround() {
     return (
-      this.row == 0 ||
-      this.row == MAP_HEIGHT - 1 ||
-      this.col == 0 ||
-      this.col == MAP_WIDTH - 1
+      this.row <= 0 ||
+      this.row >= MAP_HEIGHT - 1 ||
+      this.col <= 0 ||
+      this.col >= MAP_WIDTH - 1
     );
   }
 
@@ -257,6 +261,7 @@ export class Character {
   soberUp() {
     this.drunk = false;
     this.sprite.texture = PIXI.Texture.from(TileImages.PAC_MAN);
+    this.cloudMultiplier = 1;
   }
 
   /* Back up at double speed. Ticker should call this if
