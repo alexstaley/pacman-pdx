@@ -79,7 +79,6 @@
   width: 1.5vw;
   height: 1.5vw;
   margin: 1.5vw 1.25vw; /* margin-right = (tile width - coin width)/2 */
-  overflow: auto;
 }
 .rose-red {
   background-image: url("../Images/rose.jpg");

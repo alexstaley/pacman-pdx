@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Pac-Man PDX - Leaderboard</title>
+    <link rel="stylesheet" type="text/css" href="../css/leaderboard.css" />
+    <script defer type="module" src="../javascript/leaderboard.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link rel="icon" type="image/png" href="../Images/favicon.png"/>
+  </head>
+  <body>
+    <h1 class = "header-pacman">  
+      <p>
+       <div class="icon">
+         <div>
+           <span class="icon-P"
+             ><span class="path1"></span><span class="path2"></span
+             ><span class="path3"></span><span class="path4"></span
+             ><span class="path5"></span><span class="path6"></span
+           ></span>
+           <span class="icon-A"
+           ><span class="path1"></span><span class="path2"></span
+           ><span class="path3"></span><span class="path4"></span
+           ><span class="path5"></span><span class="path6"></span
+         ></span>
+         <span class="icon-C"
+             ><span class="path1"></span><span class="path2"></span
+             ><span class="path3"></span><span class="path4"></span
+             ><span class="path5"></span><span class="path6"></span
+           ></span>
+           <span class="icon-M"
+             ><span class="path1"></span><span class="path2"></span
+             ><span class="path3"></span><span class="path4"></span
+             ><span class="path5"></span><span class="path6"></span
+           ></span>
+           <span class="icon-A"
+             ><span class="path1"></span><span class="path2"></span
+             ><span class="path3"></span><span class="path4"></span
+             ><span class="path5"></span><span class="path6"></span
+           ></span>
+           <span class="icon-N"
+             ><span class="path1"></span><span class="path2"></span
+             ><span class="path3"></span><span class="path4"></span
+             ><span class="path5"></span><span class="path6"></span
+           ></span>
+        </div>
+        </p>
+       </h1>
+    <h1 class = "header-pdx">  
+     <p>
+      <div class="icon">
+        <div>
+          <span class="icon-P"
+            ><span class="path1"></span><span class="path2"></span
+            ><span class="path3"></span><span class="path4"></span
+            ><span class="path5"></span><span class="path6"></span
+          ></span>
+          <span class="icon-D"
+          ><span class="path1"></span><span class="path2"></span
+          ><span class="path3"></span><span class="path4"></span
+          ><span class="path5"></span><span class="path6"></span
+        ></span>
+        <span class="icon-X"
+            ><span class="path1"></span><span class="path2"></span
+            ><span class="path3"></span><span class="path4"></span
+            ><span class="path5"></span><span class="path6"></span
+          ></span>
+        </div>  
+       </h1>
+        <div class = "rose-img">
+          <img src = "../Images/rose.gif">
+        </div> 
+
+
+        <h2>Your score</h2>
+        <h2 id="userscore" name="score" type="number" style="background-color: #eafaea"></h2>  
+
+
+        <div class="icon">
+          
+        </div>
+        <h2>High Scores</h2> 
+        <div class="row">
+          <div class="column" style="background-color: #eafaea";>
+            <h2>Player</h2> 
+            <br>
+            <ol 
+              id="leaderboard-player">
+            </ol>
+          </div>
+          <div class="column" style="background-color:#d6f5d6";>
+            <h2>Score</h2>
+            <br>
+            <dl 
+              id="leaderboard-score">
+            </dl>
+          </div>
+        </div>
+        <div>
+          <a href="logon.html">
+            <button 
+              class="button" 
+              onclick="logon.html"
+              >
+              Log Out
+          </button>
+          </a>
+          <a href="pacman.html"> 
+            <button 
+              class="button" 
+              onclick="pacman.html"
+              >
+              Play Again
+            </button>
+          </a>
+        </div>
+   </body>
+
+   <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-database.js"></script>
+
+   <script>
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+       apiKey: "AIzaSyApTQ82sxHdB4w0d5JVcfnu3lpbLI9qJPY",
+      authDomain: "pacman-91374.firebaseapp.com",
+      projectId: "pacman-91374",
+      storageBucket: "pacman-91374.appspot.com",
+      messagingSenderId: "571540195753",
+      appId: "1:571540195753:web:ad4736b7c7b96aa1955cb8",
+      measurementId: "G-CC2D61S2ZD"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    
+
+   </script>
+</html>

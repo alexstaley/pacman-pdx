@@ -26,6 +26,7 @@ export const TileIndices = {
   ROSE_BROWN: 35,
   ROSE_WHITE: 36,
   BEER: 37,
+  CLOUD: 40,
 };
 
 /* Container for images to use when creating
@@ -48,6 +49,7 @@ export const TileImages = {
   ROSE_BROWN: "../Images/rose-brown.gif",
   ROSE_WHITE: "../Images/rose-white.jpg",
   BEER: "../Images/beer.png",
+  CLOUD: "../Images/cloud.png",
 };
 
 /* Returns true if the given cell in
@@ -56,6 +58,55 @@ export const TileImages = {
 export function containsWall(grid, row, col) {
   let cell = grid[row][col];
   return cell > TileIndices.GROUND && cell < TileIndices.PAC_MAN;
+}
+
+/* Returns an object containing all the coins
+ * in a given map, indexed by their coords, as
+ * well as the total number of coins on the map.
+ */
+export function getCoinRegistry(grid) {
+  let coins = {};
+  coins.totalValue = 0;
+  for (let r = 0; r < MAP_WIDTH; ++r) {
+    for (let c = 0; c < MAP_HEIGHT; ++c) {
+      if (grid[r][c] == TileIndices.COIN) {
+        coins[`${r}-${c}`] = true;
+        coins.totalValue += 1;
+      } else {
+        coins[`${r}-${c}`] = false;
+      }
+    }
+  }
+  return coins;
+}
+
+/* Returns an array containing all the clouds in a given map.
+ * Also makes all clouds face a randomly chosen direction.
+ */
+export function getCloudsList(characterList) {
+  let clouds = [];
+  for (let ch in characterList) {
+    if (characterList[ch].name == "cloud") {
+      characterList[ch].heading = getRandomHeading();
+      clouds.push(characterList[ch]);
+    }
+  }
+  return clouds;
+}
+
+/* Returns a random direction for a cloud to face
+ */
+export function getRandomHeading() {
+  switch (Math.floor(Math.random() * 4)) {
+    case 0:
+      return "up";
+    case 1:
+      return "down";
+    case 2:
+      return "left";
+    case 3:
+      return "right";
+  }
 }
 
 /* Creates the background elements
@@ -97,26 +148,37 @@ export function drawBackground(initMap) {
           // world.innerHTML += `<div id="${r}_${c}" class='tile rose-coin'></div>`;
           break;
         case TileIndices.ROSE_RED:
-          world.innerHTML += `<div id="${r}_${c}" class='tile rose-red'></div>`;
+          // Handle rose token w pixi
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.ROSE_YELLOW:
-          world.innerHTML += `<div id="${r}_${c}" class='tile rose-yellow'></div>`;
+          // Handle rose token w pixi
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.ROSE_PINK:
-          world.innerHTML += `<div id="${r}_${c}" class='tile rose-pink'></div>`;
+          // Handle rose token w pixi
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.ROSE_GOLD:
-          world.innerHTML += `<div id="${r}_${c}" class='tile rose-gold'></div>`;
+          // Handle rose token w pixi
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.ROSE_BROWN:
-          world.innerHTML += `<div id="${r}_${c}" class='tile rose-brown'></div>`;
+          // Handle rose token w pixi
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.ROSE_WHITE:
-          world.innerHTML += `<div id="${r}_${c}" class='tile rose-white'></div>`;
+          // Handle rose token w pixi
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.BEER:
           // Handle beer token w pixi
           world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
+          break;
+        case TileIndices.CLOUD:
+          // Handle cloud token w pixi
+          world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
+          break;
       }
     }
     world.innerHTML += "<br>";
