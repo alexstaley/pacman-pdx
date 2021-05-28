@@ -46,4 +46,5 @@
 1. downloaded from https://www.1001fonts.com/retro+computer-fonts.html
 2. install bitwise font into font library.
 3. put bitwise.tff into the fonts library so that it could be referenced by @fontface.
-4. this font is just a 1980's type looking font, just for fun.
+4. this font is just a 1980's type looking font, just for fun
+5. had to change font to match other styling on the high scores page. Did not realize different fonts on all pages. Applying the same font for all pages "monospace"
