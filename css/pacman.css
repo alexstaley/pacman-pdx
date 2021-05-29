@@ -212,12 +212,12 @@ bodyFrame-buttonControlFrame {
   align-items: center;
   margin: 10px;
   padding-top: 10px;
-}Frame-buttonContfrolframe > a {
-  display:flex;
+}
+Frame-buttonContfrolframe > a {
+  display: flex;
   justify-content: center;
   align-items: stretch;
 }
-body
 
 /* Tokens */
 .beer {
