@@ -35,7 +35,6 @@
   position: absolute;
   padding: 2vw 0 0 2vw;
 }
-
 .ground {
   background-image: url("../Images/ground.jpg");
 }
@@ -99,6 +98,126 @@
 }
 .rose-white {
   background-image: url("../Images/rose-white.jpg");
+}
+.body {
+  height: 100vh;
+  width: 100vw;
+}
+/*header-frames*/
+.header {
+  display: flex;
+  width: 90vw;
+  padding: 2px;
+  border-radius: 2px;
+  border: 2px solid grey;
+  margin: 2px;
+  height: 30vh;
+}
+.header-userFrame {
+  justify-content: start;
+  width: 33vw;
+  padding: 2px;
+  border-radius: 2px;
+  border: 2px solid grey;
+  margin: 2px;
+  text-align: left;
+  font-family: monospace;
+}
+
+.header-userFrame > img {
+  max-height: 2%;
+  max-width: 2%;
+}
+
+.header-scoreFrame {
+  justify-content: center;
+  width: 33vw;
+  padding: 2px;
+  border: 2px solid grey;
+  border-radius: 2px;
+  margin: 2px;
+  text-align: center;
+}
+.header-livesFrame {
+  width: 33vw;
+  justify-content: end;
+  padding: 2px;
+  border-radius: 2px;
+  border: 2px solid grey;
+  margin: 2px;
+  text-align: right;
+}
+
+/*Body frames*/
+.bodyFrame {
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  border-radius: 2px;
+  border: 2px solid grey;
+  height: 100vh;
+  max-width: 99vw;
+}
+.bodyFrame-top {
+  background-color: blue;
+  position: relative;
+  top: 0mm;
+  display: flex;
+  align-items: stretch;
+  height: 15vh;
+  justify-content: space-evenly;
+  padding: 4px;
+  font-family: monospace;
+  color: white;
+}
+.bodyFrame-bottom {
+  background-color: pink;
+  height: 100vh;
+  width: 99vw;
+  display: flex;
+  flex-direction: row;
+  padding: 4px;
+  max-width: 98vw;
+}
+.bodyFrame-left {
+  background-color: green;
+  padding: 4px;
+  border-radius: 2px;
+  border: 2px solid grey;
+  margin: 2px;
+  width: 30vw;
+  text-align: center;
+  vertical-align: bottom;
+  height: auto;
+}
+.bodyFrame-left > img {
+  margin-top: 20vh;
+  text-align: justify;
+}
+.bodyFrame-right {
+  background-color: purple;
+  display: flex;
+  padding: 4px;
+  border-radius: 2px;
+  border: 2px solid grey;
+  margin: 2px;
+  position: relative;
+  right: top;
+  width: 66.5vw;
+  height: 70vh;
+}
+bodyFrame-buttonControlFrame {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  padding-top: 10px;
+}
+Frame-buttonContfrolframe > a {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
 }
 
 /* Tokens */
