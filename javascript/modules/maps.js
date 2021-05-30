@@ -18,6 +18,7 @@ export const TileIndices = {
   THORN_BOTTOM_LEFT: 15,
   THORN_BOTTOM_RIGHT: 16,
   PAC_MAN: 20,
+  DRUNK_PAC_MAN: 21,
   COIN: 30,
   ROSE_RED: 31,
   ROSE_YELLOW: 32,
@@ -27,10 +28,19 @@ export const TileIndices = {
   ROSE_WHITE: 36,
   BEER: 37,
   CLOUD: 40,
+  DRUNK_CLOUD: 41,
 };
 
 /* Container for images to use when creating
  * html elements and when naming sprites
+ *
+ *   IMAGE SOURCES:
+ * Log: https://www.pngitem.com/middle/JmbRim_firewood-forest-log-trapped-tree-wood-wood-log/
+ * Thorn: https://www.shutterstock.com/editor/image/set-vector-frames-vines-thorns-design-593265374
+ * Pac-Man: https://www.pinterest.com/pin/566890671836766861/
+ * Coins/Roses: https://www.pinterest.com/pin/275493702193311949/
+ * Beer: https://openclipart.org/detail/14854/beer-mug
+ * Clouds: http://clipart-library.com/clipart/BTgrp98Rc.htm
  */
 export const TileImages = {
   GROUND: "../Images/ground.jpg",
@@ -41,6 +51,7 @@ export const TileImages = {
   THORN_BOTTOM_LEFT: "../Images/thorns-corner.jpg",
   THORN_BOTTOM_RIGHT: "../Images/thorns-corner.jpg",
   PAC_MAN: "../Images/pacman-open-right.jpg",
+  DRUNK_PAC_MAN: "../Images/pacman-drunk-open-right.jpg",
   COIN: "../Images/rose-coin.jpg",
   ROSE_RED: "../Images/rose.jpg",
   ROSE_YELLOW: "../Images/rose-yellow.jpg",
@@ -50,6 +61,7 @@ export const TileImages = {
   ROSE_WHITE: "../Images/rose-white.jpg",
   BEER: "../Images/beer.png",
   CLOUD: "../Images/cloud.png",
+  DRUNK_CLOUD: "../Images/cloud-drunk.png",
 };
 
 /* Returns true if the given cell in
@@ -109,6 +121,19 @@ export function getRandomHeading() {
   }
 }
 
+/* Return the starting coordinates of Pac-Man
+ * on a given map in the form "{row}-{col}"
+ */
+export function getPacManStartingCoords(grid) {
+  for (let r = 0; r < MAP_WIDTH; ++r) {
+    for (let c = 0; c < MAP_HEIGHT; ++c) {
+      if (grid[r][c] == TileIndices.PAC_MAN) {
+        return `${r}-${c}`;
+      }
+    }
+  }
+}
+
 /* Creates the background elements
  * in the DOM for the given map array
  */
@@ -143,9 +168,8 @@ export function drawBackground(initMap) {
           world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
           break;
         case TileIndices.COIN:
-          // Handle coin token w pixi??? Pretty sure yes, but leaving DOM option commented out for now
+          // Handle coin token w pixi
           world.innerHTML += `<div id="${r}_${c}" class='tile ground'></div>`;
-          // world.innerHTML += `<div id="${r}_${c}" class='tile rose-coin'></div>`;
           break;
         case TileIndices.ROSE_RED:
           // Handle rose token w pixi

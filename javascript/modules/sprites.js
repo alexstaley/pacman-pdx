@@ -16,10 +16,11 @@ export class Character {
     this.name = img.slice(10, -4); // slices {name} from '../Images/{name}.png'
     this.row = row;
     this.col = col;
+    this.origRow = row;
+    this.origCol = col;
     this.xDiff = 0.0; // Difference between sprite's x-coord and the center of its column
     this.yDiff = 0.0; // Difference between sprite's y-coord and the center of its row
     this.heading = "right";
-    this.speed = 4;
     this.drunk = false;
     this.cloudMultiplier = 1;
 
@@ -27,6 +28,7 @@ export class Character {
     this.sprite = new PIXI.Sprite(texture);
     this.replaceSprite(canvas);
     this.resizeSprite(windowWidth);
+    this.resetSpeed(windowWidth);
   }
 
   /* Reset the position of the sprite.
@@ -51,6 +53,18 @@ export class Character {
       this.sprite.width = 0.04 * windowWidth;
       this.sprite.height = 0.04 * windowWidth;
     }
+  }
+
+  resetSpeed(windowWidth) {
+    if (this.img == TileImages.PAC_MAN || this.img == TileImages.CLOUD) {
+      this.speed = Math.floor(windowWidth / 200);
+    }
+  }
+
+  relocateTo(row, col, canvas) {
+    this.row = row;
+    this.col = col;
+    this.replaceSprite(canvas);
   }
 
   /* If there is a clear path, move forward at speed
@@ -92,9 +106,6 @@ export class Character {
     // Check for wraparound path
     if (this.isCloseEnough()) {
       this.wrapAround(canvas);
-      // FIXME: Pacman can hug the corners to avoid being closeEnough() to
-      // trigger the wrapAround() function, hiding outside the screen.
-      // This is actually kinda fun sooooo not a high priority :)
     }
   }
 
@@ -137,19 +148,15 @@ export class Character {
    */
   pathWrapsAround() {
     return (
-      this.row == 0 ||
-      this.row == MAP_HEIGHT - 1 ||
-      this.col == 0 ||
-      this.col == MAP_WIDTH - 1
+      this.row <= 0 ||
+      this.row >= MAP_HEIGHT - 1 ||
+      this.col <= 0 ||
+      this.col >= MAP_WIDTH - 1
     );
   }
 
   /* Returns true if the character has a clear path
    * immediately in front of it (i.e. no walls).
-   *
-   * //FIXME: This function must be preceded by a call to
-   * the pathWrapsAround() function, or it will blow
-   * up the map by calling an out of bounds index
    */
   hasAClearPath(grid) {
     let aWall = true;
@@ -188,7 +195,7 @@ export class Character {
   /* Returns true if the sprite is in contact with a given other sprite
    */
   isTouching(neighbor) {
-    if (!neighbor) return false;
+    if (!neighbor || !neighbor.sprite.visible) return false;
     return (
       Math.abs(this.sprite.x - neighbor.sprite.x) < this.sprite.width / 2 &&
       Math.abs(this.sprite.y - neighbor.sprite.y) < this.sprite.height / 2
@@ -247,8 +254,17 @@ export class Character {
 
   /* Self-explanatory.
    */
+  getDrunk() {
+    this.drunk = true;
+    this.sprite.texture = PIXI.Texture.from(TileImages.DRUNK_PAC_MAN);
+  }
+
+  /* Self-explanatory.
+   */
   soberUp() {
     this.drunk = false;
+    this.sprite.texture = PIXI.Texture.from(TileImages.PAC_MAN);
+    this.cloudMultiplier = 1;
   }
 
   /* Back up at double speed. Ticker should call this if

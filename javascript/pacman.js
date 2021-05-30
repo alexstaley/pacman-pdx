@@ -11,18 +11,23 @@ import {
   getCloudsList,
   containsWall,
   getRandomHeading,
+  getPacManStartingCoords,
 } from "./modules/maps.js";
 
-const COIN_POINTS = 10; // When Pac-Man picks up a coin
-const BEER_POINTS = 50; // When Pac-Man picks up a beer
-const ROSE_POINTS = 100; // When Pac-Man picks up a rose
-const CLOUD_POINTS = 200; // When Pac-Man eats a cloud
+const COIN_POINTS = 10; // Number of points awarded when Pac-Man picks up a coin
+const BEER_POINTS = 50; // ...when Pac-Man picks up a beer
+const ROSE_POINTS = 100; // ...when Pac-Man picks up a rose
+const CLOUD_POINTS = 200; // ...when Pac-Man eats a cloud
 const STARTING_LIVES = 3; // Number of extra lives Pac-Man starts with
-const DRUNK_TIME = 600; // Number of ticks Pac-Man spends drunk (60 ticks/second)
+const DRUNK_TIME = 420; // Number of ticks Pac-Man spends drunk (60 ticks/second)
 
 let world = document.getElementById("world");
 let board = document.getElementById("gameboard");
-let playerScore = document.getElementById('scoreFrame');
+let playerScore = document.getElementById("scoreFrame");
+let playerLives = document.getElementById("livesFrame");
+let readyCount = document.getElementById("readyCount");
+let endButton = document.getElementById("endButton");
+let pauseButton = document.getElementById("pauseButton");
 let grid = selectRandomMap();
 
 function selectRandomMap() {
@@ -53,21 +58,25 @@ window.addEventListener("resize", () => {
   // Resize and remeasure canvas
   app.renderer.resize(world.offsetWidth, world.offsetHeight);
 
-  // Resize and replace sprites
+  // Resize and replace sprites. Recalibrate speed.
   for (let ch in characterList) {
     characterList[ch].resizeSprite(window.innerWidth);
     characterList[ch].replaceSprite(app.renderer.screen);
+    characterList[ch].resetSpeed(window.innerWidth);
   }
 });
 
 // Declare game variables
-let pacman = characterList["1-1"]; // TODO: Find pacman wherever he happens to be on the map, instead of hard-coding coords
+let pacman = characterList[getPacManStartingCoords(grid)];
 let delta = 0;
-let levelPassed = false;
 let score = 0;
 let extraLives = STARTING_LIVES;
 let drunkDelta = 0;
-playerScore.innerHTML = score.toString();
+let state = ready;
+playerScore.innerHTML = "SCORE: " + score.toString();
+playerLives.innerHTML = "LIVES: " + extraLives.toString();
+
+// Define and listen for keyboard controls
 let upKey = keyboard("ArrowUp");
 let downKey = keyboard("ArrowDown");
 let leftKey = keyboard("ArrowLeft");
@@ -86,13 +95,59 @@ rightKey.press = () => {
   pacman.turnSprite("right");
 };
 
-// TICKER
-app.ticker
-  .add(move)
-  .add(getCoins)
-  .add(getRoses)
-  .add(getBeers)
-  .add(collideWithCloud);
+// TODO: Event listeners for on-screen control buttons should call pacman.turnSprite() as above keyboard controls do
+
+// Listen for pause/end button clicks
+// TODO: Make these work (they don't)
+pauseButton.onClick = () => {
+  state = pause;
+};
+endButton.onClick = () => {
+  state = end;
+};
+
+// Open game loop (in 'ready' state)
+app.ticker.add(gameLoop);
+function gameLoop() {
+  state();
+}
+
+/* Wait for 3 seconds, then transition to 'play' state
+ */
+function ready() {
+  ++delta;
+  if (delta > 180) {
+    state = play;
+    delta = 0;
+    readyCount.innerHTML = "GO!";
+  } else {
+    readyCount.innerHTML = `${Math.floor((180 - delta) / 60) + 1}`;
+  }
+}
+function pause() {
+  alert("PAUSED");
+}
+function end() {
+  // TODO: Send score to firebase
+}
+
+/* Move Pac-Man back to starting location
+ * and transition to 'ready' state
+ */
+function hit() {
+  pacman.relocateTo(pacman.origRow, pacman.origCol, app.renderer.screen);
+  state = ready;
+}
+
+/* Move sprites, handle interactions during normal gameplay state
+ */
+function play() {
+  move();
+  getCoins();
+  getRoses();
+  getBeers();
+  collideWithCloud();
+}
 
 /* Move the character in the direction it's facing
  */
@@ -102,8 +157,11 @@ function move() {
   pacman.resetGridCoords(app.renderer.screen);
   if (pacman.drunk) {
     drunkDelta -= 1;
-    if (drunkDelta == 0) {
+    if (drunkDelta <= 0) {
       pacman.soberUp();
+      cloudsList.forEach((cloud) => {
+        cloud.sprite.texture = PIXI.Texture.from(TileImages.CLOUD);
+      });
     }
   }
 
@@ -116,10 +174,17 @@ function move() {
   cloudsList.forEach((cloud) => {
     cloud.moveOn(grid, app.renderer.screen);
     cloud.resetGridCoords(app.renderer.screen);
+    // Check for walk-thru-walls bug
+    if (containsWall(grid, cloud.row, cloud.col)) {
+      cloud.backUp();
+      cloud.heading = getRandomHeading();
+    }
     if (
       !cloud.pathWrapsAround(app.renderer.screen) &&
       !cloud.hasAClearPath(grid)
-      // TODO: Implement cloud turning when there is a turn (not high priority)
+      // FIXME: Index out of bounds error happens rarely...
+      //        somehow still enters hasAClearPath()
+      //        even when on a border tile
     ) {
       cloud.heading = getRandomHeading();
     }
@@ -137,11 +202,12 @@ function getCoins() {
     coinsList[cell] = false;
     coinsList.totalValue -= 1;
     score += COIN_POINTS;
+    playerScore.innerHTML = "SCORE: " + score.toString();
   }
 
-  // Check if all coins have been picked up
+  // If all coins have been picked up, transition to 'end' state
   if (coinsList.totalValue < 1) {
-    levelPassed = true;
+    state = end;
   }
 }
 
@@ -151,6 +217,7 @@ function getRoses() {
   let cell = `${pacman.row}-${pacman.col}`;
   if (
     characterList[cell] &&
+    characterList[cell].sprite.visible &&
     (characterList[cell].name == "rose" ||
       characterList[cell].name == "rose-yellow" ||
       characterList[cell].name == "rose-pink" ||
@@ -161,7 +228,7 @@ function getRoses() {
     // Pick up the rose and update score
     characterList[cell].sprite.visible = false;
     score += ROSE_POINTS;
-    // TODO: Differentiate between rose colors. Store roses (and do what with them?) as in O.G. Pac-Man.
+    playerScore.innerHTML = "SCORE: " + score.toString();
   }
 }
 
@@ -169,14 +236,19 @@ function getRoses() {
  */
 function getBeers() {
   let cell = `${pacman.row}-${pacman.col}`;
-  if (characterList[cell] && characterList[cell].name == "beer") {
-    // Pick up the rose and update score
+  if (
+    characterList[cell] &&
+    characterList[cell].sprite.visible &&
+    characterList[cell].name == "beer"
+  ) {
     characterList[cell].sprite.visible = false;
     score += BEER_POINTS;
-    pacman.drunk = true;
+    playerScore.innerHTML = "SCORE: " + score.toString();
     drunkDelta = DRUNK_TIME;
-    // pacman.sprite.texture = "../Images/pacman-drunk-open-right.jpg";
-    // TODO: Drunk timer. Texture loading for drunk pacman image
+    pacman.getDrunk();
+    cloudsList.forEach((cloud) => {
+      cloud.sprite.texture = PIXI.Texture.from(TileImages.DRUNK_CLOUD);
+    });
   }
 }
 
@@ -187,27 +259,24 @@ function collideWithCloud() {
   cloudsList.forEach((cloud) => {
     if (pacman.isTouching(cloud)) {
       if (pacman.drunk) {
+        // Pac-Man eats the cloud
         cloud.sprite.visible = false;
         score += CLOUD_POINTS * pacman.cloudMultiplier;
+        playerScore.innerHTML = "SCORE: " + score.toString();
         pacman.cloudMultiplier *= 2;
+        cloud.relocateTo(cloud.origRow, cloud.origCol, app.renderer.screen);
       } else {
+        // The cloud eats Pac-Man
+        state = hit;
         extraLives -= 1;
         if (extraLives < 0) {
-          // TODO: Kill game loop
+          alert("GAME OVER");
+          state = end;
         }
-        // TODO: Move pacman back to starting position without changing the state of other sprites
+        playerLives.innerHTML = "LIVES: " + extraLives.toString();
       }
     }
   });
-}
-
-/* Load Pac-Man mouth animation (if you can get graphics working...)
- */
-function mouth() {
-  delta += 0.1;
-  pacman.sprite.getChildAt(0).clear();
-  // pacman.sprite.getChildAt(0).destroy();
-  pacman.animateMouth(delta);
 }
 
 /* Initialize sprites according to the given map array.

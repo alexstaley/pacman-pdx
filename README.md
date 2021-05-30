@@ -10,15 +10,6 @@ You won't need any of the files located under the _demo-files_ directory when in
 
 You can import _selection.json_ back to the IcoMoon app using the _Import Icons_ button (or via Main Menu → Manage Projects) to retrieve your icon selection.
 
-<<<<<<< HEAD
-# Logon Firebase Requirements
-
-1. Install firebase to main directory
-
-# PixiJS
-Check out https://github.com/kittykatattack/learningPixi#readme for help understanding pixi.js
-
-=======
 ## Logon Firebase Requirements
 
 1. Install firebase to main directory
@@ -30,4 +21,3 @@ Pixi is a tool that enables fast, smooth graphics rendering, with support for mo
 Active tokens (Pac-Man, clouds, coins, roses, and beers) are rendered as objects of pixi's Sprite class, using seed images to create textures which are then used to create sprites.
 
 Check out https://github.com/kittykatattack/learningPixi#readme for help understanding pixi.js
->>>>>>> 7f91c020a8dc7133fd86513e696768dff459261b
