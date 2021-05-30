@@ -151,6 +151,7 @@ function hit() {
 /* Move sprites, handle interactions during normal gameplay state
  */
 function play() {
+  // TODO: Turn off "GO!" message after ~2 secs in play state
   move();
   getCoins();
   getRoses();
@@ -175,8 +176,15 @@ function move() {
   }
 
   // Check for walk-thru-walls bug
-  if (containsWall(grid, pacman.row, pacman.col)) {
-    pacman.backUp();
+  try {
+    if (containsWall(grid, pacman.row, pacman.col)) {
+      pacman.backUp();
+    }
+  } catch (error) {
+    // Watch for out of bounds error from containsWall and hasAClearPath
+    if (pacman.row > MAP_HEIGHT - 1) {
+      pacman.relocateTo(0, pacman.col, app.renderer.screen);
+    }
   }
 
   // Move clouds forward and update grid coords
