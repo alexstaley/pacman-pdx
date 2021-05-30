@@ -9,13 +9,36 @@
     <link rel="stylesheet" href="../style.css" />
     <script src="../node_modules/pixi.js/dist/browser/pixi.min.js"></script>
     <script defer type="module" src="../javascript/pacman.js"></script>
-    <link rel="icon" type="image/png" href="../Images/favicon.png"/>
+    <link rel="icon" type="image/png" href="../Images/favicon.png" />
   </head>
   <body>
-    <h1>Game Screen</h1>
-    <section id="game-container">
-      <div id="world"></div>
-      <canvas id="gameboard"></canvas>
-    </section>
+    <div class="bodyFrame">
+      <div class="bodyFrame-top">
+        <div class="header-userFrame">
+          <Avatar alt="Current user" src="../Images/Me.jpg" />
+          <h2 id="playerFrame" src="getUserInfo()">Player</h2>
+        </div>
+        <div class="header-scoreFrame">
+          <h2 id="scoreFrame"></h2>
+        </div>
+        <div class="header-livesFrame">
+          <h2 id="livesFrame"></h2>
+        </div>
+      </div>
+      <div class="bodyFrame-bottom">
+        <div class="bodyFrame-left">
+          <div class="bodyFrame-buttonControlFrame">
+            <button id="endButton">End Game</button>
+            <button id="pauseButton">Pause Game</button>
+          </div>
+          <div id="readyCount"></div>
+          <img src="../Images/arrows.png" />
+        </div>
+        <div class="bodyFrame-right">
+          <div id="world"></div>
+          <canvas id="gameboard"></canvas>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

@@ -1,4 +1,3 @@
-/* Tile */
 .tile {
   display: inline-block;
   width: 4vw;
@@ -11,36 +10,12 @@
   z-index: 3;
 }
 
-/* Backgrounds */
-#game-container {
-  margin: 1em;
-  width: 76vw;
-  background-color: black;
-  z-index: 0;
-}
-
-#world {
-  background-color: black;
-  position: absolute;
-  height: min-content;
-  width: 76vw;
-  /* TODO: Refactor magic numbers */
-  z-index: 2;
-}
-
-#gameboard {
-  z-index: 4;
-  position: absolute;
-  padding: 2vw 0 0 2vw;
-}
-
 .ground {
   background-image: url("../Images/ground.jpg");
 }
 
 .log {
   background-image: url("../Images/log.png");
-  /* https://www.pngitem.com/middle/JmbRim_firewood-forest-log-trapped-tree-wood-wood-log/ */
 }
 .log-vert {
   transform: rotate(90deg);
@@ -48,7 +23,6 @@
 
 .thorns {
   background-image: url("../Images/thorns-corner.jpg");
-  /* https://www.shutterstock.com/editor/image/set-vector-frames-vines-thorns-design-593265374 */
 }
 .thorns-br {
   transform: rotate(90deg); /* bottom right */
@@ -60,49 +34,137 @@
   transform: rotate(270deg); /* top left */
 }
 
-/* Pac-Mans */
-.pacman-left {
-  background-image: url("../Images/pacman-open-left.jpg");
+/* Backgrounds */
+body {
+  height: 95vh;
+  width: 95vw;
+  background-color: black;
 }
-.pacman-right {
-  background-image: url("../Images/pacman-open-right.jpg");
+#world {
+  background-color: black;
+  position: absolute;
+  height: min-content;
+  width: 76vw;
+  z-index: 2;
 }
-.pacman-up {
-  background-image: url("../Images/pacman-open-up.jpg");
-}
-.pacman-down {
-  background-image: url("../Images/pacman-open-down.jpg");
-}
-
-/* Roses */
-.rose-coin {
-  background-image: url("../Images/rose-coin.jpg");
-  width: 1.5vw;
-  height: 1.5vw;
-  margin: 1.5vw 1.25vw; /* margin-right = (tile width - coin width)/2 */
-}
-.rose-red {
-  background-image: url("../Images/rose.jpg");
-}
-.rose-yellow {
-  background-image: url("../Images/rose-yellow.jpg");
-}
-.rose-pink {
-  background-image: url("../Images/rose-pink.jpg");
-}
-.rose-gold {
-  background-image: url("../Images/rose-gold.jpg");
-}
-.rose-brown {
-  background-image: url("../Images/rose-brown.gif");
-}
-.rose-white {
-  background-image: url("../Images/rose-white.jpg");
+#gameboard {
+  z-index: 4;
+  position: absolute;
+  padding: 2vw 0 0 2vw;
 }
 
-/* Tokens */
-.beer {
-  background-image: url("../Images/beer.png");
+/*header-frames*/
+.header-userFrame {
+  justify-content: start;
+  width: 33vw;
+  padding: 2px;
+  border-radius: 2px;
+  border: 2px solid grey;
+  margin: 2px;
+  text-align: left;
+  font-family: monospace;
+}
+.header-userFrame > img {
+  max-height: 2%;
+  max-width: 2%;
+  text-align: center;
+}
+.header-scoreFrame {
+  justify-content: center;
+  width: 33vw;
+  padding: 2px;
+  border: 2px solid grey;
+  border-radius: 2px;
+  margin: 2px;
+  text-align: center;
+}
+.header-livesFrame {
+  width: 33vw;
+  justify-content: end;
+  padding: 2px;
+  border-radius: 2px;
+  border: 2px solid grey;
+  margin: 2px;
+  /* text-align: right; */
+  text-align: center;
 }
 
-/* Rainclouds */
+#livesFrame,
+#scoreFrame,
+#playerFrame {
+  margin: 0;
+  padding: 0 1em;
+}
+
+/*Body frames*/
+.bodyFrame {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  border-radius: 2px;
+  height: 99%;
+  width: 99%;
+}
+.bodyFrame-top {
+  position: relative;
+  display: flex;
+  height: 5%;
+  font-family: monospace;
+  color: white;
+}
+.bodyFrame-bottom {
+  height: 95%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 4px;
+  max-width: 98vw;
+}
+.bodyFrame-left {
+  background-color: green;
+  padding: 4px;
+  border-radius: 2px;
+  border: 2px solid grey;
+  margin: 2px;
+  width: 20%;
+  text-align: center;
+  vertical-align: bottom;
+  height: auto;
+}
+#endButton,
+#pauseButton {
+  background-color: black;
+  color: white;
+}
+.bodyFrame-left > img {
+  margin-top: 20vh;
+  text-align: justify;
+}
+#readyCount {
+  margin: 2em;
+  color: white;
+  font-size: xx-large;
+  /* font-family: "pacman"; */
+  /* TODO: Use pacman font */
+}
+.bodyFrame-right {
+  display: flex;
+  padding: 4px;
+  border-radius: 2px;
+  margin: 2px;
+  position: relative;
+  width: 80%;
+  height: 100%;
+}
+.bodyFrame-buttonControlFrame {
+  /* background-color: black; */
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  /* padding-top: 10px; */
+}
+.Frame-buttonContfrolframe > a {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
