@@ -68,8 +68,13 @@ export const TileImages = {
  * the given grid contains a wall
  */
 export function containsWall(grid, row, col) {
-  let cell = grid[row][col];
-  return cell > TileIndices.GROUND && cell < TileIndices.PAC_MAN;
+  try {
+    let cell = grid[row][col];
+    return cell > TileIndices.GROUND && cell < TileIndices.PAC_MAN;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 /* Returns an object containing all the coins

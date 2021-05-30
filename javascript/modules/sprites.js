@@ -160,19 +160,24 @@ export class Character {
    */
   hasAClearPath(grid) {
     let aWall = true;
-    switch (this.heading) {
-      case "up":
-        aWall = containsWall(grid, this.row - 1, this.col);
-        break;
-      case "down":
-        aWall = containsWall(grid, this.row + 1, this.col);
-        break;
-      case "left":
-        aWall = containsWall(grid, this.row, this.col - 1);
-        break;
-      case "right":
-        aWall = containsWall(grid, this.row, this.col + 1);
-        break;
+    try {
+      switch (this.heading) {
+        case "up":
+          aWall = containsWall(grid, this.row - 1, this.col);
+          break;
+        case "down":
+          aWall = containsWall(grid, this.row + 1, this.col);
+          break;
+        case "left":
+          aWall = containsWall(grid, this.row, this.col - 1);
+          break;
+        case "right":
+          aWall = containsWall(grid, this.row, this.col + 1);
+          break;
+      }
+    } catch (error) {
+      console.error(error);
+      return false;
     }
 
     // If we can see a wall coming, check if we're close enough to be stopped

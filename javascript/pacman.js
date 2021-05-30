@@ -136,6 +136,14 @@ function end() {
  */
 function hit() {
   pacman.relocateTo(pacman.origRow, pacman.origCol, app.renderer.screen);
+
+  // If a cloud occupies the respawn point, respawn
+  // instead at that cloud's original coordinates.
+  cloudsList.forEach((cloud) => {
+    if (cloud.isTouching(pacman)) {
+      pacman.relocateTo(cloud.origRow, cloud.origCol, app.renderer.screen);
+    }
+  });
   state = ready;
 }
 
@@ -175,18 +183,22 @@ function move() {
     cloud.moveOn(grid, app.renderer.screen);
     cloud.resetGridCoords(app.renderer.screen);
     // Check for walk-thru-walls bug
-    if (containsWall(grid, cloud.row, cloud.col)) {
-      cloud.backUp();
-      cloud.heading = getRandomHeading();
-    }
-    if (
-      !cloud.pathWrapsAround(app.renderer.screen) &&
-      !cloud.hasAClearPath(grid)
-      // FIXME: Index out of bounds error happens rarely...
-      //        somehow still enters hasAClearPath()
-      //        even when on a border tile
-    ) {
-      cloud.heading = getRandomHeading();
+    try {
+      if (containsWall(grid, cloud.row, cloud.col)) {
+        cloud.backUp();
+        cloud.heading = getRandomHeading();
+      }
+      if (
+        !cloud.pathWrapsAround(app.renderer.screen) &&
+        !cloud.hasAClearPath(grid)
+      ) {
+        cloud.heading = getRandomHeading();
+      }
+    } catch (error) {
+      // Watch for out of bounds error from containsWall and hasAClearPath
+      if (cloud.row > MAP_HEIGHT - 1) {
+        cloud.relocateTo(0, cloud.col, app.renderer.screen);
+      }
     }
   });
 }
