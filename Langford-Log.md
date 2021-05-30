@@ -31,7 +31,8 @@
 and everything worked but now its giving me a error that i cannot trace down. Nothing that I am aware of changed for the logon. I stayed up all the way through the night and still no luck fixing this error. 
 13. It is hard to tell if the website is reloading new or old data, cleared cashe, shut browsers, restarted server, still 
 sometimes loads old code.
-14. Code is now loadiing after completely dumping the entire .js file. I had to bring in each function one at a timme to find out what was causing the issue. I eliminated most of the other code that consisted of different type of logins. I had a username and password logon, google credential logon using the setting provided by firestore, and finally the one that worked. Only a few lines of code and much more seemless with my credentials
+14. Code is now loadiing after completely dumping the entire .js file. I had to bring in each function one at a timme to find out what was causing the issue. I eliminated most of the other code that consisted of different type of logins. I had a username and password logon, google credential logon using the setting provided by firestore, and finally the one that worked. Only a few lines of code and much more seemless with my credentials.
+15. Button on Logon Screen Really sucks, but I don't know how to get it to look better at this time.
 # Created Design for Game Window
 
 1. set-up different divs to divide up the space in the window.
@@ -44,6 +45,10 @@ sometimes loads old code.
 8. Having lots of difficulty getting blue controls to bottom of the screen. Not sure which element
    is stopping me from getting it to where it belongs.
 9. Having trouble centering controller image. Have tried content-justified: center, align: center, text-align:center,
+10. Linked 'End Game' link to high-scores page.
+11. formatted page for a better look. This one is very messy, and if I had more time I definitly would fix it. I think I could make a much more beautiful page if Used React. React is easier for me to use and format for some reason. 
+12. Created a innerHTML for lives, name, and scores to be shown on the board from the .js files
+13. Pause button is not connected yet, as I am not sure what function will be doing that.
 
 # Fonts old computer
 

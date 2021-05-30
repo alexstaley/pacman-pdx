@@ -23,6 +23,7 @@ const DRUNK_TIME = 600; // Number of ticks Pac-Man spends drunk (60 ticks/second
 let world = document.getElementById("world");
 let board = document.getElementById("gameboard");
 let playerScore = document.getElementById('scoreFrame');
+let playerLives = document.getElementById('playerLives');
 let grid = selectRandomMap();
 
 function selectRandomMap() {
@@ -68,6 +69,7 @@ let score = 0;
 let extraLives = STARTING_LIVES;
 let drunkDelta = 0;
 playerScore.innerHTML = score.toString();
+playerLives.innerHTML = STARTING_LIVES.toString();
 let upKey = keyboard("ArrowUp");
 let downKey = keyboard("ArrowDown");
 let leftKey = keyboard("ArrowLeft");

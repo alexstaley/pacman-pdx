@@ -9,36 +9,39 @@
     <link rel="stylesheet" href="../style.css" />
     <script src="../node_modules/pixi.js/dist/browser/pixi.min.js"></script>
     <script defer type="module" src="../javascript/pacman.js"></script>
+    <script defer type = "module"  src = "../javascript/logon.js"></script>
     <link rel="icon" type="image/png" href="../Images/favicon.png"/>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+    />
   </head>
   <body>
     <div class="bodyFrame">
       <div class="bodyFrame-top">
         <div class="header-userFrame">
-          <Avatar alt="Current user" src="../Images/Me.jpg" />
-          <h2 src="getUserInfo()">Player</h2>
+          <h2>Player:</h2>
+          <h2 id = "playerFrame">New Player</h2>
         </div>
         <div class="header-scoreFrame">
           <h2>Score:</h2>
           <h2 id= "scoreFrame"></h2>
         </div>
         <div class="header-livesFrame">
-          <h2>Lives</h2>
+          <h2>Lives:</h2>
+          <h2 id="playerLives"># lives</h2>
         </div>
       </div>
       <div class="bodyFrame-bottom">
         <div class="bodyFrame-left">
-          BodyFrame-left
           <div class="bodyFrame-buttonControlFrame">
-            <button class="btn btn-success btn-lg btn-block font-weight-bold">
-              End Game
-            </button>
+            <a href='leaderboard.html' style='text-decoration:none;'><button class= "btn btn-success btn-lg btn-block font-weight-bold" height = "80px"id = "EndGameButton">End Game</button> </a>
+
             <button class="btn btn-success btn-lg btn-block font-weight-bold">
               Pause Game
             </button>
           </div>
-
-          <img src="../Images/arrows.png" />
         </div>
         <div class="bodyFrame-right">
           <div id="world"></div>

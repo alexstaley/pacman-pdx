@@ -1,6 +1,15 @@
 //Used the following youtube video for help.
 //Firebase Web Login - Firebase Web App Tutorial
 //https://www.youtube.com/watch?v=iKlWaUszxB4
+window.onload('index.html')
+{
+  signOut();
+}
+let currentPlayer = document.getElementById('playerFrame');
+if(currentPlayer!=null)
+{
+  currentPlayer.innerHTML = "New Player";
+}
 
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
@@ -8,7 +17,7 @@ function onSignIn(googleUser) {
   console.log('Name: ' + profile.getName());
   console.log('Image URL: ' + profile.getImageUrl());
   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-  let currentPlayer = document.getElementById('playerFrame');
+  
   if(currentPlayer!=null)
   {
     currrentPlayer.innerHTML = profile.getName();

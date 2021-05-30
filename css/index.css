@@ -73,13 +73,20 @@ h2 {
   display: inline-flex;
   justify-content: center;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
+  height: 60%;
+  width: 60%;
 }
 .buttons > a {
   display: inherit;
   width: 100%;
   padding-top: 3px;
+}
+#signonButton{
+  display: inline-flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 60%;
+  width: 60%;
 }
 
 .icon-A .path1:before {

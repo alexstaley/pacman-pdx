@@ -105,14 +105,17 @@
 /*header-frames*/
 .header {
   display: flex;
-  width: 90vw;
+  width: 100vw;
   padding: 2px;
   border-radius: 2px;
   border: 2px solid grey;
   margin: 2px;
   height: 30vh;
+  font-family: monospace;
+  
 }
 .header-userFrame {
+  background-color: white;
   justify-content: start;
   width: 33vw;
   padding: 2px;
@@ -121,30 +124,54 @@
   margin: 2px;
   text-align: left;
   font-family: monospace;
+  color:green;
 }
-
+#playerFrame{
+  font-size: 30px;
+  font-family: monospace;
+  font-weight: bold;
+  max-width: fit-content;
+  max-height: fit-content;
+}
 .header-userFrame > img {
+  display: flex;
+  justify-content: start;
   max-height: 2%;
   max-width: 2%;
+  ;
 }
 
 .header-scoreFrame {
+  background-color: white;
   justify-content: center;
   width: 33vw;
   padding: 2px;
   border: 2px solid grey;
-  border-radius: 2px;
+  border-radius: 4px;
   margin: 2px;
   text-align: center;
+  color:green;
+}
+#scoreFrame{
+  font-size: 30px;
+  font-weight: bold;
 }
 .header-livesFrame {
+  background-color:white;
   width: 33vw;
-  justify-content: end;
+  justify-content: center;
   padding: 2px;
-  border-radius: 2px;
+  border-radius: 4px;
   border: 2px solid grey;
   margin: 2px;
   text-align: right;
+  color:green;
+}
+#playerLives{
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+
 }
 
 /*Body frames*/
@@ -153,26 +180,33 @@
   display: flex;
   flex-direction: column;
   padding: 4px;
-  border-radius: 2px;
+  border-radius: 4px;
   border: 2px solid grey;
-  height: 100vh;
+  height: 172vh;
   max-width: 99vw;
 }
 .bodyFrame-top {
-  background-color: blue;
+  display: inline-block;
+  background-color: grey;
   position: relative;
   top: 0mm;
   display: flex;
   align-items: stretch;
   height: 15vh;
+  border-radius: 4px;
   justify-content: space-evenly;
   padding: 4px;
   font-family: monospace;
   color: white;
 }
+.bodyFrame-top >h2{
+  display:inline-block;
+  height: min-content;
+  width: min-content;
+}
 .bodyFrame-bottom {
-  background-color: pink;
-  height: 100vh;
+  background-color: grey;
+  height: 140vh;
   width: 99vw;
   display: flex;
   flex-direction: row;
@@ -180,25 +214,23 @@
   max-width: 98vw;
 }
 .bodyFrame-left {
-  background-color: green;
+  display: flex;
+  background-color: white;
   padding: 4px;
   border-radius: 2px;
   border: 2px solid grey;
   margin: 2px;
-  width: 30vw;
+  width: 20vw;
   text-align: center;
   vertical-align: bottom;
-  height: auto;
+  height: 153.5vh;
 }
-.bodyFrame-left > img {
-  margin-top: 20vh;
-  text-align: justify;
-}
+
 .bodyFrame-right {
-  background-color: purple;
+  
   display: flex;
   padding: 4px;
-  border-radius: 2px;
+  border-radius: 4px;
   border: 2px solid grey;
   margin: 2px;
   position: relative;
@@ -206,18 +238,31 @@
   width: 66.5vw;
   height: 70vh;
 }
-bodyFrame-buttonControlFrame {
-  background-color: black;
-  display: flex;
-  align-items: center;
+.bodyFrame-buttonControlFrame {
+  flex-direction: row;
+  text-align: justify;
+  vertical-align:50px;
   margin: 10px;
   padding-top: 10px;
-}Frame-buttonContfrolframe > a {
-  display:flex;
-  justify-content: center;
-  align-items: stretch;
 }
-body
+.bodyFrame-buttonControlFrame>button{
+  text-align: justify;
+  margin-top:280px;
+  height: 80px;
+  margin-bottom: 30px;
+}
+#EndGameButton{
+  text-align: justify;
+  margin-top:280px;
+  height: 80px;
+  margin-bottom: 30px;
+}
+.bodyFrame-buttonControlFrame>a{
+  height: auto;
+  width: auto;
+  
+}
+
 
 /* Tokens */
 .beer {
