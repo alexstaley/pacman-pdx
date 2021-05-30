@@ -99,11 +99,10 @@ rightKey.press = () => {
 // TODO: Event listeners for on-screen control buttons should call pacman.turnSprite() as above keyboard controls do
 
 // Listen for pause/end button clicks
-// TODO: Make these work (they don't)
-pauseButton.onClick = () => {
+pauseButton.onclick = () => {
   state = pause;
 };
-endButton.onClick = () => {
+endButton.onclick = () => {
   state = end;
 };
 
@@ -127,6 +126,7 @@ function ready() {
 }
 function pause() {
   alert("PAUSED");
+  state = play;
 }
 function end() {
   // TODO: Send score to firebase
@@ -139,7 +139,7 @@ function hit() {
   pacman.relocateTo(pacman.origRow, pacman.origCol, app.renderer.screen);
 
   // If a cloud occupies the respawn point, respawn
-  // instead at that cloud's original coordinates.
+  // pacman at that cloud's original coordinates.
   cloudsList.forEach((cloud) => {
     if (cloud.isTouching(pacman)) {
       pacman.relocateTo(cloud.origRow, cloud.origCol, app.renderer.screen);
