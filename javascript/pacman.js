@@ -129,7 +129,7 @@ function pause() {
   state = play;
 }
 function end() {
-  // TODO: Send score to firebase
+  // TODO: Send score to firebase, route user to leaderboard
 }
 
 /* Move Pac-Man back to starting location
