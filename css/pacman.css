@@ -89,6 +89,13 @@ body {
   text-align: center;
 }
 
+#livesFrame,
+#scoreFrame,
+#playerFrame {
+  margin: 0;
+  padding: 0 1em;
+}
+
 /*Body frames*/
 .bodyFrame {
   display: flex;
@@ -100,17 +107,13 @@ body {
 }
 .bodyFrame-top {
   position: relative;
-  top: 0mm;
   display: flex;
-  align-items: stretch;
-  height: 15%;
-  justify-content: space-evenly;
-  padding: 4px;
+  height: 5%;
   font-family: monospace;
   color: white;
 }
 .bodyFrame-bottom {
-  height: 85%;
+  height: 95%;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -128,9 +131,21 @@ body {
   vertical-align: bottom;
   height: auto;
 }
+.endButton,
+.pauseButton {
+  background-color: black;
+  color: white;
+}
 .bodyFrame-left > img {
   margin-top: 20vh;
   text-align: justify;
+}
+#readyCount {
+  margin: 2em;
+  color: white;
+  font-size: xx-large;
+  /* font-family: "pacman"; */
+  /* TODO: Use pacman font */
 }
 .bodyFrame-right {
   display: flex;
@@ -142,11 +157,11 @@ body {
   height: 100%;
 }
 .bodyFrame-buttonControlFrame {
-  background-color: black;
+  /* background-color: black; */
   display: flex;
   align-items: center;
   margin: 10px;
-  padding-top: 10px;
+  /* padding-top: 10px; */
 }
 .Frame-buttonContfrolframe > a {
   display: flex;

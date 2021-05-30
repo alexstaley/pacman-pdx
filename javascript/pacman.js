@@ -24,6 +24,8 @@ const DRUNK_TIME = 420; // Number of ticks Pac-Man spends drunk (60 ticks/second
 let world = document.getElementById("world");
 let board = document.getElementById("gameboard");
 let playerScore = document.getElementById("scoreFrame");
+let playerLives = document.getElementById("livesFrame");
+let readyCount = document.getElementById("readyCount");
 let grid = selectRandomMap();
 
 function selectRandomMap() {
@@ -39,6 +41,8 @@ const app = new PIXI.Application({
   view: board,
   width: world.offsetWidth,
   height: world.offsetHeight,
+  // width: world.offsetWidth*0.75,
+  // height: world.offsetHeight*0.75,
   resolution: window.devicePixelRatio,
   autoDensity: true,
   transparent: true,
@@ -65,13 +69,14 @@ window.addEventListener("resize", () => {
 // Declare game variables
 let pacman = characterList[getPacManStartingCoords(grid)];
 let delta = 0;
-let levelPassed = false;
 let score = 0;
 let extraLives = STARTING_LIVES;
 let drunkDelta = 0;
+let state = ready;
+playerScore.innerHTML = "SCORE: " + score.toString();
+playerLives.innerHTML = "LIVES: " + extraLives.toString();
 
 // Define and listen for controls
-playerScore.innerHTML = score.toString();
 let upKey = keyboard("ArrowUp");
 let downKey = keyboard("ArrowDown");
 let leftKey = keyboard("ArrowLeft");
@@ -92,24 +97,42 @@ rightKey.press = () => {
 
 // TODO: Event listeners for on-screen control buttons should call pacman.turnSprite() as above keyboard controls do
 
-let state = ready;
-state = play;
-app.ticker.add((delta) => gameLoop(delta));
-
-function gameLoop(delta) {
-  state(delta);
+// Open game loop (in 'ready' state)
+app.ticker.add(gameLoop);
+function gameLoop() {
+  state();
 }
 
-function ready(delta) {
-  // TODO
+/* Wait for 3 seconds, then transition to 'play' state
+ */
+function ready() {
+  ++delta;
+  if (delta > 180) {
+    state = play;
+    delta = 0;
+    readyCount.innerHTML = "GO!";
+  } else {
+    readyCount.innerHTML = `${Math.floor((180 - delta) / 60) + 1}`;
+  }
 }
-function pause(delta) {
-  // TODO
+function pause() {
+  alert("PAUSED");
 }
-function end(delta) {
-  // TODO
+function end() {
+  // TODO: Send score to firebase
 }
-function play(delta) {
+
+/* Move Pac-Man back to starting location
+ * and transition to 'ready' state
+ */
+function hit() {
+  pacman.relocateTo(pacman.origRow, pacman.origCol, app.renderer.screen);
+  state = ready;
+}
+
+/* Move sprites, handle interactions during normal gameplay state
+ */
+function play() {
   move();
   getCoins();
   getRoses();
@@ -125,7 +148,7 @@ function move() {
   pacman.resetGridCoords(app.renderer.screen);
   if (pacman.drunk) {
     drunkDelta -= 1;
-    if (drunkDelta == 0) {
+    if (drunkDelta <= 0) {
       pacman.soberUp();
       cloudsList.forEach((cloud) => {
         cloud.sprite.texture = PIXI.Texture.from(TileImages.CLOUD);
@@ -150,7 +173,9 @@ function move() {
     if (
       !cloud.pathWrapsAround(app.renderer.screen) &&
       !cloud.hasAClearPath(grid)
-      // TODO: Implement cloud turning when there is a turn
+      // FIXME: Index out of bounds error happens rarely...
+      //        somehow still enters hasAClearPath()
+      //        even when on a border tile
     ) {
       cloud.heading = getRandomHeading();
     }
@@ -168,11 +193,12 @@ function getCoins() {
     coinsList[cell] = false;
     coinsList.totalValue -= 1;
     score += COIN_POINTS;
+    playerScore.innerHTML = "SCORE: " + score.toString();
   }
 
-  // Check if all coins have been picked up
+  // If all coins have been picked up, transition to 'end' state
   if (coinsList.totalValue < 1) {
-    levelPassed = true;
+    state = end;
   }
 }
 
@@ -193,7 +219,7 @@ function getRoses() {
     // Pick up the rose and update score
     characterList[cell].sprite.visible = false;
     score += ROSE_POINTS;
-    // TODO: Differentiate between rose colors. Store roses (and do what with them?) as in O.G. Pac-Man.
+    playerScore.innerHTML = "SCORE: " + score.toString();
   }
 }
 
@@ -208,6 +234,7 @@ function getBeers() {
   ) {
     characterList[cell].sprite.visible = false;
     score += BEER_POINTS;
+    playerScore.innerHTML = "SCORE: " + score.toString();
     drunkDelta = DRUNK_TIME;
     pacman.getDrunk();
     cloudsList.forEach((cloud) => {
@@ -223,27 +250,24 @@ function collideWithCloud() {
   cloudsList.forEach((cloud) => {
     if (pacman.isTouching(cloud)) {
       if (pacman.drunk) {
+        // Pac-Man eats the cloud
         cloud.sprite.visible = false;
         score += CLOUD_POINTS * pacman.cloudMultiplier;
+        playerScore.innerHTML = "SCORE: " + score.toString();
         pacman.cloudMultiplier *= 2;
+        cloud.relocateTo(cloud.origRow, cloud.origCol, app.renderer.screen);
       } else {
+        // The cloud eats Pac-Man
+        state = hit;
         extraLives -= 1;
         if (extraLives < 0) {
-          // TODO: Kill game loop
+          alert("GAME OVER");
+          state = end;
         }
-        // TODO: Move pacman back to starting position without changing the state of other sprites
+        playerLives.innerHTML = "LIVES: " + extraLives.toString();
       }
     }
   });
-}
-
-/* Load Pac-Man mouth animation (if you can get graphics working...)
- */
-function mouth() {
-  delta += 0.1;
-  pacman.sprite.getChildAt(0).clear();
-  // pacman.sprite.getChildAt(0).destroy();
-  pacman.animateMouth(delta);
 }
 
 /* Initialize sprites according to the given map array.

@@ -16,6 +16,8 @@ export class Character {
     this.name = img.slice(10, -4); // slices {name} from '../Images/{name}.png'
     this.row = row;
     this.col = col;
+    this.origRow = row;
+    this.origCol = col;
     this.xDiff = 0.0; // Difference between sprite's x-coord and the center of its column
     this.yDiff = 0.0; // Difference between sprite's y-coord and the center of its row
     this.heading = "right";
@@ -59,6 +61,12 @@ export class Character {
     }
   }
 
+  relocateTo(row, col, canvas) {
+    this.row = row;
+    this.col = col;
+    this.replaceSprite(canvas);
+  }
+
   /* If there is a clear path, move forward at speed
    */
   moveOn(grid, canvas) {
@@ -99,7 +107,6 @@ export class Character {
     if (this.isCloseEnough()) {
       this.wrapAround(canvas);
     }
-    // console.log(`${this.name}: (${this.row}, ${this.col})`);
   }
 
   /* Adjust the sprite's position and grid coords to
@@ -150,10 +157,6 @@ export class Character {
 
   /* Returns true if the character has a clear path
    * immediately in front of it (i.e. no walls).
-   *
-   * //FIXME: This function must be preceded by a call to
-   * the pathWrapsAround() function, or it will blow
-   * up the map by calling an out of bounds index
    */
   hasAClearPath(grid) {
     let aWall = true;
@@ -192,7 +195,7 @@ export class Character {
   /* Returns true if the sprite is in contact with a given other sprite
    */
   isTouching(neighbor) {
-    if (!neighbor) return false;
+    if (!neighbor || !neighbor.sprite.visible) return false;
     return (
       Math.abs(this.sprite.x - neighbor.sprite.x) < this.sprite.width / 2 &&
       Math.abs(this.sprite.y - neighbor.sprite.y) < this.sprite.height / 2
