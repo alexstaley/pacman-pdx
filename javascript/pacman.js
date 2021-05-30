@@ -26,6 +26,8 @@ let board = document.getElementById("gameboard");
 let playerScore = document.getElementById("scoreFrame");
 let playerLives = document.getElementById("livesFrame");
 let readyCount = document.getElementById("readyCount");
+let endButton = document.getElementById("endButton");
+let pauseButton = document.getElementById("pauseButton");
 let grid = selectRandomMap();
 
 function selectRandomMap() {
@@ -41,8 +43,6 @@ const app = new PIXI.Application({
   view: board,
   width: world.offsetWidth,
   height: world.offsetHeight,
-  // width: world.offsetWidth*0.75,
-  // height: world.offsetHeight*0.75,
   resolution: window.devicePixelRatio,
   autoDensity: true,
   transparent: true,
@@ -58,7 +58,7 @@ window.addEventListener("resize", () => {
   // Resize and remeasure canvas
   app.renderer.resize(world.offsetWidth, world.offsetHeight);
 
-  // Resize and replace sprites
+  // Resize and replace sprites. Recalibrate speed.
   for (let ch in characterList) {
     characterList[ch].resizeSprite(window.innerWidth);
     characterList[ch].replaceSprite(app.renderer.screen);
@@ -76,7 +76,7 @@ let state = ready;
 playerScore.innerHTML = "SCORE: " + score.toString();
 playerLives.innerHTML = "LIVES: " + extraLives.toString();
 
-// Define and listen for controls
+// Define and listen for keyboard controls
 let upKey = keyboard("ArrowUp");
 let downKey = keyboard("ArrowDown");
 let leftKey = keyboard("ArrowLeft");
@@ -96,6 +96,15 @@ rightKey.press = () => {
 };
 
 // TODO: Event listeners for on-screen control buttons should call pacman.turnSprite() as above keyboard controls do
+
+// Listen for pause/end button clicks
+// TODO: Make these work (they don't)
+pauseButton.onClick = () => {
+  state = pause;
+};
+endButton.onClick = () => {
+  state = end;
+};
 
 // Open game loop (in 'ready' state)
 app.ticker.add(gameLoop);

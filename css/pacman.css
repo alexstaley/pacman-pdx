@@ -131,8 +131,8 @@ body {
   vertical-align: bottom;
   height: auto;
 }
-.endButton,
-.pauseButton {
+#endButton,
+#pauseButton {
   background-color: black;
   color: white;
 }
