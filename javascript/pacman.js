@@ -4,6 +4,7 @@ import {
   MAP_WIDTH,
   MAP_HEIGHT,
   map1,
+  map3,
   TileIndices,
   TileImages,
   drawBackground,
