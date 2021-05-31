@@ -26,7 +26,7 @@ let world = document.getElementById("world");
 let board = document.getElementById("gameboard");
 let playerScore = document.getElementById("scoreFrame");
 let playerLives = document.getElementById("livesFrame");
-let readyCount = document.getElementById("readyCount");
+let gameStatus = document.getElementById("gameStatus");
 let endButton = document.getElementById("endButton");
 let pauseButton = document.getElementById("pauseButton");
 let grid = selectRandomMap();
@@ -36,7 +36,7 @@ function selectRandomMap() {
   return map1;
 }
 
-// Render background (logs, thorns, ground, decor/roses) in DOM
+// Render background (logs, thorns, ground cells) in DOM
 drawBackground(grid);
 
 // Create pixiJS application using 'gameboard' canvas
@@ -68,12 +68,12 @@ window.addEventListener("resize", () => {
 });
 
 // Declare game variables
+let state = ready;
 let pacman = characterList[getPacManStartingCoords(grid)];
 let delta = 0;
+let drunkDelta = 0;
 let score = 0;
 let extraLives = STARTING_LIVES;
-let drunkDelta = 0;
-let state = ready;
 playerScore.innerHTML = "SCORE: " + score.toString();
 playerLives.innerHTML = "LIVES: " + extraLives.toString();
 
@@ -84,23 +84,43 @@ let leftKey = keyboard("ArrowLeft");
 let rightKey = keyboard("ArrowRight");
 
 upKey.press = () => {
-  pacman.turnSprite("up");
+  if (state == play) {
+    pacman.turnSprite("up");
+  }
 };
 downKey.press = () => {
-  pacman.turnSprite("down");
+  if (state == play) {
+    pacman.turnSprite("down");
+  }
 };
 leftKey.press = () => {
-  pacman.turnSprite("left");
+  if (state == play) {
+    pacman.turnSprite("left");
+  }
 };
 rightKey.press = () => {
-  pacman.turnSprite("right");
+  if (state == play) {
+    pacman.turnSprite("right");
+  }
 };
 
-// TODO: Event listeners for on-screen control buttons should call pacman.turnSprite() as above keyboard controls do
+// TODO: Event listeners for on-screen control buttons
+// buttons should call pacman.turnSprite() if game is
+// in the "play" state, as above keyboard controls do
 
 // Listen for pause/end button clicks
 pauseButton.onclick = () => {
-  state = pause;
+  // state = pause;
+  switch (state) {
+    case pause:
+      gameStatus.innerHTML = "";
+      state = play;
+      break;
+    case play:
+      gameStatus.innerHTML = "(paused)";
+      state = pause;
+      break;
+  }
 };
 endButton.onclick = () => {
   state = end;
@@ -119,14 +139,13 @@ function ready() {
   if (delta > 180) {
     state = play;
     delta = 0;
-    readyCount.innerHTML = "GO!";
+    gameStatus.innerHTML = "";
   } else {
-    readyCount.innerHTML = `${Math.floor((180 - delta) / 60) + 1}`;
+    gameStatus.innerHTML = `${Math.floor((180 - delta) / 60) + 1}`;
   }
 }
 function pause() {
-  alert("PAUSED");
-  state = play;
+  // Do nothing
 }
 function end() {
   // TODO: Send score to firebase, route user to leaderboard
@@ -228,6 +247,7 @@ function getCoins() {
 
   // If all coins have been picked up, transition to 'end' state
   if (coinsList.totalValue < 1) {
+    gameStatus.innerHTML = "YOU WIN!";
     state = end;
   }
 }
@@ -291,10 +311,11 @@ function collideWithCloud() {
         state = hit;
         extraLives -= 1;
         if (extraLives < 0) {
-          alert("GAME OVER");
+          gameStatus.innerHTML = "GAME OVER";
           state = end;
+        } else {
+          playerLives.innerHTML = "LIVES: " + extraLives.toString();
         }
-        playerLives.innerHTML = "LIVES: " + extraLives.toString();
       }
     }
   });
