@@ -18,6 +18,17 @@ You can import _selection.json_ back to the IcoMoon app using the _Import Icons_
 
 Pixi is a tool that enables fast, smooth graphics rendering, with support for motion and animation. Run 'npm install pixi.js' to add it to dependencies.
 
-Active tokens (Pac-Man, clouds, coins, roses, and beers) are rendered as objects of pixi's Sprite class, using seed images to create textures which are then used to create sprites.
+Active tokens (Pac-Man, clouds, coins, roses, and beers) are rendered as objects of pixi's Sprite class, using seed images to create textures which are then used to create sprites. Passive tokens (timbers and thorns) are rendered as html elements.
 
-Check out https://github.com/kittykatattack/learningPixi#readme for help understanding pixi.js
+## Sources
+
+https://github.com/kittykatattack/learningPixi#readme was a valuable source during development, especially when coding keyboard input functionality.
+
+### Image sources
+
+- Log: https://www.pngitem.com/middle/JmbRim_firewood-forest-log-trapped-tree-wood-wood-log/
+- Thorn: https://www.shutterstock.com/editor/image/set-vector-frames-vines-thorns-design-593265374
+- Pac-Man: https://www.pinterest.com/pin/566890671836766861/
+- Coins/Roses: https://www.pinterest.com/pin/275493702193311949/
+- Beer: https://openclipart.org/detail/14854/beer-mug
+- Clouds: http://clipart-library.com/clipart/BTgrp98Rc.htm

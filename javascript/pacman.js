@@ -4,6 +4,7 @@ import {
   MAP_WIDTH,
   MAP_HEIGHT,
   map1,
+  map3,
   TileIndices,
   TileImages,
   drawBackground,
@@ -98,11 +99,10 @@ rightKey.press = () => {
 // TODO: Event listeners for on-screen control buttons should call pacman.turnSprite() as above keyboard controls do
 
 // Listen for pause/end button clicks
-// TODO: Make these work (they don't)
-pauseButton.onClick = () => {
+pauseButton.onclick = () => {
   state = pause;
 };
-endButton.onClick = () => {
+endButton.onclick = () => {
   state = end;
 };
 
@@ -126,9 +126,10 @@ function ready() {
 }
 function pause() {
   alert("PAUSED");
+  state = play;
 }
 function end() {
-  // TODO: Send score to firebase
+  // TODO: Send score to firebase, route user to leaderboard
 }
 
 /* Move Pac-Man back to starting location
@@ -136,12 +137,21 @@ function end() {
  */
 function hit() {
   pacman.relocateTo(pacman.origRow, pacman.origCol, app.renderer.screen);
+
+  // If a cloud occupies the respawn point, respawn
+  // pacman at that cloud's original coordinates.
+  cloudsList.forEach((cloud) => {
+    if (cloud.isTouching(pacman)) {
+      pacman.relocateTo(cloud.origRow, cloud.origCol, app.renderer.screen);
+    }
+  });
   state = ready;
 }
 
 /* Move sprites, handle interactions during normal gameplay state
  */
 function play() {
+  // TODO: Turn off "GO!" message after ~2 secs in play state
   move();
   getCoins();
   getRoses();
@@ -166,8 +176,15 @@ function move() {
   }
 
   // Check for walk-thru-walls bug
-  if (containsWall(grid, pacman.row, pacman.col)) {
-    pacman.backUp();
+  try {
+    if (containsWall(grid, pacman.row, pacman.col)) {
+      pacman.backUp();
+    }
+  } catch (error) {
+    // Watch for out of bounds error from containsWall and hasAClearPath
+    if (pacman.row > MAP_HEIGHT - 1) {
+      pacman.relocateTo(0, pacman.col, app.renderer.screen);
+    }
   }
 
   // Move clouds forward and update grid coords
@@ -175,18 +192,22 @@ function move() {
     cloud.moveOn(grid, app.renderer.screen);
     cloud.resetGridCoords(app.renderer.screen);
     // Check for walk-thru-walls bug
-    if (containsWall(grid, cloud.row, cloud.col)) {
-      cloud.backUp();
-      cloud.heading = getRandomHeading();
-    }
-    if (
-      !cloud.pathWrapsAround(app.renderer.screen) &&
-      !cloud.hasAClearPath(grid)
-      // FIXME: Index out of bounds error happens rarely...
-      //        somehow still enters hasAClearPath()
-      //        even when on a border tile
-    ) {
-      cloud.heading = getRandomHeading();
+    try {
+      if (containsWall(grid, cloud.row, cloud.col)) {
+        cloud.backUp();
+        cloud.heading = getRandomHeading();
+      }
+      if (
+        !cloud.pathWrapsAround(app.renderer.screen) &&
+        !cloud.hasAClearPath(grid)
+      ) {
+        cloud.heading = getRandomHeading();
+      }
+    } catch (error) {
+      // Watch for out of bounds error from containsWall and hasAClearPath
+      if (cloud.row > MAP_HEIGHT - 1) {
+        cloud.relocateTo(0, cloud.col, app.renderer.screen);
+      }
     }
   });
 }

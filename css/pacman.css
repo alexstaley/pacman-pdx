@@ -44,7 +44,7 @@ body {
   background-color: black;
   position: absolute;
   height: min-content;
-  width: 76vw;
+  width: 68vw;
   z-index: 2;
 }
 #gameboard {
