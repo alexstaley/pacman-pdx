@@ -29,6 +29,8 @@ let playerLives = document.getElementById("livesFrame");
 let gameStatus = document.getElementById("gameStatus");
 let endButton = document.getElementById("endButton");
 let pauseButton = document.getElementById("pauseButton");
+export let currentPlayer = document.getElementById("playerFrame");
+
 let grid = selectRandomMap();
 
 function selectRandomMap() {

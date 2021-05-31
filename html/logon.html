@@ -21,11 +21,16 @@
         width: 49%;
       }
     </style>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta
+      name="google-signin-client_id"
+      content="571540195753-pqb3b6t4k5n4r8o0r387029lu3iutq5f.apps.googleusercontent.com"
+    />
+    <script type = "text/javascript" src = "../javascript/logon.js" async defer></script>
   </head>
   <body>
     
-    <!-- <form class="bg-light border rounded w-50 mx-auto mt-5 p-3"> -->
-        <!-- <h1 class="mt-2 mb-4">Logon</h1> -->
+    
     <h1 class = "header-pacman">  
       <p>
         <div class="icon">
@@ -113,7 +118,6 @@
           </div> 
           <br> 
           <div class = "form-group">
-            
             <button 
               type="submit"
               class="a-button logon-button" 
@@ -125,19 +129,36 @@
               onclick="createAccount(emailName,passwordName)"
               >Create Account</button>
             <h5>or</h5>
-            <div class="g-signin2" data-onsuccess="onSignIn">
-              <button>Login</button>
+          <div>
+
+          </div class = "a-button account-button"> 
+            <div class="g-signin2" onclick="onSignIn" data-onsuccess="onSuccess">
             </div>
-            
+          </div>  
           </div>
         </form>
         
     </div>
-  <!-- </form> -->
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <meta
-    name="google-signin-client_id"
-    content="571540195753-pqb3b6t4k5n4r8o0r387029lu3iutq5f.apps.googleusercontent.com"
-  />
   </body>
 </html>
+<script>
+  function onSignIn(googleUser) {
+  window.alert("Using onSignIn from html page script");
+  
+}
+
+function onFailure(error) {
+  console.log(error);
+}
+function renderButton() {
+  gapi.signin2.render("my-signin2", {
+    scope: "profile email",
+    width: 240,
+    height: 50,
+    longtitle: true,
+    theme: "dark",
+    onsuccess: onSuccess,
+    onfailure: onFailure,
+  });
+}
+</script>
