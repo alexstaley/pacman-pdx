@@ -1,397 +1,400 @@
 @font-face {
-  font-family: "pacman";
-
-  src: url("../fonts/pacman.eot?mjy4uh");
-  src: url("../fonts/pacman.eot?mjy4uh#iefix") format("embedded-opentype"),
-    url("../fonts/pacman.ttf?mjy4uh") format("truetype"),
-    url("../fonts/pacman.woff?mjy4uh") format("woff"),
-    url("../fonts/pacman.svg?mjy4uh#pacman") format("svg");
-  font-weight: normal;
-  font-style: normal;
-  font-display: block;
+    font-family: "pacman";
+  
+    src: url("../fonts/pacman.eot?mjy4uh");
+    src: url("../fonts/pacman.eot?mjy4uh#iefix") format("embedded-opentype"),
+      url("../fonts/pacman.ttf?mjy4uh") format("truetype"),
+      url("../fonts/pacman.woff?mjy4uh") format("woff"),
+      url("../fonts/pacman.svg?mjy4uh#pacman") format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
 }
 
 .icon {
-  /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: "pacman" !important;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: "pacman" !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+  
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  padding-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  size: 90%;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    size: 90%;
 }
 
 .header-pacman {
-  font-size: 40px;
-  border: blue;
-  font-display: 30%;
-  padding-bottom: 0;
-  margin: 0em;
-  justify-content: center;
+    font-size: 40px;
+    border: blue;
+    font-display: 30%;
+    padding-bottom: 0;
+    margin: 0em;
+    justify-content: center;
 }
 
 .header-pdx {
-  font-size: 50px;
-  border: blue;
-  font-display: 30%;
-  padding-bottom: 0;
-  margin-top: 0em;
+    font-size: 50px;
+    border: blue;
+    font-display: 30%;
+    padding-bottom: 0;
+    margin-top: 0em;
 }
 
 .rose-img {
-  width: 100px;
-  height: 150px;
-  display: inline-flex;
-  justify-content: center;
+    width: 100px;
+    height: 150px;
+    display: inline-flex;
+    justify-content: center;
 }
 .rose-img > img {
-  max-width: 100%;
-  height: auto;
-  justify-content: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
+    max-width: 100%;
+    height: auto;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .login-font {
-  font-family: monospace;
-  font-size: 3em;
-  font-weight: 100;
+    font-family: monospace;
+    font-size: 3em;
+    font-weight: 100;
 }
 
-.a-button {
-  font-weight: 400;
-  text-align: center;
-  border: 1px solid transparent;
-  height: 50px;
-  margin: 10px;
-  font-size: 1rem;
-  border-radius: 0.25rem;
-  color: white;
+.a-button{ 
+    font-weight: 400;
+    text-align: center;
+    border: 1px solid transparent;
+    height: 50px;
+    margin: 10px;
+    font-size: 1rem;
+    border-radius: .25rem;
+    color: white;
 }
 
 .google-button {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  /* background-color: #4285f4; */
-  background-color: #007bff;
-  display: block;
-  width: 23em;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    /* background-color: #4285f4; */
+    background-color: #007bff;
+    display: block;
+    width: 23em;
 }
 
 .google-button:hover {
-  background-color: #2e93ff;
+    background-color: #2e93ff
 }
 
-.account-button {
-  background-color: grey;
-  width: 11em;
-  display: inline-block;
-  margin-left: 0em;
+.account-button {   
+    background-color: grey;
+    width: 11em;
+    display: inline-block;
+    margin-left: 0em;
 }
 
 .account-button:hover {
-  background-color: lightslategrey;
+    background-color: lightslategrey;
 }
 
 .logon-button {
-  background-color: #008000;
-  display: inline-block;
-  width: 11em;
-}
-.g-signin2 {
-  display: inline-block;
+    background-color: #008000;
+    display: inline-block;
+    width: 11em;
 }
 
 .logon-button:hover {
-  background-color: #1fa61f;
+    background-color: #1fa61f
 }
 
 .pad {
-  padding-left: 6em;
-  padding-right: 6em;
+    padding-left: 6em;
+    padding-right: 6em;
 }
 
 h2 {
-  font-family: monospace;
-  padding-top: 10px;
-  text-align: center;
+    font-family: monospace;
+    padding-top: 10px;
+    text-align: center;
 }
 
 ol {
-  font-family: monospace;
-  font-size: 1.5em;
+    font-family: monospace;
+    font-size: 1.5em;
 }
 
 dl {
-  font-family: monospace;
-  font-size: 1.5em;
+    font-family: monospace;
+    font-size: 1.5em;
 }
 
 th {
-  font-size: 2em;
-  font-family: monospace;
-  padding-top: 10px;
-  text-align: center;
+    font-size: 2em;
+    font-family: monospace;
+    padding-top: 10px;
+    text-align: center;
 }
 
-h5 {
-  font-family: monospace;
-  text-align: center;
+h5{
+    font-family: monospace;
+    text-align: center;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
-
+  
 .row {
-  display: flex;
+    display: flex;
 }
-
+  
 .column {
-  float: left;
-  width: 50%;
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 40px;
-  margin-bottom: 20px;
+    float: left;
+    width: 50%;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 40px;
+    margin-bottom: 20px;
 }
-
+  
 .leaderboard-button {
-  display: inline-block;
-  background-color: #008000;
-  text-align: center;
-  color: white;
-  width: 160px;
-  height: 50px;
-  margin: 10px;
-  border-radius: 0.25rem;
+    display: inline-block;
+    background-color: #008000;
+    text-align: center;
+    color: white;
+    width: 160px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 0.25rem;
 }
 
 .button:hover {
-  background-color: #1fa61f;
+    background-color: #1fa61f;
 }
+  
 
 /* Font Icon Information: */
 
 .icon-A .path1:before {
-  content: "\e90c";
-  color: rgb(255, 255, 255);
+    content: "\e90c";
+    color: rgb(255, 255, 255);
 }
 
 .icon-A .path2:before {
-  content: "\e90d";
-  margin-left: -1.1259765625em;
-  color: rgb(59, 31, 135);
+    content: "\e90d";
+    margin-left: -1.1259765625em;
+    color: rgb(59, 31, 135);
 }
 
 .icon-A .path3:before {
-  content: "\e90e";
-  margin-left: -1.1259765625em;
-  color: green;
+    content: "\e90e";
+    margin-left: -1.1259765625em;
+    color: green;
 }
 
 .icon-A .path4:before {
-  content: "\e90f";
-  margin-left: -1.1259765625em;
-  color: rgb(0, 0, 0);
+    content: "\e90f";
+    margin-left: -1.1259765625em;
+    color: rgb(0, 0, 0);
 }
 
 .icon-A .path5:before {
-  content: "\e910";
-  margin-left: -1.1259765625em;
-  color: none;
+    content: "\e910";
+    margin-left: -1.1259765625em;
+    color: none;
 }
 
 .icon-A .path6:before {
-  content: "\e911";
-  margin-left: -1.1259765625em;
-  color: none;
+    content: "\e911";
+    margin-left: -1.1259765625em;
+    color: none;
 }
+  
 
 .icon-C .path1:before {
-  content: "\e92f";
-  color: rgb(255, 255, 255);
+    content: "\e92f";
+    color: rgb(255, 255, 255);
 }
 
 .icon-C .path2:before {
-  content: "\e930";
-  margin-left: -0.9814453125em;
-  color: rgb(59, 31, 135);
+    content: "\e930";
+    margin-left: -0.9814453125em;
+    color: rgb(59, 31, 135);
 }
 
 .icon-C .path3:before {
-  content: "\e931";
-  margin-left: -0.9814453125em;
-  color: #008000;
+    content: "\e931";
+    margin-left: -0.9814453125em;
+    color: #008000;
 }
 
 .icon-C .path4:before {
-  content: "\e932";
-  margin-left: -0.9814453125em;
-  color: none;
+    content: "\e932";
+    margin-left: -0.9814453125em;
+    color: none;
 }
 
 .icon-C .path5:before {
-  content: "\e933";
-  margin-left: -0.9814453125em;
-  color: none;
+    content: "\e933";
+    margin-left: -0.9814453125em;
+    color: none;
 }
 
+
 .icon-D .path1:before {
-  content: "\e934";
-  color: rgb(255, 255, 255);
+    content: "\e934";
+    color: rgb(255, 255, 255);
 }
 
 .icon-D .path2:before {
-  content: "\e935";
-  margin-left: -0.9208984375em;
-  color: rgb(59, 31, 135);
+    content: "\e935";
+    margin-left: -0.9208984375em;
+    color: rgb(59, 31, 135);
 }
 
 .icon-D .path3:before {
-  content: "\e936";
-  margin-left: -0.9208984375em;
-  color: green;
+    content: "\e936";
+    margin-left: -0.9208984375em;
+    color: green;
 }
 
 .icon-D .path4:before {
-  content: "\e937";
-  margin-left: -0.9208984375em;
-  color: rgb(10, 0, 0);
+    content: "\e937";
+    margin-left: -0.9208984375em;
+    color: rgb(10, 0, 0);
 }
 
 .icon-D .path5:before {
-  content: "\e938";
-  margin-left: -0.9208984375em;
-  color: none;
+    content: "\e938";
+    margin-left: -0.9208984375em;
+    color: none;
 }
 
 .icon-D .path6:before {
-  content: "\e939";
-  margin-left: -0.9208984375em;
-  color: none;
+    content: "\e939";
+    margin-left: -0.9208984375em;
+    color: none;
 }
+  
 
 .icon-M .path1:before {
-  content: "\e97f";
-  color: rgb(255, 255, 255);
+    content: "\e97f";
+    color: rgb(255, 255, 255);
 }
 
 .icon-M .path2:before {
-  content: "\e980";
-  margin-left: -0.904296875em;
-  color: rgb(59, 31, 135);
+    content: "\e980";
+    margin-left: -0.904296875em;
+    color: rgb(59, 31, 135);
 }
 
 .icon-M .path3:before {
-  content: "\e981";
-  margin-left: -0.904296875em;
-  color: green;
+    content: "\e981";
+    margin-left: -0.904296875em;
+    color: green;
 }
 
 .icon-M .path4:before {
-  content: "\e982";
-  margin-left: -0.904296875em;
-  color: none;
+    content: "\e982";
+    margin-left: -0.904296875em;
+    color: none;
 }
 
+
 .icon-N .path1:before {
-  content: "\e983";
-  color: rgb(255, 255, 255);
+    content: "\e983";
+    color: rgb(255, 255, 255);
 }
 
 .icon-N .path2:before {
-  content: "\e984";
-  margin-left: -0.86328125em;
-  color: rgb(59, 31, 135);
+    content: "\e984";
+    margin-left: -0.86328125em;
+    color: rgb(59, 31, 135);
 }
 
 .icon-N .path3:before {
-  content: "\e985";
-  margin-left: -0.86328125em;
-  color: green;
+    content: "\e985";
+    margin-left: -0.86328125em;
+    color: green;
 }
 
 .icon-N .path4:before {
-  content: "\e986";
-  margin-left: -0.86328125em;
-  color: none;
+    content: "\e986";
+    margin-left: -0.86328125em;
+    color: none;
 }
 
+  
 .icon-P .path1:before {
-  content: "\e992";
-  color: rgb(255, 255, 255);
+    content: "\e992";
+    color: rgb(255, 255, 255);
 }
 
 .icon-P .path2:before {
-  content: "\e993";
-  margin-left: -0.8671875em;
-  color: rgb(59, 31, 135);
+    content: "\e993";
+    margin-left: -0.8671875em;
+    color: rgb(59, 31, 135);
 }
 
 .icon-P .path3:before {
-  content: "\e994";
-  margin-left: -0.8671875em;
-  color: green;
+    content: "\e994";
+    margin-left: -0.8671875em;
+    color: green;
 }
 
 .icon-P .path4:before {
-  content: "\e995";
-  margin-left: -0.8671875em;
-  color: none;
+    content: "\e995";
+    margin-left: -0.8671875em;
+    color: none;
 }
 
 .icon-P .path5:before {
-  content: "\e996";
-  margin-left: -0.8671875em;
-  color: none;
+    content: "\e996";
+    margin-left: -0.8671875em;
+    color: none;
 }
 
 .icon-P .path6:before {
-  content: "\e997";
-  margin-left: -0.8671875em;
-  color: rgb(0, 0, 0);
+    content: "\e997";
+    margin-left: -0.8671875em;
+    color: rgb(0, 0, 0);
 }
+  
 
 .icon-X .path1:before {
-  content: "\e9c3";
-  color: rgb(255, 255, 255);
+    content: "\e9c3";
+    color: rgb(255, 255, 255);
 }
 
 .icon-X .path2:before {
-  content: "\e9c4";
-  margin-left: -1.05078125em;
-  color: rgb(59, 31, 135);
+    content: "\e9c4";
+    margin-left: -1.05078125em;
+    color: rgb(59, 31, 135);
 }
 
 .icon-X .path3:before {
-  content: "\e9c5";
-  margin-left: -1.05078125em;
-  color: green;
+    content: "\e9c5";
+    margin-left: -1.05078125em;
+    color: green;
 }
 
 .icon-X .path4:before {
-  content: "\e9c6";
-  margin-left: -1.05078125em;
-  color: none;
+    content: "\e9c6";
+    margin-left: -1.05078125em;
+    color: none;
 }
 
 .icon-X .path5:before {
-  content: "\e9c7";
-  margin-left: -1.05078125em;
-  color: none;
+    content: "\e9c7";
+    margin-left: -1.05078125em;
+    color: none;
 }
