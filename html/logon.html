@@ -27,6 +27,9 @@
       content="571540195753-pqb3b6t4k5n4r8o0r387029lu3iutq5f.apps.googleusercontent.com"
     />
     <script type = "text/javascript" src = "../javascript/logon.js" async defer></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
+   
   </head>
   <body>
     
@@ -121,26 +124,25 @@
             <button 
               type="submit"
               class="a-button logon-button" 
-              onclick = "logon()" 
+              onclick="onSignIn"
+              data-onsuccess="onSuccess"
+              
               >Log In</button>
             <button 
               type="reset" 
               class="a-button account-button"
-              onclick="createAccount(emailName,passwordName)"
+              onclick="signInWithEmailAndPassword"
               >Create Account</button>
             <h5>or</h5>
-          <div>
-
           </div class = "a-button account-button"> 
-            <div class="g-signin2" onclick="onSignIn" data-onsuccess="onSuccess">
-            </div>
-          </div>  
+            <div class="g-signin2" onclick="onSignIn" data-onsuccess="onSuccess"></div>
           </div>
         </form>
         
     </div>
   </body>
 </html>
+
 <script>
   function onSignIn(googleUser) {
   window.alert("Using onSignIn from html page script");
@@ -161,4 +163,12 @@ function renderButton() {
     onfailure: onFailure,
   });
 }
-</script>
+function logon(){
+   window.alert("inside of logon");
+  let email = document.getElementById("emailName").value;
+  let password = document.getElementById("passwordName").value;
+  googleUser.signInWithEmailAndPassword(email,password);
+
+}
+  
+

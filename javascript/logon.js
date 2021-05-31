@@ -10,8 +10,7 @@ function signOut() {
   });
 }
 function onSuccess(googleUser) {
-  window.alert("inside of success");
   console.log("Logged in as: " + googleUser.getBasicProfile().getName());
+  let userName = googleUser.getBasicProfile().getGivenName();
   location.assign("pacman.html");
-  return currentUser;
 }
