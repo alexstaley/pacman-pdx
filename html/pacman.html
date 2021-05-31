@@ -15,8 +15,7 @@
     <div class="bodyFrame">
       <div class="bodyFrame-top">
         <div class="header-userFrame">
-          <Avatar alt="Current user" src="../Images/Me.jpg" />
-          <h2 id="playerFrame" src="getUserInfo()">Player</h2>
+          <h2 id="playerFrame">Player</h2>
         </div>
         <div class="header-scoreFrame">
           <h2 id="scoreFrame"></h2>
@@ -28,10 +27,12 @@
       <div class="bodyFrame-bottom">
         <div class="bodyFrame-left">
           <div class="bodyFrame-buttonControlFrame">
-            <button id="endButton">End Game</button>
+            <a href="leaderboard.html">
+              <button id="endButton">End Game</button>
+            </a>
             <button id="pauseButton">Pause Game</button>
           </div>
-          <div id="readyCount"></div>
+          <div id="gameStatus"></div>
           <img src="../Images/arrows.png" />
         </div>
         <div class="bodyFrame-right">
@@ -41,4 +42,5 @@
       </div>
     </div>
   </body>
+  <script type="text/javascript" src="../javascript/logon.js"></script>
 </html>

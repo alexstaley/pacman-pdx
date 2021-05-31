@@ -28,10 +28,18 @@
 10. Added a logout function for future features.
 11. wasted many hours (very late hours 3am) to resolve this issue.
 12. I have beat my head against the wall with this one. I was able to log in, get username
-and everything worked but now its giving me a error that i cannot trace down. Nothing that I am aware of changed for the logon. I stayed up all the way through the night and still no luck fixing this error. 
-13. It is hard to tell if the website is reloading new or old data, cleared cashe, shut browsers, restarted server, still 
-sometimes loads old code.
+    and everything worked but now its giving me a error that i cannot trace down. Nothing that I am aware of changed for the logon. I stayed up all the way through the night and still no luck fixing this error.
+13. It is hard to tell if the website is reloading new or old data, cleared cashe, shut browsers, restarted server, still
+    sometimes loads old code.
 14. Code is now loadiing after completely dumping the entire .js file. I had to bring in each function one at a timme to find out what was causing the issue. I eliminated most of the other code that consisted of different type of logins. I had a username and password logon, google credential logon using the setting provided by firestore, and finally the one that worked. Only a few lines of code and much more seemless with my credentials
+15. Updated node package to 8.6.3. with npm-check-updates, then ncu -u, then npm install
+
+# logon.html
+
+1. updated logon.html with firebase code that uses content_id for secure logon.
+2. Updated logon button to onSignIn function after success it uses onSuccess function call.
+3. Included logon function for email and password. tried google's web forums docs, and it does not seem to call the correct functions. hard to troubleshoot, no error messages, even when I do windows.alert("Error:",errorMessages);
+
 # Created Design for Game Window
 
 1. set-up different divs to divide up the space in the window.
@@ -44,6 +52,7 @@ sometimes loads old code.
 8. Having lots of difficulty getting blue controls to bottom of the screen. Not sure which element
    is stopping me from getting it to where it belongs.
 9. Having trouble centering controller image. Have tried content-justified: center, align: center, text-align:center,
+10. Fixed end-game button to take it to the leaderboard.html.
 
 # Fonts old computer
 

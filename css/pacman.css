@@ -140,8 +140,8 @@ body {
   margin-top: 20vh;
   text-align: justify;
 }
-#readyCount {
-  margin: 2em;
+#gameStatus {
+  margin: 2em auto;
   color: white;
   font-size: xx-large;
   /* font-family: "pacman"; */

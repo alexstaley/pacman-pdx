@@ -21,11 +21,19 @@
         width: 49%;
       }
     </style>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta
+      name="google-signin-client_id"
+      content="571540195753-pqb3b6t4k5n4r8o0r387029lu3iutq5f.apps.googleusercontent.com"
+    />
+    <script type = "text/javascript" src = "../javascript/logon.js" async defer></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
+   
   </head>
   <body>
     
-    <!-- <form class="bg-light border rounded w-50 mx-auto mt-5 p-3"> -->
-        <!-- <h1 class="mt-2 mb-4">Logon</h1> -->
+    
     <h1 class = "header-pacman">  
       <p>
         <div class="icon">
@@ -109,46 +117,58 @@
                 id = "passwordName" 
                 placeholder="Password..."
                 autocomplete="current-password"
-                required />
+                 />
           </div> 
           <br> 
           <div class = "form-group">
             <button 
               type="submit"
               class="a-button logon-button" 
-              onclick = "logon()" 
-              required>Log In</button>
+              onclick="onSignIn"
+              data-onsuccess="onSuccess"
+              
+              >Log In</button>
             <button 
               type="reset" 
               class="a-button account-button"
-              onclick="createAccount(emailName,passwordName)"
+              onclick="signInWithEmailAndPassword"
               >Create Account</button>
             <h5>or</h5>
-            <button 
-                class="a-button google-button" 
-                onclick = "googleLog()" 
-                >Sign in with Google</button>  
+          </div class = "a-button account-button"> 
+            <div class="g-signin2" onclick="onSignIn" data-onsuccess="onSuccess"></div>
           </div>
         </form>
         
     </div>
-  <!-- </form> -->
-  <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
-    <script>
-         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  var firebaseConfig = {
-    apiKey: "AIzaSyApTQ82sxHdB4w0d5JVcfnu3lpbLI9qJPY",
-    authDomain: "pacman-91374.firebaseapp.com",
-    projectId: "pacman-91374",
-    storageBucket: "pacman-91374.appspot.com",
-    messagingSenderId: "571540195753",
-    appId: "1:571540195753:web:ad4736b7c7b96aa1955cb8",
-    measurementId: "G-CC2D61S2ZD"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-    </script>
-    <script defer type = "text/javascript" src = "../javascript/logon.js"></script>
   </body>
 </html>
+
+<script>
+  function onSignIn(googleUser) {
+  window.alert("Using onSignIn from html page script");
+  
+}
+
+function onFailure(error) {
+  console.log(error);
+}
+function renderButton() {
+  gapi.signin2.render("my-signin2", {
+    scope: "profile email",
+    width: 240,
+    height: 50,
+    longtitle: true,
+    theme: "dark",
+    onsuccess: onSuccess,
+    onfailure: onFailure,
+  });
+}
+function logon(){
+   window.alert("inside of logon");
+  let email = document.getElementById("emailName").value;
+  let password = document.getElementById("passwordName").value;
+  googleUser.signInWithEmailAndPassword(email,password);
+
+}
+  
+
