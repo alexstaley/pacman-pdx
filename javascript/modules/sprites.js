@@ -21,11 +21,6 @@ export class Character {
     this.xDiff = 0.0; // Difference between sprite's x-coord and the center of its column
     this.yDiff = 0.0; // Difference between sprite's y-coord and the center of its row
     this.heading = "right";
-<<<<<<< HEAD
-    this.speed = 3;
-    this.speed = 4;
-=======
->>>>>>> 547bbcc73816de46c7660a61cbfdbb52678265a5
     this.drunk = false;
     this.cloudMultiplier = 1;
 
@@ -60,8 +55,6 @@ export class Character {
     }
   }
 
-<<<<<<< HEAD
-=======
   resetSpeed(windowWidth) {
     if (this.img == TileImages.PAC_MAN || this.img == TileImages.CLOUD) {
       this.speed = Math.floor(windowWidth / 200);
@@ -74,7 +67,6 @@ export class Character {
     this.replaceSprite(canvas);
   }
 
->>>>>>> 547bbcc73816de46c7660a61cbfdbb52678265a5
   /* If there is a clear path, move forward at speed
    */
   moveOn(grid, canvas) {
@@ -110,47 +102,6 @@ export class Character {
     this.row = Math.round(row);
     this.xDiff = this.col - col; // how close we are to the center of that column
     this.yDiff = this.row - row; // how close we are to the center of that row
-<<<<<<< HEAD
-  }
-
-  /* Change the character's heading.
-   * Called by gameplay button event listeners //TODO
-   */
-  turnSprite(direction) {
-    let face = 0;
-    switch (direction) {
-      case "up":
-        face = (3 * Math.PI) / 2;
-        break;
-      case "down":
-        face = Math.PI / 2;
-        break;
-      case "left":
-        face = Math.PI;
-        break;
-      case "right":
-        break;
-    }
-    this.heading = direction;
-    this.sprite.rotation = face;
-  }
-
-  /* Returns true if the sprite is within a threshold of the
-   * middle of the character's row (or col, depending on heading)
-   */
-  isCloseEnough() {
-    return (
-      Math.abs(
-        this.heading == "right" || this.heading == "left"
-          ? this.xDiff
-          : this.yDiff
-      ) < THRESHOLD
-    );
-  }
-
-  /* Returns true if the character has a clear path in front of it
-=======
->>>>>>> 547bbcc73816de46c7660a61cbfdbb52678265a5
 
     // Check for wraparound path
     if (this.isCloseEnough()) {
@@ -206,13 +157,6 @@ export class Character {
 
   /* Returns true if the character has a clear path
    * immediately in front of it (i.e. no walls).
-<<<<<<< HEAD
-   *
-   * //FIXME: This function must be preceded by a call to
-   * the pathWrapsAround() function, or it will blow
-   * up the map by calling an out of bounds index
-=======
->>>>>>> 547bbcc73816de46c7660a61cbfdbb52678265a5
    */
   hasAClearPath(grid) {
     let aWall = true;
@@ -313,28 +257,6 @@ export class Character {
     this.sprite.y = y;
   }
 
-<<<<<<< HEAD
-  /* If there is a clear path, move forward at speed
-   */
-  moveOn(grid) {
-    if (this.hasAClearPath(grid)) {
-      this.recenter();
-      switch (this.heading) {
-        case "up":
-          this.sprite.y -= this.speed;
-          break;
-        case "down":
-          this.sprite.y += this.speed;
-          break;
-        case "left":
-          this.sprite.x -= this.speed;
-          break;
-        case "right":
-          this.sprite.x += this.speed;
-          break;
-      }
-    }
-=======
   /* Self-explanatory.
    */
   getDrunk() {
@@ -342,18 +264,13 @@ export class Character {
     this.sprite.texture = PIXI.Texture.from(TileImages.DRUNK_PAC_MAN);
   }
 
->>>>>>> 547bbcc73816de46c7660a61cbfdbb52678265a5
   /* Self-explanatory.
    */
-    soberUp(){
+  soberUp() {
     this.drunk = false;
-<<<<<<< HEAD
-    }
-=======
     this.sprite.texture = PIXI.Texture.from(TileImages.PAC_MAN);
     this.cloudMultiplier = 1;
   }
->>>>>>> 547bbcc73816de46c7660a61cbfdbb52678265a5
 
   /* Back up at double speed. Ticker should call this if
    * the character finds itself sharing space with a wall.
@@ -373,6 +290,5 @@ export class Character {
         this.sprite.x -= this.speed * 2;
         break;
     }
-  }
   }
 }
