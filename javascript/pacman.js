@@ -14,7 +14,7 @@ import {
   getRandomHeading,
   getPacManStartingCoords,
 } from "./modules/maps.js";
-
+import { GetUser } from "./modules/logon.js";
 const COIN_POINTS = 10; // Number of points awarded when Pac-Man picks up a coin
 const BEER_POINTS = 50; // ...when Pac-Man picks up a beer
 const ROSE_POINTS = 100; // ...when Pac-Man picks up a rose
@@ -29,8 +29,8 @@ let playerLives = document.getElementById("livesFrame");
 let gameStatus = document.getElementById("gameStatus");
 let endButton = document.getElementById("endButton");
 let pauseButton = document.getElementById("pauseButton");
-export let currentPlayer = document.getElementById("playerFrame");
-
+let currentPlayer = document.getElementById("playerFrame");
+currentPlayer.innerHTML = GetUser();
 let grid = selectRandomMap();
 
 function selectRandomMap() {
