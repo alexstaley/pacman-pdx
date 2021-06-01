@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "es6": "^0.0.7",
     "firebase": "^8.6.3",
     "http-server": "^0.12.3",
     "node": "^16.1.0",

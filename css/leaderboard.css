@@ -114,6 +114,8 @@ body {
 }
 .g-signin2 {
   display: inline-block;
+  margin: auto;
+  width: 11em;
 }
 
 .logon-button:hover {
