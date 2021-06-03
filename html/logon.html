@@ -4,8 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Brian's changes: -->
+    <meta
+      name="google-signin-client_id"
+      content="571540195753-pqb3b6t4k5n4r8o0r387029lu3iutq5f.apps.googleusercontent.com"
+    />
+    <!-- End of Brian's changes -->
     <title>Login</title>
-    <!-- <link rel="stylesheet" type="text/css" href="../css/logon.css" /> -->
     <link rel="stylesheet" type="text/css" href="../css/leaderboard.css" />
     <link
       rel="stylesheet"
@@ -21,13 +26,10 @@
         width: 49%;
       }
     </style>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
   </head>
   <body>
-    
-    <!-- <form class="bg-light border rounded w-50 mx-auto mt-5 p-3"> -->
-        <!-- <h1 class="mt-2 mb-4">Logon</h1> -->
     <h1 class = "header-pacman">  
-      <p>
         <div class="icon">
           <span class="icon-P"
             ><span class="path1"></span><span class="path2"></span
@@ -60,10 +62,8 @@
             ><span class="path5"></span><span class="path6"></span
          ></span>
         </div>
-      </p>
     </h1>
     <h1 class = "header-pdx">  
-      <p>
        <div class="icon">
          <div>
            <span class="icon-P"
@@ -83,72 +83,93 @@
            ></span>
          </div> 
        </div> 
-      </p>
+      <!-- </p> -->
     </h1>
-         <div class = "rose-img">
-           <img src = "../Images/rose.gif">
-         </div>
-         <h1 class="login-font">User Login</h1>
-
-        <form class="mx-auto mt-5 pad bg-light border rounded">
-          <div class="form-group">
-            <label for="Email"></label>
-            <input 
-              type="email" 
-              class="form-control" 
-              id = "emailName"
-              placeholder="Email..."
-              autocomplete="username"
-              required />
-          </div>
-          <div class="form-group">
-            <label for="Password"></label>
-              <input 
-                type="password" 
-                class="form-control" 
-                id = "passwordName" 
-                placeholder="Password..."
-                autocomplete="current-password"
-                required />
-          </div> 
-          <br> 
-          <div class = "form-group">
-            <button 
-              type="submit"
-              class="a-button logon-button" 
-              onclick = "logon()" 
-              required>Log In</button>
-            <button 
-              type="reset" 
-              class="a-button account-button"
-              onclick="createAccount(emailName,passwordName)"
-              >Create Account</button>
-            <h5>or</h5>
-            <button 
-                class="a-button google-button" 
-                onclick = "googleLog()" 
-                >Sign in with Google</button>  
-          </div>
-        </form>
-        
+    <div class = "rose-img">
+      <img src = "../Images/rose.gif">
     </div>
-  <!-- </form> -->
-  <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
-    <script>
-         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  var firebaseConfig = {
-    apiKey: "AIzaSyApTQ82sxHdB4w0d5JVcfnu3lpbLI9qJPY",
-    authDomain: "pacman-91374.firebaseapp.com",
-    projectId: "pacman-91374",
-    storageBucket: "pacman-91374.appspot.com",
-    messagingSenderId: "571540195753",
-    appId: "1:571540195753:web:ad4736b7c7b96aa1955cb8",
-    measurementId: "G-CC2D61S2ZD"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-    </script>
+    <h1 class="login-font">User Login</h1>
+
+    <form class="mx-auto mt-5 pad bg-light border rounded">
+      <div class="form-group">
+        <label for="Email"></label>
+        <input 
+          type="email" 
+          class="form-control" 
+          id = "emailName"
+          placeholder="Email..."
+          autocomplete="username"
+          required />
+      </div>
+      <div class="form-group">
+        <label for="Password"></label>
+        <input 
+          type="password" 
+          class="form-control" 
+          id = "passwordName" 
+          placeholder="Password..."
+          autocomplete="current-password"
+          required />
+      </div> 
+      <br> 
+      <div class = "form-group">
+        <button 
+          type = "submit"
+          class = "a-button logon-button" 
+          onclick = "onSignIn"
+          data-onsuccess = "onSuccess"
+          >
+          Log In
+        </button>
+        <button 
+          type = "reset" 
+          class = "a-button account-button"
+          onclick = "signInWithEmailAndPassword"
+          >
+          Create Account
+        </button>
+        <h5>or</h5>
+        <!-- <button 
+          class="a-button google-button" 
+          onclick = "googleLog()" 
+          >Sign in with Google</button>   -->
+        <div
+          class = "g-signin2"
+          onclick = "onSignIn"
+          data-onsuccess = "onSuccess"
+        ></div>
+      </div>
+    </form>
     <script defer type = "text/javascript" src = "../javascript/logon.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script> -->
+    <!-- <script>
+         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+          apiKey: "AIzaSyApTQ82sxHdB4w0d5JVcfnu3lpbLI9qJPY",
+          authDomain: "pacman-91374.firebaseapp.com",
+          projectId: "pacman-91374",
+          storageBucket: "pacman-91374.appspot.com",
+          messagingSenderId: "571540195753",
+          appId: "1:571540195753:web:ad4736b7c7b96aa1955cb8",
+          measurementId: "G-CC2D61S2ZD"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+      </script> -->
+      <script>
+        function onSignIn(googleUser) {
+          var profile = googleUser.getBasicProfile();
+          console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
+          console.log("Name: " + profile.getName());
+          console.log("Image URL: " + profile.getImageUrl());
+          console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
+        }
+        function onSuccess(googleUser) {
+          console.log("Logged in as: " + googleUser.getBasicProfile().getName());
+          userName = googleUser.getBasicProfile().getName();
+          location.assign("pacman.html");
+        }
+      </script>
   </body>
 </html>
