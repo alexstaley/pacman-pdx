@@ -1,6 +1,5 @@
 //Used the following youtube video for help.
 //Firebase Web Login - Firebase Web App Tutorial
-//https://www.youtube.com/watch?v=iKlWaUszxB4
 
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();

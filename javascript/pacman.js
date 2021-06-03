@@ -14,7 +14,7 @@ import {
   getRandomHeading,
   getPacManStartingCoords,
 } from "./modules/maps.js";
-
+import { userName } from "./modules/logon.js";
 const COIN_POINTS = 10; // Number of points awarded when Pac-Man picks up a coin
 const BEER_POINTS = 50; // ...when Pac-Man picks up a beer
 const ROSE_POINTS = 100; // ...when Pac-Man picks up a rose

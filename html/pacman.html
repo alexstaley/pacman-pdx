@@ -10,8 +10,14 @@
     <script src="../node_modules/pixi.js/dist/browser/pixi.min.js"></script>
     <script defer type="module" src="../javascript/pacman.js"></script>
     <link rel="icon" type="image/png" href="../Images/favicon.png" />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <meta
+      name="google-signin-client_id"
+      content="571540195753-pqb3b6t4k5n4r8o0r387029lu3iutq5f.apps.googleusercontent.com"
+    />
   </head>
-  <body>
+  <body data-onsuccess="onSuccess">
     <div class="bodyFrame">
       <div class="bodyFrame-top">
         <div class="header-userFrame">
@@ -40,5 +46,6 @@
         </div>
       </div>
     </div>
+    <script type="module" src="../javascript/modules/logon.js"></script>
   </body>
 </html>
