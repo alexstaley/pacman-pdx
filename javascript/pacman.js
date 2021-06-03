@@ -26,11 +26,9 @@ let world = document.getElementById("world");
 let board = document.getElementById("gameboard");
 let playerScore = document.getElementById("scoreFrame");
 let playerLives = document.getElementById("livesFrame");
-let gameStatus = document.getElementById("gameStatus");
+let readyCount = document.getElementById("readyCount");
 let endButton = document.getElementById("endButton");
 let pauseButton = document.getElementById("pauseButton");
-let currentPlayer = document.getElementById("playerFrame");
-currentPlayer.innerHTML = userName;
 let grid = selectRandomMap();
 
 function selectRandomMap() {
@@ -38,7 +36,7 @@ function selectRandomMap() {
   return map1;
 }
 
-// Render background (logs, thorns, ground cells) in DOM
+// Render background (logs, thorns, ground, decor/roses) in DOM
 drawBackground(grid);
 
 // Create pixiJS application using 'gameboard' canvas
@@ -70,12 +68,12 @@ window.addEventListener("resize", () => {
 });
 
 // Declare game variables
-let state = ready;
 let pacman = characterList[getPacManStartingCoords(grid)];
 let delta = 0;
-let drunkDelta = 0;
 let score = 0;
 let extraLives = STARTING_LIVES;
+let drunkDelta = 0;
+let state = ready;
 playerScore.innerHTML = "SCORE: " + score.toString();
 playerLives.innerHTML = "LIVES: " + extraLives.toString();
 
@@ -86,43 +84,23 @@ let leftKey = keyboard("ArrowLeft");
 let rightKey = keyboard("ArrowRight");
 
 upKey.press = () => {
-  if (state == play) {
-    pacman.turnSprite("up");
-  }
+  pacman.turnSprite("up");
 };
 downKey.press = () => {
-  if (state == play) {
-    pacman.turnSprite("down");
-  }
+  pacman.turnSprite("down");
 };
 leftKey.press = () => {
-  if (state == play) {
-    pacman.turnSprite("left");
-  }
+  pacman.turnSprite("left");
 };
 rightKey.press = () => {
-  if (state == play) {
-    pacman.turnSprite("right");
-  }
+  pacman.turnSprite("right");
 };
 
-// TODO: Event listeners for on-screen control buttons
-// buttons should call pacman.turnSprite() if game is
-// in the "play" state, as above keyboard controls do
+// TODO: Event listeners for on-screen control buttons should call pacman.turnSprite() as above keyboard controls do
 
 // Listen for pause/end button clicks
 pauseButton.onclick = () => {
-  // state = pause;
-  switch (state) {
-    case pause:
-      gameStatus.innerHTML = "";
-      state = play;
-      break;
-    case play:
-      gameStatus.innerHTML = "(paused)";
-      state = pause;
-      break;
-  }
+  state = pause;
 };
 endButton.onclick = () => {
   state = end;
@@ -141,13 +119,14 @@ function ready() {
   if (delta > 180) {
     state = play;
     delta = 0;
-    gameStatus.innerHTML = "";
+    readyCount.innerHTML = "GO!";
   } else {
-    gameStatus.innerHTML = `${Math.floor((180 - delta) / 60) + 1}`;
+    readyCount.innerHTML = `${Math.floor((180 - delta) / 60) + 1}`;
   }
 }
 function pause() {
-  // Do nothing
+  alert("PAUSED");
+  state = play;
 }
 function end() {
   // TODO: Send score to firebase, route user to leaderboard
@@ -249,7 +228,6 @@ function getCoins() {
 
   // If all coins have been picked up, transition to 'end' state
   if (coinsList.totalValue < 1) {
-    gameStatus.innerHTML = "YOU WIN!";
     state = end;
   }
 }
@@ -313,11 +291,10 @@ function collideWithCloud() {
         state = hit;
         extraLives -= 1;
         if (extraLives < 0) {
-          gameStatus.innerHTML = "GAME OVER";
+          alert("GAME OVER");
           state = end;
-        } else {
-          playerLives.innerHTML = "LIVES: " + extraLives.toString();
         }
+        playerLives.innerHTML = "LIVES: " + extraLives.toString();
       }
     }
   });
