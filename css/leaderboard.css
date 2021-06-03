@@ -72,6 +72,8 @@ body {
     font-weight: 100;
 }
 
+/* Button styles for leaderboard and logon pages */
+
 .a-button{ 
     font-weight: 400;
     text-align: center;
@@ -81,6 +83,7 @@ body {
     font-size: 1rem;
     border-radius: .25rem;
     color: white;
+    cursor: pointer;
 }
 
 .google-button {
@@ -89,6 +92,7 @@ body {
     background-color: #007bff;
     display: block;
     width: 23em;
+    cursor: pointer;
 }
 
 .google-button:hover {
@@ -100,6 +104,7 @@ body {
     width: 11em;
     display: inline-block;
     margin-left: 0em;
+    cursor: pointer;
 }
 
 .account-button:hover {
@@ -110,11 +115,30 @@ body {
     background-color: #008000;
     display: inline-block;
     width: 11em;
+    cursor: pointer;
 }
 
 .logon-button:hover {
     background-color: #1fa61f
 }
+
+.leaderboard-button {
+    display: inline-block;
+    background-color: #008000;
+    text-align: center;
+    color: white;
+    width: 160px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #1fa61f;
+}
+
+/* Header fonts & padding */
 
 .pad {
     padding-left: 6em;
@@ -166,21 +190,7 @@ h5{
     margin-bottom: 20px;
 }
   
-.leaderboard-button {
-    display: inline-block;
-    background-color: #008000;
-    text-align: center;
-    color: white;
-    width: 160px;
-    height: 50px;
-    margin: 10px;
-    border-radius: 0.25rem;
-}
 
-.button:hover {
-    background-color: #1fa61f;
-}
-  
 
 /* Font Icon Information: */
 
