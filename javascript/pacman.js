@@ -34,6 +34,36 @@ let grid = selectRandomMap();
 function selectRandomMap() {
   // TODO: Make more maps, then implement me
   return map1;
+  // let min = 1;
+  // let max = 4;
+  // min = Math.ceil(min);
+  // max = Math.floor(max);
+  // switch(Math.floor(Math.random() * (max - min + 1) + min)){
+  //   case 1:
+  //     return map1;
+  //     break;
+  //   case 2:
+  //     return map1;
+  //     break;
+  //   case 3:
+  //     return map3;
+  //     break;
+  //   case 4:
+  //     return map4;
+  //     break;
+    // case 5:
+    //   return map5;
+    //   break;
+    // case 6:
+    //   return map6;
+    //   break;
+    // case 7:
+    //   return map7;
+    //   break;
+    // case 8:
+    //   return map8;
+    //   break;
+  // }
 }
 
 // Render background (logs, thorns, ground, decor/roses) in DOM
@@ -128,8 +158,17 @@ function pause() {
   alert("PAUSED");
   state = play;
 }
+
+// function end(userID, name, score) {
 function end() {
   // TODO: Send score to firebase, route user to leaderboard
+  
+  // firebase.database().ref('leaderboard/' + userId).set({
+  //   username: name,
+  //   score: score
+
+  // });
+  location.assign("leaderboard.html");
 }
 
 /* Move Pac-Man back to starting location

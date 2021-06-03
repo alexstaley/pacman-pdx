@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Portland Pacman Game</title>
+    <title>Pac-Man PDX</title>
     <link rel="stylesheet" type="text/css" href="../css/pacman.css" />
     <link rel="stylesheet" href="../style.css" />
     <script src="../node_modules/pixi.js/dist/browser/pixi.min.js"></script>
@@ -34,11 +34,22 @@
       <div class="bodyFrame-bottom">
         <div class="bodyFrame-left">
           <div class="bodyFrame-buttonControlFrame">
-            <button id="endButton">End Game</button>
+            <button 
+              id = "endButton"
+              >
+              End Game
+            </button>
             <button id="pauseButton">Pause Game</button>
           </div>
           <div id="readyCount"></div>
-          <img src="../Images/arrows.png" />
+          <!-- <img src="../Images/arrows.png" /> -->
+          <br>
+          <br>
+          <button id="up-arrow-btn">Λ</button> 
+          <br>
+          <button id="arrow-btns">＜</button>
+          <button id="arrow-btns">V</button>
+          <button id="arrow-btns">＞</button>
         </div>
         <div class="bodyFrame-right">
           <div id="world"></div>
@@ -49,3 +60,18 @@
     <script type="module" src="../javascript/modules/logon.js"></script>
   </body>
 </html>
+
+<script>
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyApTQ82sxHdB4w0d5JVcfnu3lpbLI9qJPY",
+    authDomain: "pacman-91374.firebaseapp.com",
+    projectId: "pacman-91374",
+    storageBucket: "pacman-91374.appspot.com",
+    messagingSenderId: "571540195753",
+    appId: "1:571540195753:web:ad4736b7c7b96aa1955cb8",
+    measurementId: "G-CC2D61S2ZD"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script> 
