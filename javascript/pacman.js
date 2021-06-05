@@ -160,8 +160,6 @@ rightButton.onclick = () => {
   }
 };
 
-// TODO: Event listeners for on-screen control buttons should call pacman.turnSprite() as above keyboard controls do
-
 // Listen for pause/end button clicks
 pauseButton.onclick = () => {
   if (state == play) {
