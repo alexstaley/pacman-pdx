@@ -29,6 +29,10 @@ let playerLives = document.getElementById("livesFrame");
 let readyCount = document.getElementById("readyCount");
 let endButton = document.getElementById("endButton");
 let pauseButton = document.getElementById("pauseButton");
+let upButton = document.getElementById("up-arrow-btn");
+let downButton = document.getElementById("down-arrow-btn");
+let leftButton = document.getElementById("left-arrow-btn");
+let rightButton = document.getElementById("right-arrow-btn");
 let grid = selectRandomMap();
 
 function selectRandomMap() {
@@ -134,11 +138,35 @@ rightKey.press = () => {
   }
 };
 
-// TODO: Event listeners for on-screen control buttons should call pacman.turnSprite() as above keyboard controls do
+// Same for on-screen control buttons
+upButton.onclick = () => {
+  if (state == play) {
+    pacman.turnSprite("up");
+  }
+};
+downButton.onclick = () => {
+  if (state == play) {
+    pacman.turnSprite("down");
+  }
+};
+leftButton.onclick = () => {
+  if (state == play) {
+    pacman.turnSprite("left");
+  }
+};
+rightButton.onclick = () => {
+  if (state == play) {
+    pacman.turnSprite("right");
+  }
+};
 
 // Listen for pause/end button clicks
 pauseButton.onclick = () => {
-  state = pause;
+  if (state == play) {
+    state = pause;
+  } else if (state == pause) {
+    state = play;
+  }
 };
 endButton.onclick = () => {
   state = end;
@@ -157,14 +185,13 @@ function ready() {
   if (delta > 180) {
     state = play;
     delta = 0;
-    readyCount.innerHTML = "GO!";
+    readyCount.innerHTML = "";
   } else {
     readyCount.innerHTML = `${Math.floor((180 - delta) / 60) + 1}`;
   }
 }
 function pause() {
-  alert("PAUSED");
-  state = play;
+  // Do nothing
 }
 
 // function end(userID, name, score) {
