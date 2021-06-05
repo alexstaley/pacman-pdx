@@ -114,16 +114,24 @@ let leftKey = keyboard("ArrowLeft");
 let rightKey = keyboard("ArrowRight");
 
 upKey.press = () => {
-  pacman.turnSprite("up");
+  if (state == play) {
+    pacman.turnSprite("up");
+  }
 };
 downKey.press = () => {
-  pacman.turnSprite("down");
+  if (state == play) {
+    pacman.turnSprite("down");
+  }
 };
 leftKey.press = () => {
-  pacman.turnSprite("left");
+  if (state == play) {
+    pacman.turnSprite("left");
+  }
 };
 rightKey.press = () => {
-  pacman.turnSprite("right");
+  if (state == play) {
+    pacman.turnSprite("right");
+  }
 };
 
 // TODO: Event listeners for on-screen control buttons should call pacman.turnSprite() as above keyboard controls do
