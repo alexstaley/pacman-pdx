@@ -180,18 +180,6 @@ body {
   font-family: monospace;
 }
 
-#up-arrow-btn {
-  padding: 10px 24px;
-  cursor: pointer;
-  background-color: #005900;
-  text-align: center;
-  color: white;
-  width: 25%;
-  height: 50px;
-  margin: 10px;
-  border-radius: 0.25em;
-}
-
 .arrow-btns {
   display: inline-block;
   padding: 10px 24px;
