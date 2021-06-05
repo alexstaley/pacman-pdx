@@ -14,7 +14,7 @@ import {
   getRandomHeading,
   getPacManStartingCoords,
 } from "./modules/maps.js";
-import { userName } from "./modules/logon.js";
+// import { userName } from "./modules/logon.js";
 const COIN_POINTS = 10; // Number of points awarded when Pac-Man picks up a coin
 const BEER_POINTS = 50; // ...when Pac-Man picks up a beer
 const ROSE_POINTS = 100; // ...when Pac-Man picks up a rose
@@ -51,18 +51,18 @@ function selectRandomMap() {
   //   case 4:
   //     return map4;
   //     break;
-    // case 5:
-    //   return map5;
-    //   break;
-    // case 6:
-    //   return map6;
-    //   break;
-    // case 7:
-    //   return map7;
-    //   break;
-    // case 8:
-    //   return map8;
-    //   break;
+  // case 5:
+  //   return map5;
+  //   break;
+  // case 6:
+  //   return map6;
+  //   break;
+  // case 7:
+  //   return map7;
+  //   break;
+  // case 8:
+  //   return map8;
+  //   break;
   // }
 }
 
@@ -162,7 +162,7 @@ function pause() {
 // function end(userID, name, score) {
 function end() {
   // TODO: Send score to firebase, route user to leaderboard
-  
+
   // firebase.database().ref('leaderboard/' + userId).set({
   //   username: name,
   //   score: score

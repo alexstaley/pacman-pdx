@@ -6,44 +6,43 @@
 
 let database = firebase.database();
 
-let ref = database.ref('leaderboard');
-ref.on('value', getData, errData); 
+let ref = database.ref("leaderboard");
+ref.on("value", getData, errData);
 
-function getData(data){
-    let scores = data.val();
+function getData(data) {
+  let scores = data.val();
 
-    let scoresArray = [];
-    for (let player in scores) {
-      scoresArray.push(scores[player]);
-    }
-    console.log(scoresArray);
-    let hiScores = scoresArray.sort((player1, player2) => {
-        return player2.highscore - player1.highscore;
-    });
-    console.log(hiScores);
+  let scoresArray = [];
+  for (let player in scores) {
+    scoresArray.push(scores[player]);
+  }
+  console.log(scoresArray);
+  let hiScores = scoresArray.sort((player1, player2) => {
+    return player2.highscore - player1.highscore;
+  });
+  console.log(hiScores);
 
-    let playerList = document.getElementById('leaderboard-player');
-    let scoreList = document.getElementById('leaderboard-score');
+  let playerList = document.getElementById("leaderboard-player");
+  let scoreList = document.getElementById("leaderboard-score");
+  let length = Math.min(hiScores.length, 5);
 
-    for (let i = 0; i < 5; i++){
-        // let k = keys[i];
-        let name = hiScores[i].name;
-        console.log(name);
-        let highscore = hiScores[i].highscore
-            .toLocaleString()
+  for (let i = 0; i < length; i++) {
+    let name = hiScores[i].name;
+    console.log(name);
+    let highscore = hiScores[i].highscore.toLocaleString();
 
-        let playerListItem = document.createElement('li');
-        playerListItem.textContent = `${name}`;
-        playerList.appendChild(playerListItem);
+    let playerListItem = document.createElement("li");
+    playerListItem.textContent = `${name}`;
+    playerList.appendChild(playerListItem);
 
-        let scoreListItem = document.createElement('dt');
-        scoreListItem.textContent = `${highscore}`;
-        scoreList.appendChild(scoreListItem);
-    }
+    let scoreListItem = document.createElement("dt");
+    scoreListItem.textContent = `${highscore}`;
+    scoreList.appendChild(scoreListItem);
+  }
 }
 
 // If error in retrieving data
-function errData(err){
-    console.log('Error!');
-    console.log(err);
+function errData(err) {
+  console.log("Error!");
+  console.log(err);
 }
