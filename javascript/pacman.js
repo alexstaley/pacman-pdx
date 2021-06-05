@@ -225,7 +225,6 @@ function hit() {
 /* Move sprites, handle interactions during normal gameplay state
  */
 function play() {
-  // TODO: Turn off "GO!" message after ~2 secs in play state
   move();
   getCoins();
   getRoses();
@@ -233,7 +232,8 @@ function play() {
   collideWithCloud();
 }
 
-/* Move the character in the direction it's facing
+/* Move all characters in the direction they're facing,
+ * checking for walls and collisions
  */
 function move() {
   // Move Pac-Man forward, update grid coords & drunk status

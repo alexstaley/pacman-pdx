@@ -79,9 +79,11 @@ export function containsWall(grid, row, col) {
   }
 }
 
-/* Returns an object containing all the coins
- * in a given map, indexed by their coords, as
- * well as the total number of coins on the map.
+/* Returns an object containing boolean values
+ * for all the coins in a given map, indexed by
+ * their coords (if there is a coin in cell (1, 6),
+ * coins[`1-6`] = true).
+ * The object also contains the total number of coins in the map.
  */
 export function getCoinRegistry(grid) {
   let coins = {};
