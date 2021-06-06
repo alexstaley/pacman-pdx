@@ -7,6 +7,6 @@
     "pixi.js": "^6.0.4"
   },
   "scripts": {
-    "start": "npm start"
+    "start": "heroku start"
   }
 }
