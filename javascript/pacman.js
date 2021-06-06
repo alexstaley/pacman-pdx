@@ -4,6 +4,7 @@ import {
   MAP_WIDTH,
   MAP_HEIGHT,
   map1,
+  map2,
   map3,
   TileIndices,
   TileImages,
@@ -35,39 +36,24 @@ let leftButton = document.getElementById("left-arrow-btn");
 let rightButton = document.getElementById("right-arrow-btn");
 let grid = selectRandomMap();
 
+let database = firebase.database();
+
 function selectRandomMap() {
-  // TODO: Make more maps, then implement me
-  return map1;
-  // let min = 1;
-  // let max = 4;
-  // min = Math.ceil(min);
-  // max = Math.floor(max);
-  // switch(Math.floor(Math.random() * (max - min + 1) + min)){
-  //   case 1:
-  //     return map1;
-  //     break;
-  //   case 2:
-  //     return map1;
-  //     break;
-  //   case 3:
-  //     return map3;
-  //     break;
-  //   case 4:
-  //     return map4;
-  //     break;
-  // case 5:
-  //   return map5;
-  //   break;
-  // case 6:
-  //   return map6;
-  //   break;
-  // case 7:
-  //   return map7;
-  //   break;
-  // case 8:
-  //   return map8;
-  //   break;
-  // }
+  let min = 1;
+  let max = 3;
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  switch(Math.floor(Math.random() * (max - min + 1) + min)){
+    case 1:
+      return map1;
+      break;
+    case 2:
+      return map2;
+      break;
+    case 3:
+      return map3;
+      break;
+  }
 }
 
 // Render background (logs, thorns, ground, decor/roses) in DOM
@@ -194,15 +180,13 @@ function pause() {
   // Do nothing
 }
 
-// function end(userID, name, score) {
-function end() {
-  // TODO: Send score to firebase, route user to leaderboard
+function end(score){
+  // TODO: Send score to firebase
 
-  // firebase.database().ref('leaderboard/' + userId).set({
-  //   username: name,
+  // database.ref('leaderboard/').set({
   //   score: score
-
   // });
+
   location.assign("leaderboard.html");
 }
 

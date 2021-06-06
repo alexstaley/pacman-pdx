@@ -24,6 +24,8 @@ Active tokens (Pac-Man, clouds, coins, roses, and beers) are rendered as objects
 
 https://github.com/kittykatattack/learningPixi#readme was a valuable source during development, especially when coding keyboard input functionality.
 
+https://www.youtube.com/watch?v=NcewaPfFR6Y was a helpful source for getting data from Firebase to be displayed in the leaderboard. 
+
 ### Image sources
 
 - Log: https://www.pngitem.com/middle/JmbRim_firewood-forest-log-trapped-tree-wood-wood-log/
@@ -32,3 +34,10 @@ https://github.com/kittykatattack/learningPixi#readme was a valuable source duri
 - Coins/Roses: https://www.pinterest.com/pin/275493702193311949/
 - Beer: https://openclipart.org/detail/14854/beer-mug
 - Clouds: http://clipart-library.com/clipart/BTgrp98Rc.htm
+
+## Instructions to Run
+- Clone https://github.com/alexstaley/pacman-pdx
+- In VSCode, use LiveServer to open logon.html
+- If domain is not localhost, change domain to localhost
+- Sign in using google credentials (only login method that works as of this writing)
+- Use on-screen arrow buttons or keyboard arrow keys to play Pac-Man
